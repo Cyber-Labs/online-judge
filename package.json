@@ -1,0 +1,26 @@
+{
+  "name": "online-judge",
+  "version": "1.0.0",
+  "description": "[![Documentation Status](https://readthedocs.org/projects/online-judge/badge/?version=latest)](https://online-judge.readthedocs.io/en/latest/?badge=latest)",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NBNARADHYA/online-judge.git"
+  },
+  "author": "Cyber Labs",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NBNARADHYA/online-judge/issues"
+  },
+  "homepage": "https://github.com/NBNARADHYA/online-judge#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1"
+  }
+}
