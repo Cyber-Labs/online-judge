@@ -1,2 +1,4 @@
 .env
 node_modules
+rsa_secret
+rsa_secret.pub
