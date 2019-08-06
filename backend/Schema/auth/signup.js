@@ -7,7 +7,12 @@ const schema = {
     password: {type: 'string', format: 'password'},
     branch: {type: 'number'},
     department: {type: 'number'},
-    admission_no: {type: 'string', minLength: 8, maxLength: 8},
+    admission_no: {
+      type: 'string',
+      minLength: 8,
+      maxLength: 8,
+      pattern: '^[0-9]{2}[a-z]{2}[0-9]{4}$',
+    },
     semester: {type: 'number', minLength: 1, maxLength: 8},
   },
   errorMessage: {

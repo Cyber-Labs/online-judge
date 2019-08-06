@@ -55,14 +55,14 @@ const signup = async (req, res) => {
     semester,
   } = req.body;
   if (await isUsed(username)) {
-    return res.status(200).json({
+    return res.status(400).json({
       success: false,
       error: 'Username already taken',
       results: null,
     });
   } else {
     if (await isExist(admissionNo)) {
-      return res.status(200).json({
+      return res.status(400).json({
         success: false,
         error: 'An account already exists with the admission number',
         results: null,
@@ -70,7 +70,7 @@ const signup = async (req, res) => {
     }
     bcrypt.genSalt(process.env.SALT_ROUNDS, (error, salt) => {
       if (error) {
-        return res.status(200).json({
+        return res.status(400).json({
           success: false,
           error,
           results: null,
@@ -78,7 +78,7 @@ const signup = async (req, res) => {
       }
       bcrypt.hash(password, salt, (error, hash) => {
         if (error) {
-          return res.status(200).json({
+          return res.status(400).json({
             success: false,
             error,
             results: null,
@@ -99,7 +99,7 @@ const signup = async (req, res) => {
             ],
             (error, results) => {
               if (error) {
-                return res.status(200).json({
+                return res.status(400).json({
                   success: false,
                   error,
                   results: null,
