@@ -4,6 +4,8 @@ const {
   updatePassword,
   forgotPassword,
   verifyUser,
+  getUser,
+  editUser,
 } = require('./');
 
 module.exports = {
@@ -12,4 +14,6 @@ module.exports = {
   updatePassword,
   forgotPassword,
   verifyUser,
+  getUser,
+  editUser,
 };

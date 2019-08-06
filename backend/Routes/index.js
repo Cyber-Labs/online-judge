@@ -1,7 +1,9 @@
 const express = require('express');
 const auth = require('../Controllers/auth');
-const user = require('../Controllers/user');
 const app = express();
+
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 
 app.post('/login', auth.login);
 app.post('/signup', auth.signup);
@@ -18,8 +20,8 @@ app.post(
 app.post(
     '/users/:username/update_user',
     auth.verifyUser.verifyAccessToken,
-    user.editUser
+    auth.editUser
 );
-app.get('/users/:username', user.getUser);
+app.get('/users/:username', auth.getUser);
 
 module.exports = app;

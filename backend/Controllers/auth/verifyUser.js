@@ -6,7 +6,7 @@ const verifyAccessToken = (req, res, next) => {
     const pubKey = fs.readFileSync('../../rsa_secret.pub');
     jwt.verify(req.headers.access_token, pubKey, (error, decoded) => {
       if (error) {
-        res.status(200).json({
+        res.status(401).json({
           success: false,
           error,
           results: null,
@@ -17,7 +17,7 @@ const verifyAccessToken = (req, res, next) => {
       next();
     });
   } else {
-    res.status(200).json({
+    res.status(401).json({
       success: false,
       error: 'Access code not included in the header of the request',
       results: null,

@@ -11,15 +11,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NBNARADHYA/online-judge.git"
+    "url": "git+https://github.com/Cyber-Labs/online-judge.git"
   },
   "author": "Cyber Labs",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/NBNARADHYA/online-judge/issues"
+    "url": "https://github.com/Cyber-Labs/online-judge/issues"
   },
-  "homepage": "https://github.com/NBNARADHYA/online-judge#readme",
+  "homepage": "https://github.com/Cyber-Labs/online-judge#readme",
   "dependencies": {
+    "ajv": "^6.10.2",
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
