@@ -4,6 +4,13 @@ const fs = require('fs');
 
 const verifyEmail = (req, res) => {
   const accessToken = req.params.access_token;
+  if (!accessToken) {
+    return res.status(400).json({
+      success: false,
+      error: 'Access token required',
+      results: null,
+    });
+  }
   const pubKey = fs.readFileSync('../../rsa_secret.pub');
   jwt.verify(accessToken, pubKey, (error, decoded) => {
     if (error) {
