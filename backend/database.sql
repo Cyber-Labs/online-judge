@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 06, 2019 at 10:36 PM
+-- Generation Time: Aug 08, 2019 at 11:16 AM
 -- Server version: 8.0.16
 -- PHP Version: 7.2.19-0ubuntu0.18.04.1
 
@@ -52,13 +52,14 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `is_admin` tinyint(1) DEFAULT NULL,
+  `is_admin` tinyint(1) DEFAULT '0',
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `branch` int(11) DEFAULT NULL,
   `department` int(11) NOT NULL,
   `admission_no` varchar(8) DEFAULT NULL,
-  `semester` int(11) DEFAULT NULL
+  `semester` int(11) DEFAULT NULL,
+  `verified` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
