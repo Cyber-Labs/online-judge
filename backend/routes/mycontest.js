@@ -41,6 +41,7 @@ router.post('/new',(req,res)=>{
 
 app.use('/{contestid}',require('./contestlist/contestid'));
 
+
 module.exports=router;
 
 
