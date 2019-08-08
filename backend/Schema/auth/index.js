@@ -1,7 +1,7 @@
 const ajv = require('../index');
 const signupSchema = require('./signup');
 const loginSchema = require('./login');
-const editUserSchema = require('./editUser');
+const updateUserSchema = require('./updateUser');
 const forgotPasswordSchema = require('./forgotPassword');
 const updatePasswordSchema = require('./updatePassword');
 
@@ -12,7 +12,7 @@ ajv.addFormat('password', (data) => {
 module.exports = {
   signupSchema,
   loginSchema,
-  editUserSchema,
+  updateUserSchema,
   forgotPasswordSchema,
   updatePasswordSchema,
 };

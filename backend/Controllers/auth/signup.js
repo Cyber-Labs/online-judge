@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const {pool} = require('../db');
-const email = require('../../utils/email');
+const {email} = require('../../utils');
 const ajv = require('../../Schema');
 const {signupSchema} = require('../../Schema/auth');
 const jwt = require('jsonwebtoken');
@@ -42,7 +42,7 @@ const signup = async (req, res) => {
   if (!valid) {
     return res.status(400).json({
       success: false,
-      error: valid.errors,
+      error: validate.errors,
       results: null,
     });
   }
@@ -139,7 +139,7 @@ const signup = async (req, res) => {
                 let subject = 'Email verification';
                 const PORT = process.env.PORT || 5000;
                 let html = `<p>Hello ${name} !</p>
-                          <p>Please verify your account by visiting the following link</p>
+                          <p>Please verify your email by visiting the following link</p>
                           <a href='${
   process.env.HOST_NAME
 }:${PORT}/auth/verify_email?access_token=${accessToken}'>Verify your email</a>`;
