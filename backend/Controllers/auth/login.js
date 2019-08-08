@@ -5,7 +5,13 @@ const {pool} = require('../db');
 const ajv = require('../../Schema');
 const {loginSchema} = require('../../Schema/auth');
 
-const isCorrect = (username, password) => {
+/**
+ *
+ * @param {*} username
+ * @param {*} password
+ * @return {Boolean}
+ */
+function isCorrect(username, password) {
   return new Promise((resolve, reject) => {
     pool.query(
         `SELECT password FROM users WHERE username=? AND verified!=?`,
@@ -31,9 +37,14 @@ const isCorrect = (username, password) => {
         }
     );
   });
-};
+}
 
-const login = async (req, res) => {
+/**
+ *
+ * @param {*} req
+ * @param {*} res
+ */
+async function login(req, res) {
   const validate = ajv.compile(loginSchema);
   const valid = validate(req.body);
 
@@ -79,6 +90,6 @@ const login = async (req, res) => {
       results: null,
     });
   }
-};
+}
 
 module.exports = login;

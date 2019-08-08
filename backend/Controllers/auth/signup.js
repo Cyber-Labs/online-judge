@@ -6,7 +6,12 @@ const {signupSchema} = require('../../Schema/auth');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 
-const isUsed = (username) => {
+/**
+ *
+ * @param {*} username
+ * @return {Boolean}
+ */
+function isUsed(username) {
   return new Promise((resolve, reject) => {
     pool.query(
         `SELECT COUNT(name) AS count FROM users WHERE username=?`,
@@ -19,9 +24,14 @@ const isUsed = (username) => {
         }
     );
   });
-};
+}
 
-const isExist = (admissionNo) => {
+/**
+ *
+ * @param {*} admissionNo
+ * @return {Boolean}
+ */
+function isExist(admissionNo) {
   return new Promise((resolve, reject) => {
     pool.query(
         `SELECT COUNT(name) AS count FROM users WHERE admission_no=?`,
@@ -34,9 +44,14 @@ const isExist = (admissionNo) => {
         }
     );
   });
-};
+}
 
-const signup = async (req, res) => {
+/**
+ *
+ * @param {*} req
+ * @param {*} res
+ */
+async function signup(req, res) {
   let validate = ajv.compile(signupSchema);
   let valid = validate(req.body);
   if (!valid) {
@@ -156,6 +171,6 @@ const signup = async (req, res) => {
       });
     });
   }
-};
+}
 
 module.exports = signup;

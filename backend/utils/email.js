@@ -16,7 +16,13 @@ transporter.verify((error, success) => {
   }
 });
 
-const email = (emaiId, subject, html) => {
+/**
+ *
+ * @param {*} emaiId
+ * @param {*} subject
+ * @param {*} html
+ */
+function email(emaiId, subject, html) {
   const message = {
     from: process.env.MAIL_SENDER,
     emaiId,
@@ -26,6 +32,6 @@ const email = (emaiId, subject, html) => {
   transporter.sendMail(message, (error, info) => {
     if (error) console.log(error);
   });
-};
+}
 
 module.exports = email;

@@ -2,7 +2,13 @@ const {pool} = require('../db');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
 
-const verifyEmail = (req, res) => {
+/**
+ *
+ * @param {*} req
+ * @param {*} res
+ * @return {*}
+ */
+function verifyEmail(req, res) {
   const accessToken = req.query.access_token;
   if (!accessToken) {
     return res.status(400).json({
@@ -50,6 +56,6 @@ const verifyEmail = (req, res) => {
       });
     });
   });
-};
+}
 
 module.exports = verifyEmail;

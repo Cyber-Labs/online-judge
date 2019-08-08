@@ -1,6 +1,11 @@
 const {pool} = require('../db');
 
-const getUser = (req, res) => {
+/**
+ *
+ * @param {*} req
+ * @param {*} res
+ */
+function getUser(req, res) {
   const username = req.params.username;
   pool.query(
       `SELECT * FROM users WHERE username=?`,
@@ -20,6 +25,6 @@ const getUser = (req, res) => {
         });
       }
   );
-};
+}
 
 module.exports = getUser;

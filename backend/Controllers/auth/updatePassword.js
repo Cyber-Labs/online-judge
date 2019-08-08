@@ -3,7 +3,13 @@ const bcrypt = require('bcryptjs');
 const ajv = require('../../Schema');
 const {updatePasswordSchema} = require('../../Schema/auth');
 
-const isCorrect = (username, password) => {
+/**
+ *
+ * @param {*} username
+ * @param {*} password
+ * @return {Boolean}
+ */
+function isCorrect(username, password) {
   return new Promise((resolve, reject) => {
     pool.query(
         `SELECT password FROM users WHERE username=? AND verified!=?`,
@@ -29,9 +35,14 @@ const isCorrect = (username, password) => {
         }
     );
   });
-};
+}
 
-const updatePassword = async (req, res) => {
+/**
+ *
+ * @param {*} req
+ * @param {*} res
+ */
+async function updatePassword(req, res) {
   const validate = ajv.compile(updatePasswordSchema);
   const valid = validate(req.body);
   if (!valid) {
@@ -96,6 +107,6 @@ const updatePassword = async (req, res) => {
       results: null,
     });
   }
-};
+}
 
 module.exports = updatePassword;

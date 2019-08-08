@@ -1,7 +1,13 @@
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 
-const verifyAccessToken = (req, res, next) => {
+/**
+ *
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+function verifyAccessToken(req, res, next) {
   if (req.headers.access_token) {
     const pubKey = fs.readFileSync('../../rsa_secret.pub');
     jwt.verify(req.headers.access_token, pubKey, (error, decoded) => {
@@ -24,6 +30,6 @@ const verifyAccessToken = (req, res, next) => {
     });
     return;
   }
-};
+}
 
 module.exports = {verifyAccessToken};

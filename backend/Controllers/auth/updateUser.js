@@ -5,7 +5,13 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const {email} = require('../../utils');
 
-const updateUser = (req, res) => {
+/**
+ *
+ * @param {*} req
+ * @param {*} res
+ * @return {*}
+ */
+function updateUser(req, res) {
   const validate = ajv.compile(updateUserSchema);
   const valid = validate(req.body);
   if (!valid) {
@@ -88,6 +94,6 @@ const updateUser = (req, res) => {
       });
     }
   });
-};
+}
 
 module.exports = updateUser;
