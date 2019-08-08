@@ -63,7 +63,7 @@ async function signup(req, res) {
   }
   const {
     username,
-    emailId,
+    email: emailId,
     name,
     password,
     branch,

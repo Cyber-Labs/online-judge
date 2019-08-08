@@ -23,7 +23,7 @@ function updateUser(req, res) {
   }
   const {
     username,
-    emailId,
+    email: emailId,
     name,
     branch,
     department,
@@ -74,7 +74,7 @@ function updateUser(req, res) {
         }
         let subject = 'Email verification';
         const PORT = process.env.PORT || 5000;
-        let html = `<p>Hello ${name} !</p>
+        let html = `<p>Hello ${username} !</p>
                           <p>Please verify your email by visiting the following link</p>
                           <a href='${
   process.env.HOST_NAME

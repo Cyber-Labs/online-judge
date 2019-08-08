@@ -8,10 +8,11 @@ app.use(express.json());
 app.post('/login', auth.login);
 app.post('/signup', auth.signup);
 app.get('/auth/verify_email', auth.verifyEmail);
+app.post('/auth/forgot_password', auth.forgotPassword);
 app.post(
-    '/auth/forgot_password',
+    '/auth/reset_password',
     auth.verifyUser.verifyAccessToken,
-    auth.forgotPassword
+    auth.resetPassword
 );
 app.post(
     '/auth/update_password',

@@ -4,6 +4,7 @@ const loginSchema = require('./login');
 const updateUserSchema = require('./updateUser');
 const forgotPasswordSchema = require('./forgotPassword');
 const updatePasswordSchema = require('./updatePassword');
+const resetPasswordSchema = require('./resetPassword');
 
 ajv.addFormat('password', (data) => {
   return data.length >= 8;
@@ -15,4 +16,5 @@ module.exports = {
   updateUserSchema,
   forgotPasswordSchema,
   updatePasswordSchema,
+  resetPasswordSchema,
 };
