@@ -1,7 +1,6 @@
 const {pool} = require('../db');
-const fs = require('fs');
-const jwt = require('jsonwebtoken');
 const {email} = require('../../utils');
+const otplib = require('otplib');
 
 /**
  *
@@ -26,54 +25,56 @@ function updateUser({
   semester,
 }) {
   return new Promise((resolve, reject) => {
+    const secret = otplib.authenticator.generateSecret();
+    const otp = otplib.authenticator.generate(secret);
     let query = `UPDATE users SET `;
     let arr = [];
+    let needsChange = true;
     if (name) {
-      query += `name=? `;
+      query += `name=?,`;
       arr.push(name);
     }
     if (branch) {
-      query += `branch=? `;
+      query += `branch=?,`;
       arr.push(branch);
     }
     if (department) {
-      query += `department=? `;
+      query += `department=?,`;
       arr.push(department);
     }
     if (admissionNo) {
-      query += `admission_no=? `;
+      query += `admission_no=?,`;
       arr.push(admissionNo);
     }
     if (semester) {
-      query += `semester=? `;
+      query += `semester=?,`;
       arr.push(semester);
     }
-    query += `WHERE username=?`;
+    if (emailId) {
+      needsChange = false;
+      query += `otp=?,otp_valid_upto=NOW()+INTERVAL 1 DAY `;
+      arr.push(otp);
+    }
+    if (needsChange) {
+      query = query.slice(0, -1);
+    }
+    query += ` WHERE username=?`;
     arr.push(username);
     pool.query(query, arr, (error, results) => {
       if (error) {
         return reject(error);
       }
       if (emailId) {
-        const path = require('path');
-        const privateKey = fs.readFileSync(
-            path.resolve('rsa_secret.pub'),
-            'utf-8'
-        );
-        jwt.sign({username, emailId}, privateKey, (error, accessToken) => {
-          if (error) {
-            return reject(error);
-          }
-          let subject = 'Email verification';
-          const PORT = process.env.PORT || 5000;
-          let html = `<p>Hello ${username} !</p>
-                          <p>Please verify your email by visiting the following link</p>
-                          <a href='http://${
+        let subject = 'Email verification';
+        const PORT = process.env.PORT || 5000;
+        let html = `<p>Hello ${username} !</p>
+                    <p>The OTP for verifying your new email is ${otp}</p>
+                    <p>Please verify your email by visiting the following link</p>
+                    <a href='http://${
   process.env.HOST_NAME
-}:${PORT}/auth/verify_email?access_token=${accessToken}'>Verify your email</a>`;
-          email(emailId, subject, html);
-          return resolve('User info updated. Please verify your email');
-        });
+}:${PORT}/auth/verify_new_email?email_id=${emailId}&username=${username}'>Verify your email</a>`;
+        email(emailId, subject, html);
+        return resolve('User info updated. Please verify your email');
       } else {
         return resolve('User info updated');
       }

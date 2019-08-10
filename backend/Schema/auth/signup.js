@@ -1,8 +1,12 @@
 const schema = {
   required: ['username', 'email', 'name', 'password', 'department'],
   properties: {
-    username: {type: 'string'},
-    email: {type: 'string', format: 'email'},
+    username: {type: 'string', minLength: 4},
+    email: {
+      type: 'string',
+      pattern:
+        '^[a-z]+\\.[0-9]{2}[a-z]{2}[0-9]{4}@([a-z].\\.)?iitism\\.ac\\.in$',
+    },
     name: {type: 'string'},
     password: {type: 'string', format: 'password'},
     branch: {type: 'number'},

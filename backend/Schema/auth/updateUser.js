@@ -1,8 +1,12 @@
 const schema = {
   required: ['username'],
   properties: {
-    username: {type: 'string'},
-    email_id: {type: 'string', format: 'email'},
+    username: {type: 'string', minLength: 4},
+    email: {
+      type: 'string',
+      pattern:
+        '^[a-z]+\\.[0-9]{2}[a-z]{2}[0-9]{4}@([a-z].\\.)?iitism\\.ac\\.in$',
+    },
     name: {type: 'string'},
     branch: {type: 'number'},
     department: {type: 'number'},
@@ -10,7 +14,7 @@ const schema = {
       type: 'string',
       minLength: 8,
       maxLength: 8,
-      pattern: '^[0-9]{2}[a-z]{2}[0-9]{4}$',
+      pattern: '/^[0-9]{2}[a-z]{2}[0-9]{4}$/',
     },
     semester: {type: 'number', minLength: 1, maxLength: 8},
   },
@@ -20,7 +24,7 @@ const schema = {
     },
     properties: {
       username: 'Invalid username',
-      email_id: 'Invlalid email',
+      email: 'Invlalid email',
       name: 'Invalid name',
       branch: 'Invalid branch',
       department: 'Invalid department',
