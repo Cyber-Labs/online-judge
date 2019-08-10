@@ -55,7 +55,11 @@ function updateUser({
         return reject(error);
       }
       if (emailId) {
-        const privateKey = fs.readFileSync('../../rsa_secret');
+        const path = require('path');
+        const privateKey = fs.readFileSync(
+            path.resolve('rsa_secret.pub'),
+            'utf-8'
+        );
         jwt.sign({username, emailId}, privateKey, (error, accessToken) => {
           if (error) {
             return reject(error);
@@ -64,7 +68,7 @@ function updateUser({
           const PORT = process.env.PORT || 5000;
           let html = `<p>Hello ${username} !</p>
                           <p>Please verify your email by visiting the following link</p>
-                          <a href='${
+                          <a href='http://${
   process.env.HOST_NAME
 }:${PORT}/auth/verify_email?access_token=${accessToken}'>Verify your email</a>`;
           email(emailId, subject, html);

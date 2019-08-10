@@ -1,8 +1,8 @@
 const schema = {
-  required: ['username', 'email_id', 'name', 'password', 'department'],
+  required: ['username', 'email', 'name', 'password', 'department'],
   properties: {
     username: {type: 'string'},
-    email_id: {type: 'string', format: 'email'},
+    email: {type: 'string', format: 'email'},
     name: {type: 'string'},
     password: {type: 'string', format: 'password'},
     branch: {type: 'number'},
@@ -18,14 +18,14 @@ const schema = {
   errorMessage: {
     required: {
       username: 'Username requried',
-      email_id: 'Email required',
+      email: 'Email required',
       name: 'Name required',
       password: 'Password required',
       department: 'Department required',
     },
     properties: {
       username: 'Invalid username',
-      email_id: 'Invlalid email',
+      email: 'Invlalid email',
       name: 'Invalid name',
       password: 'Invalid password',
       branch: 'Invalid branch',

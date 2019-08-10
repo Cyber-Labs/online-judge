@@ -9,7 +9,8 @@ const fs = require('fs');
  */
 function verifyEmail(accessToken) {
   return new Promise((resolve, reject) => {
-    const pubKey = fs.readFileSync('../../rsa_secret.pub');
+    const path = require('path');
+    const pubKey = fs.readFileSync(path.resolve('rsa_secret.pub'));
     jwt.verify(accessToken, pubKey, (error, decoded) => {
       if (error) {
         return reject(error);

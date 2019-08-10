@@ -3,7 +3,6 @@ const {pool} = require('../db');
 const {email} = require('../../utils');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
-
 /**
  *
  * @param {String} username
@@ -18,7 +17,7 @@ function isUsed(username) {
           if (error) {
             return reject(error);
           }
-          return resolve(Boolean(results.count));
+          return resolve(Boolean(results[0].count));
         }
     );
   });
@@ -38,7 +37,7 @@ function isExist(admissionNo) {
           if (error) {
             return reject(error);
           }
-          return resolve(Boolean(results.count));
+          return resolve(Boolean(results[0].count));
         }
     );
   });
@@ -87,7 +86,7 @@ function signup({
       if (ans) {
         return reject('An account already exists with the admission number');
       }
-      bcrypt.genSalt(process.env.SALT_ROUNDS, (error, salt) => {
+      bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS), (error, salt) => {
         if (error) {
           return reject(error);
         }
@@ -96,8 +95,8 @@ function signup({
             return reject(error);
           }
           pool.query(
-              `INSERT INTO users ("username", "name", "email", "password", "branch", 
-            "department", "admission_no", "semester") VALUES(?,?,?,?,?,?,?,?)`,
+              `INSERT INTO users (username,name,email,password,branch, 
+              department,admission_no,semester) VALUES(?,?,?,?,?,?,?,?)`,
               [
                 username,
                 name,
@@ -112,7 +111,14 @@ function signup({
                 if (error) {
                   return reject(error);
                 }
-                const privateKey = fs.readFileSync('../../rsa_secret');
+                resolve(
+                    'Account created. Please activate account from the email received'
+                );
+                const path = require('path');
+                const privateKey = fs.readFileSync(
+                    path.resolve('rsa_secret.pub'),
+                    'utf-8'
+                );
                 jwt.sign({username}, privateKey, (error, accessToken) => {
                   if (error) {
                     return reject(error);
@@ -121,13 +127,11 @@ function signup({
                   const PORT = process.env.PORT || 5000;
                   let html = `<p>Hello ${name} !</p>
                           <p>Please verify your email by visiting the following link</p>
-                          <a href='${
+                          <a href='http://${
   process.env.HOST_NAME
 }:${PORT}/auth/verify_email?access_token=${accessToken}'>Verify your email</a>`;
                   email(emailId, subject, html);
-                  return resolve(
-                      'Account created. Please activate account from the email received'
-                  );
+                  return;
                 });
               }
           );

@@ -11,10 +11,10 @@ function getUser(username) {
         `SELECT * FROM users WHERE username=?`,
         [username],
         (error, results) => {
-          if (error) {
+          if (error || !results.length) {
             return reject('User not found');
           }
-          return resolve(results);
+          return resolve(results[0]);
         }
     );
   });

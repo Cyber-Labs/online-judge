@@ -16,10 +16,10 @@ function isCorrect(username, password) {
           if (error) {
             return reject(error);
           }
-          if (!results) {
+          if (!results.length) {
             return reject('Account does not exist or email not verified');
           }
-          bcrypt.compare(password, results.password, (error, res) => {
+          bcrypt.compare(password, results[0].password, (error, res) => {
             if (error) {
               return reject(error);
             }
@@ -52,7 +52,7 @@ function updatePassword({username, password, new_password: newPassword}) {
       return reject(error);
     }
     if (ans) {
-      bcrypt.genSalt(process.env.SALT_ROUNDS, (error, salt) => {
+      bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS), (error, salt) => {
         if (error) {
           return reject(error);
         }

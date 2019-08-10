@@ -18,7 +18,7 @@ function resetPassword({
     if (password !== passwordConfirm) {
       return reject('Two passwords are not equal');
     }
-    bcrypt.genSalt(process.env.SALT_ROUNDS, (error, salt) => {
+    bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS), (error, salt) => {
       if (error) {
         return reject(error);
       }

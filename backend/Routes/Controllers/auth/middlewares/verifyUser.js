@@ -9,7 +9,9 @@ const jwt = require('jsonwebtoken');
  */
 function verifyAccessToken(req, res, next) {
   if (req.headers.access_token) {
-    const pubKey = fs.readFileSync('../../rsa_secret.pub');
+    const path = require('path');
+    const pubKey = fs.readFileSync(path.resolve('rsa_secret.pub'), 'utf-8');
+    console.log(pubKey);
     jwt.verify(req.headers.access_token, pubKey, (error, decoded) => {
       if (error) {
         res.status(401).json({

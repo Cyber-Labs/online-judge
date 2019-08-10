@@ -1,7 +1,9 @@
 const auth = require('../../../Models/auth');
-const app = require('../index');
 const middleware = require('../auth/middlewares');
-const ajv = require('../../Schema');
+const ajv = require('../../../Schema');
+const express = require('express');
+const router = express.Router();
+
 const {
   signupSchema,
   loginSchema,
@@ -11,7 +13,7 @@ const {
   resetPasswordSchema,
 } = require('../../../Schema/auth');
 
-app.post('/signup', (req, res) => {
+router.post('/signup', (req, res) => {
   let validate = ajv.compile(signupSchema);
   let valid = validate(req.body);
   if (!valid) {
@@ -39,7 +41,7 @@ app.post('/signup', (req, res) => {
       });
 });
 
-app.post('/login', (req, res) => {
+router.post('/login', (req, res) => {
   let validate = ajv.compile(loginSchema);
   let valid = validate(req.body);
   if (!valid) {
@@ -74,7 +76,7 @@ app.post('/login', (req, res) => {
       });
 });
 
-app.get('/users/:username', (req, res) => {
+router.get('/users/:username', (req, res) => {
   const username = req.params.username;
   if (!username) {
     return res.status(404).json({
@@ -108,7 +110,7 @@ app.get('/users/:username', (req, res) => {
       });
 });
 
-app.get('/auth/verify_email', (req, res) => {
+router.get('/verify_email', (req, res) => {
   const accessToken = req.query.access_token;
   if (!accessToken) {
     return res.status(400).json({
@@ -135,8 +137,8 @@ app.get('/auth/verify_email', (req, res) => {
       });
 });
 
-app.post(
-    '/auth/update_user',
+router.post(
+    '/update_user',
     middleware.verifyUser.verifyAccessToken,
     (req, res) => {
       let validate = ajv.compile(updateUserSchema);
@@ -167,8 +169,8 @@ app.post(
     }
 );
 
-app.post(
-    '/auth/update_password',
+router.post(
+    '/update_password',
     middleware.verifyUser.verifyAccessToken,
     (req, res) => {
       let validate = ajv.compile(updatePasswordSchema);
@@ -206,8 +208,8 @@ app.post(
     }
 );
 
-app.post('/auth/forgot_password', (req, res) => {
-  const validate = ajv(forgotPasswordSchema);
+router.post('/forgot_password', (req, res) => {
+  const validate = ajv.compile(forgotPasswordSchema);
   const valid = validate(req.body);
   if (!valid) {
     return res.status(400).json({
@@ -241,8 +243,8 @@ app.post('/auth/forgot_password', (req, res) => {
       });
 });
 
-app.post(
-    '/auth/reset_password',
+router.post(
+    '/reset_password',
     middleware.verifyUser.verifyAccessToken,
     (req, res) => {
       const validate = ajv.compile(resetPasswordSchema);
@@ -273,4 +275,4 @@ app.post(
     }
 );
 
-module.exports = app;
+module.exports = router;

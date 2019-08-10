@@ -25,7 +25,7 @@ transporter.verify((error, success) => {
 function email(emaiId, subject, html) {
   const message = {
     from: process.env.MAIL_SENDER,
-    emaiId,
+    to: emaiId,
     subject,
     html,
   };

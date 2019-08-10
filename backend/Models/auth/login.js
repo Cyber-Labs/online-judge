@@ -18,10 +18,10 @@ function isCorrect(username, password) {
           if (error) {
             return reject(error);
           }
-          if (!results) {
+          if (!results.length) {
             return reject('Account does not exist or email not verified');
           }
-          bcrypt.compare(password, results.password, (error, res) => {
+          bcrypt.compare(password, results[0].password, (error, res) => {
             if (error) {
               return reject(error);
             }
@@ -53,13 +53,22 @@ function login({username, password}) {
       return reject(error);
     }
     if (ans) {
-      const privateKey = fs.readFileSync('../../rsa_secret');
-      jwt.sign({username}, privateKey, (error, accessToken) => {
-        if (error) {
-          return reject(error);
-        }
-        return resolve({access_token: accessToken});
-      });
+      const path = require('path');
+      const privateKey = fs.readFileSync(
+          path.resolve('rsa_secret.pub'),
+          'utf-8'
+      );
+      jwt.sign(
+          {username},
+          privateKey,
+          {expiresIn: '720h'},
+          (error, accessToken) => {
+            if (error) {
+              return reject(error);
+            }
+            return resolve({access_token: accessToken});
+          }
+      );
     } else {
       return reject('Password incorrect');
     }

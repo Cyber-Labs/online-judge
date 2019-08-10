@@ -18,10 +18,10 @@ function isCorrect(username, email) {
           if (error) {
             return reject(error);
           }
-          if (!results) {
+          if (!results.length) {
             return reject('Account does not exist');
           }
-          return resolve(Boolean(results.email == email));
+          return resolve(Boolean(results[0].email == email));
         }
     );
   });
@@ -43,7 +43,11 @@ function forgotPassword({username, email: emailId}) {
       return reject(error);
     }
     if (ans) {
-      const privateKey = fs.readFileSync('../../rsa_secret');
+      const path = require('path');
+      const privateKey = fs.readFileSync(
+          path.resolve('rsa_secret.pub'),
+          'utf-8'
+      );
       jwt.sign({username}, privateKey, (error, accessToken) => {
         if (error) {
           return reject(error);
@@ -52,7 +56,7 @@ function forgotPassword({username, email: emailId}) {
         const PORT = process.env.PORT || 5000;
         let html = `<p>Hello ${username} !</p>
                           <p>Please reset your password by visiting the following link</p>
-                          <a href='${
+                          <a href='http://${
   process.env.HOST_NAME
 }:${PORT}/auth/reset_password?access_token=${accessToken}'>Reset password</a>`;
         email(emailId, subject, html);
