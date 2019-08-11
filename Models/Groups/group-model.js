@@ -387,7 +387,7 @@ function makeUserAdmin({
               connection.query(
                 `INSERT INTO UserGroups(username,group_id)
                   SELECT username AS u.username , group_id AS g.id , u.branch , u.semester
-                  FROM users,groups
+                  FROM
                   users u, groups g
                   WHERE
                   u.branch = ? , u.semester = ? AND g.name = ?
