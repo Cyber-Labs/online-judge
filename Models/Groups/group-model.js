@@ -31,11 +31,11 @@ function addGroup(
 return new Promise(async (resolve, reject) => {
   pool.getConnection(function(error, connection) {
     if (error) {
-      reject(error);
+      return reject(error);
     }
     connection.beginTransaction(function(error) {
       if (error) {
-        reject(error);
+        return reject(error);
       }
       connection.query(
           `INSERT INTO groups(name,description,confidential,created_by) VALUES (?,?,?,?) WHERE
@@ -49,19 +49,18 @@ return new Promise(async (resolve, reject) => {
         ],
         (error, results, fields) => {
           if (error) {
-          reject(error);
             connection.rollback(function(error) {
               connection.release();
             });
-            return;
+            return reject(error);
           }
           let xy = new Promise(function(resolve, reject) {
               connection.query(
                 "INSERT INTO UserGroups(`username`,`group_id`,`admin`)" +
-                  "VALUES(?,(SELECT count(id) FROM groups WHERE created_by = ?),?)",
+                  "VALUES(?,?,?)",
                 [
                     username,
-                    username,
+                    name,
                     1,                      
                 ],
                 (error, results, fields) => {
