@@ -29,6 +29,30 @@ router.post("/addGroup", (req, res) => {
     });
 });
 
+router.post("/customGroup", (req, res) => {
+  let validate = validator.compile(groupSchema.customGroup);
+  let valid = validate(req.body);
+  if (!valid) {
+    res.status(200).json({
+      success: false,
+      error: validate.errors.reduce
+        ? validate.errors.reduce(function(prev, curr) {
+            return curr.message + ";" + prev;
+          }, "")
+        : validate.errors,
+      results: null
+    });
+    return;
+  }
+
+  groups
+    .customGroup(req.body)
+    .then(results => res.json({ success: true, results, error: null }))
+    .catch(error => {
+      res.status(200).json({ success: false, results: null, error });
+    });
+});
+
 
 router.get("/getAllGroupsOfUser", function(req, res) {
   req.query.username = req.body.username;

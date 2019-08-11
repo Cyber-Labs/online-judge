@@ -1,5 +1,4 @@
 const {pool} = require('../db');
-
 var groupModel = {
    getAllGroups:getAllGroups,
    getAllGroupsOfUser:getAllGroupsOfUser,
@@ -9,51 +8,100 @@ var groupModel = {
    getGroupById:getGroupById,
    addUserToGroup:addUserToGroup,
    makeUserAdmin : makeUserAdmin,
+   customGroup : customGroup,
 }
-
 /**
  *
  * @param {Object} param0
  * @param {String} param0.username
- * @param {String} param0.secret_token
  * @param {String} param0.name
  * @param {String} param0.description
  * @param {String} param0.confidential
  * @return {Promise}
  */
 
-
-function addGroup({
-    username,
-    name: name,
-    description: description,
-    confidential: confidential
-}){
-    return new Promise(function(resolve, reject) {
-      pool.query(`INSERT INTO groups(name,description,confidential,created_by) VALUES (?,?,?,?) WHERE
-      (SELECT COUNT(username) FROM users WHERE (username=? AND admin=1) `,
-    [
-      name,
-      description,
-      confidential,
-      username,
-      username,
-    ],
-        function(error, results) {
+function addGroup(
+  {
+  username,
+  name,
+  description,
+  confidential
+}
+) {
+return new Promise(async (resolve, reject) => {
+  pool.getConnection(function(error, connection) {
+    if (error) {
+      reject(error);
+    }
+    connection.beginTransaction(function(error) {
+      if (error) {
+        reject(error);
+      }
+      connection.query(
+          `INSERT INTO groups(name,description,confidential,created_by) VALUES (?,?,?,?) WHERE
+          (SELECT COUNT(username) FROM users WHERE (username=? AND admin=1) `,
+        [
+          name,
+          description,
+          confidential,
+          username,
+          username,
+        ],
+        (error, results, fields) => {
           if (error) {
-            reject(error);
+          reject(error);
+            connection.rollback(function(error) {
+              connection.release();
+            });
             return;
           }
-          resolve(results);
+          let xy = new Promise(function(resolve, reject) {
+              connection.query(
+                "INSERT INTO UserGroups(`username`,`group_id`,`admin`)" +
+                  "VALUES(?,(SELECT count(id) FROM groups WHERE created_by = ?),?)",
+                [
+                    username,
+                    username,
+                    1,                      
+                ],
+                (error, results, fields) => {
+                  if (error) {
+                    reject(error);
+                    return;
+                  }
+                }
+              );
+            });
+            try {
+              await xy;
+            } catch (e) {
+              connection.rollback(function(error) {
+                connection.release();
+                reject(e);
+              });
+              error1 = true;
+            }
+           if (error1) {
+            return;
+          }
+          connection.commit(function(error , results) {
+            connection.release();
+            if (error) {
+              reject(error);
+              return;
+            }
+            resolve({results});
+          });
         }
       );
     });
-  }
+  });
+});
+}
 /**
  *
  * @param {Object} param0
  * @param {String} param0.username
- * @param {String} param0.secret_token
  * @return {Promise}
  */
 
@@ -79,7 +127,6 @@ function getAllGroupsOfUser({
  *
  * @param {Object} param0
  * @param {String} param0.username
- * @param {String} param0.secret_token
  * @return {Promise}
  */
 
@@ -104,14 +151,12 @@ function getAllGroups({
  *
  * @param {Object} param0
  * @param {String} param0.username
- * @param {String} param0.secret_token
  * @param {Number} param0.group_id
  * @return {Promise}
  */
 
 function getGroupById({
     username,
-    secret_token:secret_token,
     group_id:group_id, 
     }) {
         return new Promise((resolve,reject) => {
@@ -135,14 +180,12 @@ function getGroupById({
  *
  * @param {Object} param0
  * @param {String} param0.username
- * @param {String} param0.secret_token
  * @param {String} param0.description
  * @param {Number} param0.group_id
  * @return {Promise}
  */
 function updateGroup({
     username,
-    secret_token:secret_token,
     group_id:group_id,
     description : description,
 }) {
@@ -169,7 +212,6 @@ function updateGroup({
  *
  * @param {Object} param0
  * @param {String} param0.username
- * @param {String} param0.secret_token
  * @param {Number} param0.group_id
  * @return {Promise}
  */
@@ -199,7 +241,6 @@ function deleteGroup({
  *
  * @param {Object} param0
  * @param {String} param0.username
- * @param {String} param0.secret_token
  * @param {String} param0.group_id
  * @param {String} param0.admin  
  * @param {Number} param0.Userid
@@ -209,7 +250,6 @@ function deleteGroup({
 
 function addUserToGroup({
     username,
-    secret_token: secretToken,
     group_id: group_id,
     admin: admin,
     usernameToAdd : usernameToAdd
@@ -238,7 +278,6 @@ function addUserToGroup({
  *
  * @param {Object} param0
  * @param {String} param0.username
- * @param {String} param0.secret_token
  * @param {String} param0.group_id
  * @param {Number} param0.usernameToChange
  * @return {Promise}
@@ -247,7 +286,6 @@ function addUserToGroup({
 
 function makeUserAdmin({
     username,
-    secret_token: secretToken,
     group_id: group_id,
     admin: admin,
     usernameToChange : usernameToChange
@@ -270,5 +308,128 @@ function makeUserAdmin({
       );
     });
   }
+
+  /**
+  * @param {Object} param0
+  * @param {String} param0.username
+ ` *@param {String} param0.name
+  * @param {String} param0.description
+  * @param {Number} param0.confidential
+  * @param {String} param0.branch
+  * @param {String} param0.semester
+  * @return {Promise}
+  */
+ function customGroup(
+  username,
+  name,
+  description,
+  confidential,
+  branch,
+  semester
+) {
+  return new Promise(async (resolve, reject) => {
+      pool.getConnection(function(error, connection) {
+          if (error) {
+            reject(error);
+          }
+          connection.beginTransaction(function(error) {
+            if (error) {
+              reject(error);
+            }
+            connection.query(
+                `INSERT INTO groups(name,description,confidential,created_by) VALUES (?,?,?,?) WHERE
+                (SELECT COUNT(username) FROM users WHERE (username=? AND admin=1) `,
+              [
+                name,
+                description,
+                confidential,
+                username,
+                username,
+              ],
+              (error, results, fields) => {
+                if (error) {
+                reject(error);
+                  connection.rollback(function(error) {
+                    connection.release();
+                  });
+              return;
+              }
+              let xy = new Promise(function(resolve, reject) {
+                  connection.query(
+                    "INSERT INTO UserGroups(`username`,`group_id`,`admin`)" +
+                      "VALUES(?,(SELECT count(id) FROM groups WHERE created_by = ?),?)",
+                    [
+                        username,
+                        username,
+                        1,                      
+                    ],
+                    (error, results, fields) => {
+                      if (error) {
+                        reject(error);
+                        return;
+                      }
+                    }
+                  );
+                });
+                try {
+                  await xy;
+                } catch (e) {
+                  connection.rollback(function(error) {
+                    connection.release();
+                    reject(e);
+                  });
+                  error1 = true;
+                }
+               if (error1) {
+                return;
+              }
+            let insertion = new Promise(function(resolve, reject) {
+              connection.query(
+                `INSERT INTO UserGroups(username,group_id)
+                  SELECT username AS u.username , group_id AS g.id , u.branch , u.semester
+                  FROM users,groups
+                  users u, groups g
+                  WHERE
+                  u.branch = ? , u.semester = ? AND g.name = ?
+                   `,
+                [
+                    branch,
+                    semester,
+                    name,                      
+                ],
+                (error, results, fields) => {
+                  if (error) {
+                    reject(error);
+                    return;
+                  }
+                }
+              );
+            });
+            try {
+              await insertion;
+            } catch (e) {
+              connection.rollback(function(error) {
+                connection.release();
+                reject(e);
+              });
+              error2 = true;
+            }
+           if (error2) {
+            return;
+          }
+            connection.commit(function(error) {
+              connection.release();
+              if (error) {
+                reject(error);
+                return;
+              }
+              resolve({ id: idProduct });
+            });
+          }
+        );
+      });
+    });
+  });
+}
 module.exports = groupModel;
 
