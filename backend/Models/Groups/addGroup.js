@@ -36,7 +36,7 @@ function addGroup(
             username,
             username,
           ],
-          (error, results, fields) => {
+          async (error, results, fields) => {
             if (error) {
               connection.rollback(function(error) {
                 connection.release();
@@ -46,10 +46,10 @@ function addGroup(
             let xy = new Promise(function(resolve, reject) {
                 connection.query(
                   "INSERT INTO UserGroups(`username`,`group_id`,`admin`)" +
-                    "VALUES(?,SELECT id FROM groups WHERE name = ?,?)",
+                    "VALUES(?,?,?)",
                   [
                       username,
-                      name,
+                      results.insertId,
                       1,                      
                   ],
                   (error, results, fields) => {
@@ -78,7 +78,7 @@ function addGroup(
                 reject(error);
                 return;
               }
-              resolve({results});
+              resolve(results);
             });
           }
         );

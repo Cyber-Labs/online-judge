@@ -36,7 +36,7 @@ const {pool} = require('../db');
                   username,
                   username,
                 ],
-                (error, results, fields) => {
+                async (error, results, fields) => {
                   if (error) {
                   reject(error);
                     connection.rollback(function(error) {
@@ -50,7 +50,7 @@ const {pool} = require('../db');
                         "VALUES(?,?,?)",
                       [
                           username,
-                          name,
+                          results.insertId,
                           1,                      
                       ],
                       (error, results, fields) => {
