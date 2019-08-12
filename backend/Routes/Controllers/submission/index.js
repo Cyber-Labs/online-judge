@@ -1,12 +1,6 @@
 const submission = require("../../../Models/submission");
 const app = require("../index");
-const middleware = require("./middlewares");
 // schema present, to be added later
-
-// validate from submission schema
-// sabse pehle ye user file ke code ko server pe store karega
-// .then remoteinterview se compile karega
-//. then database me store karaega
 
 //req.body for app.post:
 // contest_id, question_id, username, user_output,
@@ -81,7 +75,7 @@ app.get("/contests/:contestid/:questionid/result", (req, res) => {
       });
     })
     .catch(error => {
-      if (error == "Not found") {
+      if (error === "Not found") {
         return res.status(404).json({
           success: false,
           error,

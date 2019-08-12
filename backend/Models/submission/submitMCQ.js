@@ -12,14 +12,15 @@ const { pool } = require("../db");
  */
 
 const calclulateScore = (contestId, questionId, userSolution) => {
-  pool.query(
-    `SELECT solution AS solution AND is_partial AS partial AND is_negative AS negative AND max_marks AS maxMarks
+  return new Promise((resolve, reject) => {
+    pool.query(
+    `SELECT solution AS solution AND partial AS partial AND negative AS negative AND max_marks AS maxMarks
     FROM questions
     WHERE contest_id = ? AND question_id = ?`,
     [contestId, questionId],
     (error, results) => {
       if (error) {
-        return error;
+        return reject(error);
       }
       const actualSolution = results[0].solution;
       const partialMarking = results[0].partial;
@@ -27,7 +28,7 @@ const calclulateScore = (contestId, questionId, userSolution) => {
       const maxMarks = results[0].maxMarks;
 
       if (userSolution === actualSolution) {
-        return maxMarks;
+        return resolve(maxMarks);
       }
 
       userSolution = userSolution.toUpperCase().split(",");
@@ -35,7 +36,7 @@ const calclulateScore = (contestId, questionId, userSolution) => {
       const userLength = userSolution.length;
 
       if (negativeMarking === 0 && partialMarking === 0) {
-        return 0;
+        return resolve(0);
       }
 
       if (negativeMarking === 0 && partialMarking !== 0) {
@@ -48,7 +49,7 @@ const calclulateScore = (contestId, questionId, userSolution) => {
           }
           count++;
         }
-        return score;
+        return resolve(score);
       }
 
       if (negativeMarking !== 0) {
@@ -57,24 +58,25 @@ const calclulateScore = (contestId, questionId, userSolution) => {
         while (count < userLength) {
           const position = actualSolution.indexOf(userSolution[count]);
           if (position === -1) {
-            return negativeMarking;
+            score += negativeMarking;
           }
           score += partialMarking;
         }
-        return score;
+        return resolve(score);
       }
     }
   );
+  })
 };
 
-function updateScore({
+async function updateScore({
   question_id: questionId,
   contest_id: contestId,
   username,
   user_output: userOutput
 }) {
-  const score = calclulateScore(contestId, questionId, userOutput);
   return new Promise((resolve, reject) => {
+    const score = await calclulateScore(contestId, questionId, userOutput);
     pool.query(
       `INSERT INTO submissions (contest_id, question_id, username, user_ouput, score)
        VALUES (?,?,?,?,?)`,

@@ -8,7 +8,7 @@ const { pool } = require("../db");
  * @param {Number} score
  */
 
-function updateScore({
+function submitSubjective({
   question_id: questionId,
   contest_id: contestId,
   username,
@@ -29,4 +29,4 @@ function updateScore({
   });
 }
 
-module.exports = updateScore;
+module.exports = submitSubjective;
