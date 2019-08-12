@@ -57,7 +57,7 @@ return new Promise(async (resolve, reject) => {
           let xy = new Promise(function(resolve, reject) {
               connection.query(
                 "INSERT INTO UserGroups(`username`,`group_id`,`admin`)" +
-                  "VALUES(?,?,?)",
+                  "VALUES(?,SELECT id FROM groups WHERE name = ?,?)",
                 [
                     username,
                     name,
@@ -356,10 +356,10 @@ function makeUserAdmin({
               let xy = new Promise(function(resolve, reject) {
                   connection.query(
                     "INSERT INTO UserGroups(`username`,`group_id`,`admin`)" +
-                      "VALUES(?,(SELECT count(id) FROM groups WHERE created_by = ?),?)",
+                      "VALUES(?,?,?)",
                     [
                         username,
-                        username,
+                        name,
                         1,                      
                     ],
                     (error, results, fields) => {
@@ -386,7 +386,7 @@ function makeUserAdmin({
               connection.query(
                 `INSERT INTO UserGroups(username,group_id)
                   SELECT username AS u.username , group_id AS g.id , u.branch , u.semester
-                  FROM users,groups
+                  FROM
                   users u, groups g
                   WHERE
                   u.branch = ? , u.semester = ? AND g.name = ?
