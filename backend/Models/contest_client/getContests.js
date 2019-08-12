@@ -8,7 +8,13 @@ const {pool} = require('../db');
  function getContests(groupIdArray){
      return new Promise(function(resolve,reject){
          pool.query(
-             'SELECT * FROM contests WHERE group_id IN (?) AND  confidential = 1',[groupIdArray],(error, results) => {
+             `SELECT c.*,(CASE 
+                WHEN (CURRENT_TIMESTAMP-start_time >0 AND CURRENT_TIMESTAMP-end_time<0)=1 THEN 1 
+                WHEN (CURRENT_TIMESTAMP - end_time>0)=1 THEN 2
+                WHEN (CURRENT_TIMESTAMP - start_time<0)=1 THEN 0
+                END) this_status
+                FROM checktime AS c WHERE group_id = 1;
+                `,[groupIdArray],(error, results) => {
                  if(error){
                      console.log('failed');
                      return reject('Contest not found');
