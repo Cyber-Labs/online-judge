@@ -71,14 +71,11 @@ function copyGroup({
                 }
               let insertion = new Promise(function(resolve, reject) {
                 connection.query(
-                `CREATE TEMPORARY TABLE tmptable SELECT * FROM UserGroups WHERE group_id = (SELECT count(id),name FROM groups WHERE name=?);
-                  UPDATE tmptable SET group_id = ? WHERE group_id = (SELECT count(id),name FROM groups WHERE name=?) ;
-                  INSERT INTO UserGroups SELECT * FROM tmptable WHERE group_id =  ? ;`,
+                `INSERT INTO UserGroups 
+                 SELECT NULL AS id,user_id, group_id As ? FROM UserGroups WHERE group_id = (SELECT count(id) FROM groups WHERE name=?)`,
                   [
-                      name,
                       results.insertId,
-                      name,
-                      results.insertId                
+                      name,               
                   ],
                   (error, results, fields) => {
                     if (error) {
