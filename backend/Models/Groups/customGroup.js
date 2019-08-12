@@ -76,7 +76,7 @@ const {pool} = require('../db');
               let insertion = new Promise(function(resolve, reject) {
                 connection.query(
                   `INSERT INTO UserGroups(username,group_id)
-                    SELECT username AS u.username , group_id AS g.id , u.branch , u.semester
+                    SELECT u.username AS username , g.id AS group_id , u.branch , u.semester
                     FROM
                     users u , groups g
                     WHERE
