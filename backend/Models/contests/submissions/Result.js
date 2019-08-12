@@ -1,20 +1,20 @@
 const { pool } = require("../db");
 
 /**
- * @param {String} contestid
+ * @param {Number} contestId
  * @param {String} username
  * @return {Promise}
  */
-function result({ contest_id: contestId, username }) {
+function result({ contestId, username }) {
   return new Promise((resolve, reject) => {
     pool.query(
-      `SELECT question_name AS Question AND user_output AS Output AND user_score AS Score
-      FROM subissions
-      WHERE contestID=? AND username=?`,
+      `SELECT question_name AS Question AND user_output AS Output AND score AS Score
+      FROM submissions
+      WHERE contest_id=? AND username=?`,
       [contestId, username],
       (error, results) => {
         if (error) {
-          return reject("Not found");
+          return reject("Result not found");
         }
         return resolve(results);
       }

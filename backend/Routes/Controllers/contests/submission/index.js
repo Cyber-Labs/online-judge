@@ -1,14 +1,13 @@
-const submission = require("../../../Models/submission");
-const app = require("../index");
-// schema present, to be added later
+const submission = require("../../../../Models/contests/submissions");
+const ajv = require("../../../../Schema");
+const express = require("express");
+const router = express.Router();
 
-//req.body for app.post:
-// contest_id, question_id, username, user_output,
-// isNegative, isPartial, max_score, question_type
+const { submitSchema } = require("../../../../Schema/contests/submissions");
 
-app.post("/contests/:contestid/:questionid/submit", (req, res) => {
-  // let validate = ajv.compile(some schema);
-  // let valid = validate.(req.body);
+router.post("/:contestid/:username/:questionid/submit", (req, res) => {
+  let validate = ajv.compile(submitSchema);
+  let valid = validate(req.body);
   if (!valid) {
     return res.status(400).json({
       sucess: false,
@@ -16,8 +15,8 @@ app.post("/contests/:contestid/:questionid/submit", (req, res) => {
       results: null
     });
   }
-  const question_type = req.body.quewstion_type;
-  if (question_type === 1) {
+  const questionType = req.body.questionType;
+  if (questionType === 1) {
     submission
       .submitSubjective(req.body)
       .then(results => {
@@ -28,6 +27,13 @@ app.post("/contests/:contestid/:questionid/submit", (req, res) => {
         });
       })
       .catch(error => {
+        if (error === "Not found question") {
+          return res.status(404).json({
+            success: false,
+            error,
+            results: null
+          });
+        }
         return res.status(400).json({
           success: false,
           error,
@@ -44,6 +50,13 @@ app.post("/contests/:contestid/:questionid/submit", (req, res) => {
         results
       })
       .catch(error => {
+        if (error === "Not found question") {
+          return res.status(404).json({
+            success: false,
+            error,
+            results: null
+          });
+        }
         return res.status(400).json({
           success: false,
           error,
@@ -53,18 +66,26 @@ app.post("/contests/:contestid/:questionid/submit", (req, res) => {
   });
 });
 
-app.get("/contests/:contestid/:questionid/result", (req, res) => {
-  const contest_id = req.params.contest_id;
-  if (!contestid) {
+router.get("/:contestid/:username/result", async (req, res) => {
+  const contestId = req.params.contest_id;
+  const username = req.body.username;
+  if (!contestId) {
     return res.status(404).json({
       success: false,
       error: "Not found any contests",
       results: null
     });
   }
+  if (!username) {
+    return res.status(404).json({
+      success: false,
+      error: "Not found any user",
+      results: null
+    });
+  }
   submission
     .result({
-      contest_id,
+      contestId,
       username
     })
     .then(results => {
@@ -75,7 +96,7 @@ app.get("/contests/:contestid/:questionid/result", (req, res) => {
       });
     })
     .catch(error => {
-      if (error === "Not found") {
+      if (error === "Result not found") {
         return res.status(404).json({
           success: false,
           error,
@@ -90,4 +111,4 @@ app.get("/contests/:contestid/:questionid/result", (req, res) => {
     });
 });
 
-module.exports = app;
+module.exports = router;
