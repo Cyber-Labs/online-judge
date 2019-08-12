@@ -1,5 +1,4 @@
 const {pool} = require('../db');
-const customGroup = require('../customGroup');
 /**
   * @param {Object} param0
   * @param {String} param0.username
