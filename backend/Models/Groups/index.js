@@ -7,6 +7,7 @@ const getGroupById = require('./getGroupById');
 const addUserToGroup = require('./addUserToGroup');
 const makeUserAdmin  = require('./makeUserAdmin');
 const customGroup = require('./customGroup');
+const copyGroup = require('./copyGroup');
 
 module.exports = {
     getAllGroups,
@@ -18,4 +19,5 @@ module.exports = {
     addUserToGroup,
     makeUserAdmin,
     customGroup,
+    copyGroup,
 };

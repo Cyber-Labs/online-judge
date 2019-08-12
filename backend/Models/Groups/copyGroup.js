@@ -1,22 +1,19 @@
 const {pool} = require('../db');
+const customGroup = require('../customGroup');
 /**
   * @param {Object} param0
   * @param {String} param0.username
- ` *@param {String} param0.name
-  * @param {String} param0.description
-  * @param {Number} param0.confidential
-  * @param {String} param0.branch
-  * @param {String} param0.semester
+  * @param {String} param0.newName
+ `* @param {String} param0.name
   * @return {Promise}
-  */
- function customGroup(
+*/
+function copyGroup({
     username,
-    name,
     description,
     confidential,
-    branch,
-    semester
-  ) {
+    newName,
+    name
+}){
     return new Promise(async (resolve, reject) => {
         pool.getConnection(function(error, connection) {
             if (error) {
@@ -30,7 +27,7 @@ const {pool} = require('../db');
                   `INSERT INTO groups(name,description,confidential,created_by) VALUES (?,?,?,?) WHERE
                   (SELECT COUNT(username) FROM users WHERE (username=? AND admin=1) `,
                 [
-                  name,
+                  newName,
                   description,
                   confidential,
                   username,
@@ -75,17 +72,14 @@ const {pool} = require('../db');
                 }
               let insertion = new Promise(function(resolve, reject) {
                 connection.query(
-                  `INSERT INTO UserGroups(username,group_id)
-                    SELECT username AS u.username , group_id AS g.id , u.branch , u.semester
-                    FROM
-                    users u , groups g
-                    WHERE
-                    u.branch = ? AND u.semester = ? AND g.name = ?
-                     `,
+                `CREATE TEMPORARY TABLE tmptable SELECT * FROM UserGroups WHERE group_id = (SELECT count(id),name FROM groups WHERE name=?);
+                  UPDATE tmptable SET group_id = ? WHERE group_id = (SELECT count(id),name FROM groups WHERE name=?) ;
+                  INSERT INTO UserGroups SELECT * FROM tmptable WHERE group_id =  ? ;`,
                   [
-                      branch,
-                      semester,
-                      name,                      
+                      name,
+                      results.insertId,
+                      name,
+                      results.insertId                
                   ],
                   (error, results, fields) => {
                     if (error) {
@@ -121,4 +115,4 @@ const {pool} = require('../db');
       });
     });
   }
-  module.exports = customGroup;
+  module.exports = copyGroup;

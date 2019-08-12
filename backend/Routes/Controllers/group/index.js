@@ -54,9 +54,32 @@ router.post("/customGroup", (req, res) => {
 });
 
 
+router.post("/copyGroup", (req, res) => {
+  let validate = validator.compile(groupSchema.copyGroup);
+  let valid = validate(req.body);
+  if (!valid) {
+    res.status(200).json({
+      success: false,
+      error: validate.errors.reduce
+        ? validate.errors.reduce(function(prev, curr) {
+            return curr.message + ";" + prev;
+          }, "")
+        : validate.errors,
+      results: null
+    });
+    return;
+  }
+
+  groups
+    .copyGroup(req.body)
+    .then(results => res.json({ success: true, results, error: null }))
+    .catch(error => {
+      res.status(200).json({ success: false, results: null, error });
+    });
+});
+
 router.get("/getAllGroupsOfUser", function(req, res) {
   req.query.username = req.body.username;
-  console.log(req.body);
   groups
     .getAllGroupsOfUser(req.query)
     .then(results => res.json({ success: true, results, error: null }))
@@ -65,7 +88,6 @@ router.get("/getAllGroupsOfUser", function(req, res) {
 
 router.get("/getAllGroups", function(req, res) {
   req.query.username = req.body.username;
-  console.log(req.body);
   groups
     .getAllGroups(req.query)
     .then(results => res.json({ success: true, results, error: null }))
@@ -75,7 +97,6 @@ router.get("/getAllGroups", function(req, res) {
 router.get("/getGroupById", function(req, res) {
   req.query.username = req.body.username;
   req.query.group_id = req.body.group_id;
-  console.log(req.body);
   groups
     .getGroupById(req.query)
     .then(results => res.json({ success: true, results, error: null }))
@@ -106,8 +127,7 @@ router.put("/updateGroup", (req, res) => {
 });
 router.delete("/deleteGroup", function(req, res) {
   req.query.username = req.body.username;
-  req.query.group_id = req.body.group_id
-  console.log(req.body);
+  req.query.group_id = req.body.group_id;
   groups
     .getAllGroupsOfUser(req.query)
     .then(results => res.json({ success: true, results, error: null }))

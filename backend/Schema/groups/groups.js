@@ -206,3 +206,49 @@ let addGroup = {
     _: "Invalid Data"
   }
 };
+let copyGroup = {
+  anyOf: [
+    {
+      required: [
+        "username",
+        "name",
+        "description",
+        "confidential",
+        "newname",
+      ]
+    },
+    {
+      required: [
+        "username",
+        "name",
+        "description",
+        "confidential",
+        "newname",
+      ]
+    }
+  ],
+  properties: {
+    username: { type: "string" },
+    name: { type: "string" },
+    description: { type: "string" },
+    confidential: { type: "number", maximum: 1, minimum: 0 },
+    newname: { type: "string" },
+  },
+  errorMessage: {
+    required: {
+      username: "Not logged in",
+      description: "Please fill the description field",
+      name: "Please fill name field",
+      confidential: "Please fill confidential field",
+      newname: "Please specify new name",
+    },
+    properties: {
+      username: "Not logged in",
+      description: "description is invalid",
+      confidential: "confidential is invalid",
+      name: "Name is invalid",
+      newname: "new name is invalid",
+    },
+    _: "Invalid Data"
+  }
+};

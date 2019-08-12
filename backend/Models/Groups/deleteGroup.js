@@ -11,7 +11,7 @@ function deleteGroup({
     group_id : group_id,
 }) {
    return new Promise((resolve,reject) => {
-    pool.query(`DELETE FROM groups WHERE id = ? AND
+    pool.query(`UPDATE groups SET deleted = 1 WHERE id = ? AND
     (SELECT COUNT(username) FROM UserGroups WHERE (username=? AND admin=1 AND group_id = ?))`,
     [
         group_id,
