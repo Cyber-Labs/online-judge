@@ -11,7 +11,7 @@ function getAllGroupsOfUser({
     username : username,
 }) {
     return new Promise(function(resolve, reject) {
-        pool.query(`SELECT * FROM  UserGroups uG RIGHT JOIN groups g ON g.id = uG.group_id AND uG.username=? AND g.confidential = 0`,
+        pool.query(`SELECT * FROM  UserGroups uG RIGHT JOIN groups g ON g.id = uG.group_id AND uG.username=? AND (SELECT IF (uG.admin = 1 ,1, confidential = 0)))`,
       [
         username,
       ],
