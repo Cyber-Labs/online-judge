@@ -2,16 +2,21 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 
 /**
+ * @typedef {import { Request } from "express";} Request
+ * @typedef {import { Response } from "express";} Response
+ * @typedef {import { next } from "express";} Next
+ */
+
+/**
  *
- * @param {*} req
- * @param {*} res
- * @param {*} next
+ * @param {Request} req
+ * @param {Response} res
+ * @param {Next} next
  */
 function verifyAccessToken(req, res, next) {
   if (req.headers.access_token) {
     const path = require('path');
     const pubKey = fs.readFileSync(path.resolve('rsa_secret.pub'), 'utf-8');
-    console.log(pubKey);
     jwt.verify(req.headers.access_token, pubKey, (error, decoded) => {
       if (error) {
         res.status(401).json({

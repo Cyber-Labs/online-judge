@@ -6,6 +6,7 @@ const getUser = require('./getUser');
 const updateUser = require('./updateUser');
 const verifyEmail = require('./verifyEmail');
 const resetPassword = require('./resetPassword');
+const verifyNewEmail = require('./verifyNewEmail');
 
 module.exports = {
   login,
@@ -16,4 +17,5 @@ module.exports = {
   getUser,
   verifyEmail,
   resetPassword,
+  verifyNewEmail,
 };

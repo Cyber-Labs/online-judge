@@ -1,17 +1,17 @@
 const schema = {
-  required: ['username', 'password'],
+  required: ['otp', 'username'],
   properties: {
+    otp: {type: 'number', minLength: 6, maxLength: 6},
     username: {type: 'string', minLength: 4},
-    password: {type: 'string', format: 'password'},
   },
   errorMessage: {
     required: {
-      username: 'Username required',
-      password: 'Password required',
+      otp: 'OTP required',
+      username: 'username or email required',
     },
     properties: {
+      otp: 'Invalid OTP',
       username: 'Invalid username',
-      password: 'Invalid password',
     },
     _: 'Invalid data',
   },

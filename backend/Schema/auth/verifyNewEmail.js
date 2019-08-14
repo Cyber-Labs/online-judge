@@ -1,6 +1,8 @@
 const schema = {
-  required: ['email'],
+  required: ['otp', 'email', 'username'],
   properties: {
+    otp: {type: 'number', minLength: 6, maxLength: 6},
+    username: {type: 'string', minLength: 4},
     email: {
       type: 'string',
       pattern:
@@ -9,9 +11,13 @@ const schema = {
   },
   errorMessage: {
     required: {
-      email: 'Email required',
+      otp: 'OTP required',
+      username: 'username or email required',
+      email: 'email or username required',
     },
     properties: {
+      otp: 'Invalid OTP',
+      username: 'Invalid username',
       email: 'Invalid email',
     },
     _: 'Invalid data',
