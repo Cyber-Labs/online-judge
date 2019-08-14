@@ -1,20 +1,10 @@
 let addGroup = {
   anyOf: [
     {
-      required: [
-        "username",
-        "name",
-        "description",
-        "confidential"
-      ]
+      required: ["username", "name", "description", "confidential"]
     },
     {
-      required: [
-        "username",
-        "name",
-        "description",
-        "confidential"
-      ]
+      required: ["username", "name", "description", "confidential"]
     }
   ],
   properties: {
@@ -28,13 +18,13 @@ let addGroup = {
       username: "Not logged in",
       description: "Please fill the description field",
       name: "Please fill name field",
-      confidential: "Please fill confidential field",
+      confidential: "Please fill confidential field"
     },
     properties: {
       username: "Not logged in",
       description: "description is invalid",
       confidential: "confidential is invalid",
-      name: "Name is invalid",
+      name: "Name is invalid"
     },
     _: "Invalid Data"
   }
@@ -43,20 +33,10 @@ let addGroup = {
 let addUserToGroup = {
   anyOf: [
     {
-      required: [
-        "username",
-        "group_id",
-        "admin",
-        "usernameToAdd"
-      ]
+      required: ["username", "group_id", "admin", "usernameToAdd"]
     },
     {
-      required: [
-        "username",
-        "group_id",
-        "admin",
-        "usernameToAdd"
-      ]
+      required: ["username", "group_id", "admin", "usernameToAdd"]
     }
   ],
   properties: {
@@ -70,13 +50,13 @@ let addUserToGroup = {
       username: "Not logged in",
       group_id: "Please fill the group_id field",
       usernameToAdd: "Please fill usernameToAdd field",
-      admin: "Please fill admin field",
+      admin: "Please fill admin field"
     },
     properties: {
       username: "Not logged in",
       group_id: "group_id is invalid",
       admin: "admin is invalid",
-      usernameToAdd: "usernameToAdd is invalid",
+      usernameToAdd: "usernameToAdd is invalid"
     },
     _: "Invalid Data"
   }
@@ -85,18 +65,10 @@ let addUserToGroup = {
 let makeUserAdmin = {
   anyOf: [
     {
-      required: [
-        "username",
-        "group_id",
-        "usernameToChange"
-      ]
+      required: ["username", "group_id", "usernameToChange"]
     },
     {
-      required: [
-        "username",
-        "group_id",
-        "usernameToChange"
-      ]
+      required: ["username", "group_id", "usernameToChange"]
     }
   ],
   properties: {
@@ -113,7 +85,7 @@ let makeUserAdmin = {
     properties: {
       username: "Not logged in",
       group_id: "group_id is invalid",
-      usernameToChange: "usernameToChange is invalid",
+      usernameToChange: "usernameToChange is invalid"
     },
     _: "Invalid Data"
   }
@@ -122,18 +94,10 @@ let makeUserAdmin = {
 let updateGroup = {
   anyOf: [
     {
-      required: [
-        "username",
-        "group_id",
-        "description"
-      ]
+      required: ["username", "group_id", "description"]
     },
     {
-      required: [
-        "username",
-        "group_id",
-        "description"
-      ]
+      required: ["username", "group_id", "description"]
     }
   ],
   properties: {
@@ -150,7 +114,7 @@ let updateGroup = {
     properties: {
       username: "Not logged in",
       group_id: "group_id is invalid",
-      description: "description is invalid",
+      description: "description is invalid"
     },
     _: "Invalid Data"
   }
@@ -184,7 +148,7 @@ let addGroup = {
     description: { type: "string" },
     confidential: { type: "number", maximum: 1, minimum: 0 },
     branch: { type: "string" },
-    semester: { type: "string" },
+    semester: { type: "string" }
   },
   errorMessage: {
     required: {
@@ -193,7 +157,7 @@ let addGroup = {
       name: "Please fill name field",
       confidential: "Please fill confidential field",
       branch: "Please fill the branch field",
-      semester: "Please fill semester field",
+      semester: "Please fill semester field"
     },
     properties: {
       username: "Not logged in",
@@ -201,7 +165,7 @@ let addGroup = {
       confidential: "confidential is invalid",
       semester: "semester is invalid",
       branch: "branch is invalid",
-      name: "Name is invalid",
+      name: "Name is invalid"
     },
     _: "Invalid Data"
   }
@@ -209,22 +173,10 @@ let addGroup = {
 let copyGroup = {
   anyOf: [
     {
-      required: [
-        "username",
-        "name",
-        "description",
-        "confidential",
-        "newname",
-      ]
+      required: ["username", "name", "description", "confidential", "newname"]
     },
     {
-      required: [
-        "username",
-        "name",
-        "description",
-        "confidential",
-        "newname",
-      ]
+      required: ["username", "name", "description", "confidential", "newname"]
     }
   ],
   properties: {
@@ -232,7 +184,7 @@ let copyGroup = {
     name: { type: "string" },
     description: { type: "string" },
     confidential: { type: "number", maximum: 1, minimum: 0 },
-    newname: { type: "string" },
+    newname: { type: "string" }
   },
   errorMessage: {
     required: {
@@ -240,14 +192,14 @@ let copyGroup = {
       description: "Please fill the description field",
       name: "Please fill name field",
       confidential: "Please fill confidential field",
-      newname: "Please specify new name",
+      newname: "Please specify new name"
     },
     properties: {
       username: "Not logged in",
       description: "description is invalid",
       confidential: "confidential is invalid",
       name: "Name is invalid",
-      newname: "new name is invalid",
+      newname: "new name is invalid"
     },
     _: "Invalid Data"
   }

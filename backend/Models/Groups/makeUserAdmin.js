@@ -1,4 +1,4 @@
-const {pool} = require('../db');
+const { pool } = require("../db");
 /**
  *
  * @param {Object} param0
@@ -8,30 +8,26 @@ const {pool} = require('../db');
  * @return {Promise}
  */
 
-
 function makeUserAdmin({
-    username,
-    group_id: group_id,
-    admin: admin,
-    usernameToChange : usernameToChange
-}){
-    return new Promise(function(resolve, reject) {
-      pool.query(`UPDATE UserGroups SET admin = 1 WHERE username=? AND group_id = ?
+  username,
+  group_id: group_id,
+  admin: admin,
+  usernameToChange: usernameToChange
+}) {
+  return new Promise(function(resolve, reject) {
+    pool.query(
+      `UPDATE UserGroups SET admin = 1 WHERE username=? AND group_id = ?
       (SELECT COUNT(username) FROM UserGroups WHERE (username=? AND admin=1) `,
-    [
-      usernameToChange,
-      group_id,
-      username,
-    ],
-        function(error, results) {
-          if (error) {
-            reject(error);
-            return;
-          }
-          resolve(results);
+      [usernameToChange, group_id, username],
+      function(error, results) {
+        if (error) {
+          reject(error);
+          return;
         }
-      );
-    });
-  }
+        resolve(results);
+      }
+    );
+  });
+}
 
-  module.exports = makeUserAdmin;
+module.exports = makeUserAdmin;

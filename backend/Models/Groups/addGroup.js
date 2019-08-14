@@ -1,4 +1,4 @@
-const {pool} = require('../db');
+const { pool } = require("../db");
 /**
  *
  * @param {Object} param0
@@ -9,14 +9,7 @@ const {pool} = require('../db');
  * @return {Promise}
  */
 
-function addGroup(
-    {
-    username,
-    name,
-    description,
-    confidential
-  }
-  ) {
+function addGroup({ username, name, description, confidential }) {
   return new Promise(async (resolve, reject) => {
     pool.getConnection(function(error, connection) {
       if (error) {
@@ -27,15 +20,9 @@ function addGroup(
           return reject(error);
         }
         connection.query(
-            `INSERT INTO groups(name,description,confidential,created_by) VALUES (?,?,?,?) WHERE
+          `INSERT INTO groups(name,description,confidential,created_by) VALUES (?,?,?,?) WHERE
             (SELECT COUNT(username) FROM users WHERE (username=? AND admin=1) `,
-          [
-            name,
-            description,
-            confidential,
-            username,
-            username,
-          ],
+          [name, description, confidential, username, username],
           async (error, results, fields) => {
             if (error) {
               connection.rollback(function(error) {
@@ -44,35 +31,31 @@ function addGroup(
               return reject(error);
             }
             let xy = new Promise(function(resolve, reject) {
-                connection.query(
-                  "INSERT INTO UserGroups(`username`,`group_id`,`admin`)" +
-                    "VALUES(?,?,?)",
-                  [
-                      username,
-                      results.insertId,
-                      1,                      
-                  ],
-                  (error, results, fields) => {
-                    if (error) {
-                      reject(error);
-                      return;
-                    }
+              connection.query(
+                "INSERT INTO UserGroups(`username`,`group_id`,`admin`)" +
+                  "VALUES(?,?,?)",
+                [username, results.insertId, 1],
+                (error, results, fields) => {
+                  if (error) {
+                    reject(error);
+                    return;
                   }
-                );
+                }
+              );
+            });
+            try {
+              await xy;
+            } catch (e) {
+              connection.rollback(function(error) {
+                connection.release();
+                reject(e);
               });
-              try {
-                await xy;
-              } catch (e) {
-                connection.rollback(function(error) {
-                  connection.release();
-                  reject(e);
-                });
-                error1 = true;
-              }
-             if (error1) {
+              error1 = true;
+            }
+            if (error1) {
               return;
             }
-            connection.commit(function(error , results) {
+            connection.commit(function(error, results) {
               connection.release();
               if (error) {
                 reject(error);
@@ -85,5 +68,5 @@ function addGroup(
       });
     });
   });
-  }
-  module.exports = addGroup;
+}
+module.exports = addGroup;

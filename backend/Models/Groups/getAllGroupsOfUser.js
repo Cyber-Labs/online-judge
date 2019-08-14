@@ -1,4 +1,4 @@
-const {pool} = require('../db');
+const { pool } = require("../db");
 
 /**
  *
@@ -7,22 +7,19 @@ const {pool} = require('../db');
  * @return {Promise}
  */
 
-function getAllGroupsOfUser({
-    username : username,
-}) {
-    return new Promise(function(resolve, reject) {
-        pool.query(`SELECT * FROM  UserGroups uG RIGHT JOIN groups g ON g.id = uG.group_id AND uG.username=? AND (SELECT IF (uG.admin = 1 ,1, confidential = 0)))`,
-      [
-        username,
-      ],
-          function(error, results) {
-            if (error) {
-              reject(error);
-              return;
-            }
-            resolve(results);
-          }
-        );
-      });
+function getAllGroupsOfUser({ username: username }) {
+  return new Promise(function(resolve, reject) {
+    pool.query(
+      `SELECT * FROM  UserGroups uG RIGHT JOIN groups g ON g.id = uG.group_id AND uG.username=? AND (SELECT IF (uG.admin = 1 ,1, confidential = 0)))`,
+      [username],
+      function(error, results) {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve(results);
+      }
+    );
+  });
 }
 module.exports = getAllGroupsOfUser;

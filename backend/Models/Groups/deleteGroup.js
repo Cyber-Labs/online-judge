@@ -1,4 +1,4 @@
-const {pool} = require('../db');
+const { pool } = require("../db");
 /**
  *
  * @param {Object} param0
@@ -6,19 +6,13 @@ const {pool} = require('../db');
  * @param {Number} param0.group_id
  * @return {Promise}
  */
-function deleteGroup({
-    username,
-    group_id : group_id,
-}) {
-   return new Promise((resolve,reject) => {
-    pool.query(`UPDATE groups SET deleted = 1 WHERE id = ? AND
+function deleteGroup({ username, group_id: group_id }) {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `UPDATE groups SET deleted = 1 WHERE id = ? AND
     (SELECT COUNT(username) FROM UserGroups WHERE (username=? AND admin=1 AND group_id = ?))`,
-    [
-        group_id,
-        username,
-        group_id,
-
-    ],function(error, results) {
+      [group_id, username, group_id],
+      function(error, results) {
         if (error) {
           reject(error);
           return;

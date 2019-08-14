@@ -1,4 +1,4 @@
-const {pool} = require('../db');
+const { pool } = require("../db");
 /**
  *
  * @param {Object} param0
@@ -7,25 +7,19 @@ const {pool} = require('../db');
  * @return {Promise}
  */
 
-function getGroupById({
-    username,
-    group_id:group_id, 
-    }) {
-        return new Promise((resolve,reject) => {
-            pool.query(`SELECT * FROM groups WHERE id = ? AND (SELECT COUNT(username) FROM UserGroups WHERE (username=? AND group_id=?))`,
-            [
-                group_id,
-                username,
-                group_id,
-
-            ],function(error, results) {
-                if (error) {
-                  reject(error);
-                  return;
-                }
-                resolve(results);
-              }
-            );
-          });
-    }
+function getGroupById({ username, group_id: group_id }) {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      `SELECT * FROM groups WHERE id = ? AND (SELECT COUNT(username) FROM UserGroups WHERE (username=? AND group_id=?))`,
+      [group_id, username, group_id],
+      function(error, results) {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve(results);
+      }
+    );
+  });
+}
 module.exports = getGroupById;

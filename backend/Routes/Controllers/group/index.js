@@ -1,5 +1,5 @@
 const express = require("express");
-const router = express.Router(); 
+const router = express.Router();
 const groups = require(".../../../Models/Groups/group-model");
 
 const validator = require("../../../Schema");
@@ -52,7 +52,6 @@ router.post("/customGroup", (req, res) => {
       res.status(200).json({ success: false, results: null, error });
     });
 });
-
 
 router.post("/copyGroup", (req, res) => {
   let validate = validator.compile(groupSchema.copyGroup);
