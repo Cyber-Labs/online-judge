@@ -4,7 +4,9 @@ node_js:
 
 jobs:
   include:
-    - stage: "Test the server"
+    - stage: 'Test the server'
       before_install: cd backend
-    - stage: "Test frontend code"
+      script: npm run lint
+
+    - stage: 'Test frontend code'
       before_install: cd frontend

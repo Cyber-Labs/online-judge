@@ -1,5 +1,5 @@
-const {pool} = require('../db');
-const {email} = require('../../utils');
+const { pool } = require('../db');
+const { email } = require('../../utils');
 const otplib = require('otplib');
 
 /**
@@ -22,7 +22,7 @@ function updateUser({
   branch,
   department,
   admission_no: admissionNo,
-  semester,
+  semester
 }) {
   return new Promise((resolve, reject) => {
     const secret = otplib.authenticator.generateSecret();
@@ -60,7 +60,7 @@ function updateUser({
     }
     query += ` WHERE username=?`;
     arr.push(username);
-    pool.query(query, arr, (error, results) => {
+    pool.query(query, arr, error => {
       if (error) {
         return reject(error);
       }
@@ -70,9 +70,7 @@ function updateUser({
         let html = `<p>Hello ${username} !</p>
                     <p>The OTP for verifying your new email is ${otp}</p>
                     <p>Please verify your email by visiting the following link</p>
-                    <a href='http://${
-  process.env.HOST_NAME
-}:${PORT}/auth/verify_new_email?email_id=${emailId}&username=${username}'>Verify your email</a>`;
+                    <a href='http://${process.env.HOST_NAME}:${PORT}/auth/verify_new_email?email_id=${emailId}&username=${username}'>Verify your email</a>`;
         email(emailId, subject, html);
         return resolve('User info updated. Please verify your email');
       } else {
