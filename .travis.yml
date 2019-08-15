@@ -1,0 +1,10 @@
+language: node_js
+node_js:
+  - lts/*
+
+jobs:
+  include:
+    - stage: "Test the server"
+      before_install: cd backend
+    - stage: "Test frontend code"
+      before_install: cd frontend
