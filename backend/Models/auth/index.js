@@ -17,5 +17,5 @@ module.exports = {
   getUser,
   verifyEmail,
   resetPassword,
-  verifyNewEmail,
+  verifyNewEmail
 };

@@ -1,4 +1,5 @@
-const {pool} = require('../db');
+/* eslint-disable no-async-promise-executor */
+const { pool } = require('../db');
 const bcrypt = require('bcryptjs');
 const isCorrect = require('./isCorrect');
 
@@ -10,7 +11,7 @@ const isCorrect = require('./isCorrect');
  * @param {String} param0.new_password
  * @return {Promise}
  */
-function updatePassword({username, password, new_password: newPassword}) {
+function updatePassword({ username, password, new_password: newPassword }) {
   return new Promise(async (resolve, reject) => {
     let ans;
     try {
@@ -28,14 +29,14 @@ function updatePassword({username, password, new_password: newPassword}) {
             return reject(error);
           }
           pool.query(
-              `UPDATE users SET password=? WHERE username=?`,
-              [hash, username],
-              (error, results) => {
-                if (error) {
-                  return reject(error);
-                }
-                return resolve('Password updated');
+            `UPDATE users SET password=? WHERE username=?`,
+            [hash, username],
+            error => {
+              if (error) {
+                return reject(error);
               }
+              return resolve('Password updated');
+            }
           );
         });
       });

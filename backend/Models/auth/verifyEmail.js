@@ -1,4 +1,4 @@
-const {pool} = require('../db');
+const { pool } = require('../db');
 
 /**
  *
@@ -8,7 +8,7 @@ const {pool} = require('../db');
  * @param {Number} param0.otp
  * @return {Promise}
  */
-function verifyEmail({username, otp}) {
+function verifyEmail({ username, otp }) {
   return new Promise((resolve, reject) => {
     let query = `UPDATE users SET verified=?`;
     let arr = [1];
@@ -21,7 +21,7 @@ function verifyEmail({username, otp}) {
       }
       if (!results.changedRows) {
         return reject(
-            'Account does not exist with this username or otp is invalid'
+          'Account does not exist with this username or otp is invalid'
         );
       }
       return resolve(results);
