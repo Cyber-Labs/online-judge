@@ -1,4 +1,4 @@
-const { pool } = require("../db");
+const { pool } = require('../db');
 /**
  *
  * @param {Object} param0
@@ -11,7 +11,6 @@ const { pool } = require("../db");
 function makeUserAdmin({
   username,
   group_id: group_id,
-  admin: admin,
   usernameToChange: usernameToChange
 }) {
   return new Promise(function(resolve, reject) {

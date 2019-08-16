@@ -1,4 +1,5 @@
-const { pool } = require("../db");
+/* eslint-disable no-undef */
+const { pool } = require('../db');
 /**
  *
  * @param {Object} param0
@@ -10,7 +11,7 @@ const { pool } = require("../db");
  */
 
 function addGroup({ username, name, description, confidential }) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     pool.getConnection(function(error, connection) {
       if (error) {
         return reject(error);
@@ -23,19 +24,19 @@ function addGroup({ username, name, description, confidential }) {
           `INSERT INTO groups(name,description,confidential,created_by) VALUES (?,?,?,?) WHERE
             (SELECT COUNT(username) FROM users WHERE (username=? AND admin=1) `,
           [name, description, confidential, username, username],
-          async (error, results, fields) => {
+          async (error, results) => {
             if (error) {
-              connection.rollback(function(error) {
+              connection.rollback(function() {
                 connection.release();
               });
               return reject(error);
             }
             let xy = new Promise(function(resolve, reject) {
               connection.query(
-                "INSERT INTO UserGroups(`username`,`group_id`,`admin`)" +
-                  "VALUES(?,?,?)",
+                'INSERT INTO UserGroups(`username`,`group_id`,`admin`)' +
+                  'VALUES(?,?,?)',
                 [username, results.insertId, 1],
-                (error, results, fields) => {
+                error => {
                   if (error) {
                     reject(error);
                     return;
@@ -46,7 +47,7 @@ function addGroup({ username, name, description, confidential }) {
             try {
               await xy;
             } catch (e) {
-              connection.rollback(function(error) {
+              connection.rollback(function() {
                 connection.release();
                 reject(e);
               });

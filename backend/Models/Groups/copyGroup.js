@@ -1,4 +1,5 @@
-const { pool } = require("../db");
+/* eslint-disable no-undef */
+const { pool } = require('../db');
 /**
   * @param {Object} param0
   * @param {String} param0.username
@@ -7,7 +8,7 @@ const { pool } = require("../db");
   * @return {Promise}
 */
 function copyGroup({ username, description, confidential, newName, name }) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     pool.getConnection(function(error, connection) {
       if (error) {
         reject(error);
@@ -20,20 +21,20 @@ function copyGroup({ username, description, confidential, newName, name }) {
           `INSERT INTO groups(name,description,confidential,created_by) VALUES (?,?,?,?) WHERE
                   (SELECT COUNT(username) FROM users WHERE (username=? AND admin=1) `,
           [newName, description, confidential, username, username],
-          async (error, results, fields) => {
+          async (error, results) => {
             if (error) {
               reject(error);
-              connection.rollback(function(error) {
+              connection.rollback(function() {
                 connection.release();
               });
               return;
             }
             let xy = new Promise(function(resolve, reject) {
               connection.query(
-                "INSERT INTO UserGroups(`username`,`group_id`,`admin`)" +
-                  "VALUES(?,?,?)",
+                'INSERT INTO UserGroups(`username`,`group_id`,`admin`)' +
+                  'VALUES(?,?,?)',
                 [username, results.insertId, 1],
-                (error, results, fields) => {
+                error => {
                   if (error) {
                     reject(error);
                     return;
@@ -44,7 +45,7 @@ function copyGroup({ username, description, confidential, newName, name }) {
             try {
               await xy;
             } catch (e) {
-              connection.rollback(function(error) {
+              connection.rollback(function() {
                 connection.release();
                 reject(e);
               });
@@ -59,7 +60,7 @@ function copyGroup({ username, description, confidential, newName, name }) {
                   UPDATE tmptable SET group_id = ? WHERE group_id = (SELECT count(id),name FROM groups WHERE name=?) ;
                   INSERT INTO UserGroups SELECT * FROM tmptable WHERE group_id =  ? ;`,
                 [name, results.insertId, name, results.insertId],
-                (error, results, fields) => {
+                error => {
                   if (error) {
                     reject(error);
                     return;
@@ -70,7 +71,7 @@ function copyGroup({ username, description, confidential, newName, name }) {
             try {
               await insertion;
             } catch (e) {
-              connection.rollback(function(error) {
+              connection.rollback(function() {
                 connection.release();
                 reject(e);
               });

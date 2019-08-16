@@ -1,11 +1,11 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const groups = require(".../../../Models/Groups/group-model");
+const groups = require('.../../../Models/Groups/group-model');
 
-const validator = require("../../../Schema");
-const groupSchema = require("../Schema/groups/groups");
+const validator = require('../../../Schema');
+const groupSchema = require('../Schema/groups/groups');
 
-router.post("/addGroup", (req, res) => {
+router.post('/addGroup', (req, res) => {
   let validate = validator.compile(groupSchema.addGroup);
   let valid = validate(req.body);
   if (!valid) {
@@ -13,8 +13,8 @@ router.post("/addGroup", (req, res) => {
       success: false,
       error: validate.errors.reduce
         ? validate.errors.reduce(function(prev, curr) {
-            return curr.message + ";" + prev;
-          }, "")
+            return curr.message + ';' + prev;
+          }, '')
         : validate.errors,
       results: null
     });
@@ -29,7 +29,7 @@ router.post("/addGroup", (req, res) => {
     });
 });
 
-router.post("/customGroup", (req, res) => {
+router.post('/customGroup', (req, res) => {
   let validate = validator.compile(groupSchema.customGroup);
   let valid = validate(req.body);
   if (!valid) {
@@ -37,8 +37,8 @@ router.post("/customGroup", (req, res) => {
       success: false,
       error: validate.errors.reduce
         ? validate.errors.reduce(function(prev, curr) {
-            return curr.message + ";" + prev;
-          }, "")
+            return curr.message + ';' + prev;
+          }, '')
         : validate.errors,
       results: null
     });
@@ -53,7 +53,7 @@ router.post("/customGroup", (req, res) => {
     });
 });
 
-router.post("/copyGroup", (req, res) => {
+router.post('/copyGroup', (req, res) => {
   let validate = validator.compile(groupSchema.copyGroup);
   let valid = validate(req.body);
   if (!valid) {
@@ -61,8 +61,8 @@ router.post("/copyGroup", (req, res) => {
       success: false,
       error: validate.errors.reduce
         ? validate.errors.reduce(function(prev, curr) {
-            return curr.message + ";" + prev;
-          }, "")
+            return curr.message + ';' + prev;
+          }, '')
         : validate.errors,
       results: null
     });
@@ -77,7 +77,7 @@ router.post("/copyGroup", (req, res) => {
     });
 });
 
-router.get("/getAllGroupsOfUser", function(req, res) {
+router.get('/getAllGroupsOfUser', function(req, res) {
   req.query.username = req.body.username;
   groups
     .getAllGroupsOfUser(req.query)
@@ -85,7 +85,7 @@ router.get("/getAllGroupsOfUser", function(req, res) {
     .catch(error => res.json({ success: false, results: null, error }));
 });
 
-router.get("/getAllGroups", function(req, res) {
+router.get('/getAllGroups', function(req, res) {
   req.query.username = req.body.username;
   groups
     .getAllGroups(req.query)
@@ -93,7 +93,7 @@ router.get("/getAllGroups", function(req, res) {
     .catch(error => res.json({ success: false, results: null, error }));
 });
 
-router.get("/getGroupById", function(req, res) {
+router.get('/getGroupById', function(req, res) {
   req.query.username = req.body.username;
   req.query.group_id = req.body.group_id;
   groups
@@ -102,7 +102,7 @@ router.get("/getGroupById", function(req, res) {
     .catch(error => res.json({ success: false, results: null, error }));
 });
 
-router.put("/updateGroup", (req, res) => {
+router.put('/updateGroup', (req, res) => {
   let validate = validator.compile(groupSchema.updateGroup);
   let valid = validate(req.body);
   if (!valid) {
@@ -110,8 +110,8 @@ router.put("/updateGroup", (req, res) => {
       success: false,
       error: validate.errors.reduce
         ? validate.errors.reduce(function(prev, curr) {
-            return curr.message + ";" + prev;
-          }, "")
+            return curr.message + ';' + prev;
+          }, '')
         : validate.errors,
       results: null
     });
@@ -124,7 +124,7 @@ router.put("/updateGroup", (req, res) => {
       res.status(200).json({ success: false, results: null, error });
     });
 });
-router.delete("/deleteGroup", function(req, res) {
+router.delete('/deleteGroup', function(req, res) {
   req.query.username = req.body.username;
   req.query.group_id = req.body.group_id;
   groups
@@ -133,7 +133,7 @@ router.delete("/deleteGroup", function(req, res) {
     .catch(error => res.json({ success: false, results: null, error }));
 });
 
-router.post("/addUserToGroup", (req, res) => {
+router.post('/addUserToGroup', (req, res) => {
   let validate = validator.compile(groupSchema.addUserToGroup);
   let valid = validate(req.body);
   if (!valid) {
@@ -141,8 +141,8 @@ router.post("/addUserToGroup", (req, res) => {
       success: false,
       error: validate.errors.reduce
         ? validate.errors.reduce(function(prev, curr) {
-            return curr.message + ";" + prev;
-          }, "")
+            return curr.message + ';' + prev;
+          }, '')
         : validate.errors,
       results: null
     });
@@ -157,7 +157,7 @@ router.post("/addUserToGroup", (req, res) => {
     });
 });
 
-router.post("/makeUserAdmin", (req, res) => {
+router.post('/makeUserAdmin', (req, res) => {
   let validate = validator.compile(groupSchema.makeUserAdmin);
   let valid = validate(req.body);
   if (!valid) {
@@ -165,8 +165,8 @@ router.post("/makeUserAdmin", (req, res) => {
       success: false,
       error: validate.errors.reduce
         ? validate.errors.reduce(function(prev, curr) {
-            return curr.message + ";" + prev;
-          }, "")
+            return curr.message + ';' + prev;
+          }, '')
         : validate.errors,
       results: null
     });
@@ -182,5 +182,5 @@ router.post("/makeUserAdmin", (req, res) => {
 });
 
 router.use((req, res) => {
-  res.status(404).json({ success: false, error: "not found", results: null });
+  res.status(404).json({ success: false, error: 'not found', results: null });
 });
