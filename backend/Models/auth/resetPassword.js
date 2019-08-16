@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const {pool} = require('../db');
+const { pool } = require('../db');
 
 /**
  *
@@ -14,7 +14,7 @@ function resetPassword({
   username,
   password_confirm: passwordConfirm,
   password,
-  otp,
+  otp
 }) {
   return new Promise((resolve, reject) => {
     if (password !== passwordConfirm) {
@@ -29,17 +29,17 @@ function resetPassword({
           return reject(error);
         }
         pool.query(
-            `UPDATE users SET password=?,otp_valid_upto=NOW() WHERE username=? AND otp_valid_upto>=NOW() AND otp=?`,
-            [hash, username, otp],
-            (error, results) => {
-              if (error) {
-                return reject(error);
-              }
-              if (!results.changedRows) {
-                return reject('Invalid otp or incorrect username');
-              }
-              return resolve(results);
+          `UPDATE users SET password=?,otp_valid_upto=NOW() WHERE username=? AND otp_valid_upto>=NOW() AND otp=?`,
+          [hash, username, otp],
+          (error, results) => {
+            if (error) {
+              return reject(error);
             }
+            if (!results.changedRows) {
+              return reject('Invalid otp or incorrect username');
+            }
+            return resolve(results);
+          }
         );
       });
     });

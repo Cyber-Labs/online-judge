@@ -1,6 +1,7 @@
+/* eslint-disable no-async-promise-executor */
 const bcrypt = require('bcryptjs');
-const {pool} = require('../db');
-const {email} = require('../../utils');
+const { pool } = require('../db');
+const { email } = require('../../utils');
 const otplib = require('otplib');
 
 /**
@@ -25,7 +26,7 @@ function signup({
   branch,
   department,
   admission_no: admissionNo,
-  semester,
+  semester
 }) {
   return new Promise(async (resolve, reject) => {
     bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS), (error, salt) => {
@@ -39,36 +40,34 @@ function signup({
         const secret = otplib.authenticator.generateSecret();
         const otp = otplib.authenticator.generate(secret);
         pool.query(
-            `INSERT INTO users (username,name,email,password,branch, 
+          `INSERT INTO users (username,name,email,password,branch, 
             department,admission_no,semester,otp,otp_valid_upto) VALUES(?,?,?,?,?,?,?,?,?,NOW()+INTERVAL 1 DAY)`,
-            [
-              username,
-              name,
-              emailId,
-              hash,
-              branch,
-              department,
-              admissionNo,
-              semester,
-              otp,
-            ],
-            (error, results) => {
-              if (error) {
-                return reject(error);
-              }
-              let subject = 'Email verification';
-              const PORT = process.env.PORT || 5000;
-              let html = `<p>Hello ${name} !</p>
+          [
+            username,
+            name,
+            emailId,
+            hash,
+            branch,
+            department,
+            admissionNo,
+            semester,
+            otp
+          ],
+          error => {
+            if (error) {
+              return reject(error);
+            }
+            let subject = 'Email verification';
+            const PORT = process.env.PORT || 5000;
+            let html = `<p>Hello ${name} !</p>
                           <p>The OTP for verifying your email is ${otp}</p>
                           <p>Please verify your email by visiting the following link</p>
-                          <a href='http://${
-  process.env.HOST_NAME
-}:${PORT}/auth/verify_email?username=${username}'>Verify your email</a>`;
-              email(emailId, subject, html);
-              return resolve(
-                  'Account created. Please activate your account using the OTP sent to your email address.'
-              );
-            }
+                          <a href='http://${process.env.HOST_NAME}:${PORT}/auth/verify_email?username=${username}'>Verify your email</a>`;
+            email(emailId, subject, html);
+            return resolve(
+              'Account created. Please activate your account using the OTP sent to your email address.'
+            );
+          }
         );
       });
     });
