@@ -10,3 +10,4 @@ jobs:
 
     - stage: 'Test frontend code'
       before_install: cd frontend
+      script: npm run lint

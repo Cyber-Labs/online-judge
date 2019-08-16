@@ -1,19 +1,21 @@
 {
-  "extends": ["eslint:recommended", "prettier"],
   "env": {
-    "node": true,
-    "browser": false,
-    "commonjs": true,
+    "browser": true,
     "es6": true
   },
+  "extends": ["airbnb", "prettier"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
   "parserOptions": {
-    "ecmaVersion": 2018
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
   },
-  "plugins": ["prettier"],
+  "plugins": ["react", "prettier"],
   "rules": {
     "linebreak-style": ["error", "unix"],
     "semi": ["error", "always"],
