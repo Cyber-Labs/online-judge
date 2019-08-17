@@ -1,5 +1,5 @@
-const bcrypt = require('bcryptjs')
-const { pool } = require('../db')
+const bcrypt = require('bcryptjs');
+const { pool } = require('../db');
 
 /**
  *
@@ -10,7 +10,7 @@ const { pool } = require('../db')
  * @param {Number} param0.otp
  * @return {Promise}
  */
-function resetPassword ({
+function resetPassword({
   username,
   password_confirm: passwordConfirm,
   password,
@@ -18,32 +18,32 @@ function resetPassword ({
 }) {
   return new Promise((resolve, reject) => {
     if (password !== passwordConfirm) {
-      return reject('Two passwords do not match')
+      return reject('Two passwords do not match');
     }
     bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS), (error, salt) => {
       if (error) {
-        return reject(error)
+        return reject(error);
       }
       bcrypt.hash(password, salt, (error, hash) => {
         if (error) {
-          return reject(error)
+          return reject(error);
         }
         pool.query(
           `UPDATE users SET password=?,otp_valid_upto=NOW() WHERE username=? AND otp_valid_upto>=NOW() AND otp=?`,
           [hash, username, otp],
           (error, results) => {
             if (error) {
-              return reject(error)
+              return reject(error);
             }
             if (!results.changedRows) {
-              return reject('Invalid otp or incorrect username')
+              return reject('Invalid otp or incorrect username');
             }
-            return resolve(results)
+            return resolve(results);
           }
-        )
-      })
-    })
-  })
+        );
+      });
+    });
+  });
 }
 
-module.exports = resetPassword
+module.exports = resetPassword;

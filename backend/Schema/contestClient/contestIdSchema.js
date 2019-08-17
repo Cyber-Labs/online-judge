@@ -12,6 +12,6 @@ const contestIdSchema = {
     },
     _: 'Invalid data'
   }
-}
+};
 
-module.exports = contestIdSchema
+module.exports = contestIdSchema;

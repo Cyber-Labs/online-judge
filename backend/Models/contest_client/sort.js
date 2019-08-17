@@ -1,12 +1,10 @@
-const {
-  pool
-} = require('../db')
+const { pool } = require('../db');
 
 /**
  *
  */
 
-function sort () {
+function sort() {
   pool.query(
     `UPDATE contests
         SET status = 1
@@ -21,11 +19,11 @@ function sort () {
               `,
     (error, results) => {
       if (error) {
-        return ('Status cant be updated')
+        return 'Status cant be updated';
       }
-      return (results)
+      return results;
     }
-  )
+  );
 }
 
-module.exports = sort
+module.exports = sort;

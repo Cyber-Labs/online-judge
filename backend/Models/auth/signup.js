@@ -1,8 +1,8 @@
 /* eslint-disable no-async-promise-executor */
-const bcrypt = require('bcryptjs')
-const { pool } = require('../db')
-const { email } = require('../../utils')
-const otplib = require('otplib')
+const bcrypt = require('bcryptjs');
+const { pool } = require('../db');
+const { email } = require('../../utils');
+const otplib = require('otplib');
 
 /**
  *
@@ -18,7 +18,7 @@ const otplib = require('otplib')
  * @return {Promise}
  *
  */
-function signup ({
+function signup({
   username,
   email: emailId,
   name,
@@ -31,14 +31,14 @@ function signup ({
   return new Promise(async (resolve, reject) => {
     bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS), (error, salt) => {
       if (error) {
-        return reject(error)
+        return reject(error);
       }
       bcrypt.hash(password, salt, (error, hash) => {
         if (error) {
-          return reject(error)
+          return reject(error);
         }
-        const secret = otplib.authenticator.generateSecret()
-        const otp = otplib.authenticator.generate(secret)
+        const secret = otplib.authenticator.generateSecret();
+        const otp = otplib.authenticator.generate(secret);
         pool.query(
           `INSERT INTO users (username,name,email,password,branch, 
             department,admission_no,semester,otp,otp_valid_upto) VALUES(?,?,?,?,?,?,?,?,?,NOW()+INTERVAL 1 DAY)`,
@@ -55,23 +55,23 @@ function signup ({
           ],
           error => {
             if (error) {
-              return reject(error)
+              return reject(error);
             }
-            const subject = 'Email verification'
-            const PORT = process.env.PORT || 5000
+            const subject = 'Email verification';
+            const PORT = process.env.PORT || 5000;
             const html = `<p>Hello ${name} !</p>
                           <p>The OTP for verifying your email is ${otp}</p>
                           <p>Please verify your email by visiting the following link</p>
-                          <a href='http://${process.env.HOST_NAME}:${PORT}/auth/verify_email?username=${username}'>Verify your email</a>`
-            email(emailId, subject, html)
+                          <a href='http://${process.env.HOST_NAME}:${PORT}/auth/verify_email?username=${username}'>Verify your email</a>`;
+            email(emailId, subject, html);
             return resolve(
               'Account created. Please activate your account using the OTP sent to your email address.'
-            )
+            );
           }
-        )
-      })
-    })
-  })
+        );
+      });
+    });
+  });
 }
 
-module.exports = signup
+module.exports = signup;

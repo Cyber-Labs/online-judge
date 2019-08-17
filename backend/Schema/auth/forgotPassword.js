@@ -16,6 +16,6 @@ const schema = {
     },
     _: 'Invalid data'
   }
-}
+};
 
-module.exports = schema
+module.exports = schema;

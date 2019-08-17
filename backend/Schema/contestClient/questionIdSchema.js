@@ -15,6 +15,6 @@ const questionIdSchema = {
     },
     _: 'Invalid data'
   }
-}
+};
 
-module.exports = questionIdSchema
+module.exports = questionIdSchema;
