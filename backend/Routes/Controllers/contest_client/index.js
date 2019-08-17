@@ -96,6 +96,7 @@ app.get('/contests/', authMiddleware.verifyUser.verifyAccessToken, (req, res) =>
 });
 
 app.get('/questions', authMiddleware.verifyUser.verifyAccessToken, (req, res) => {
+    sort();
     let contestId  = contestMap();
     client
         .getQuestions(contestId)
