@@ -16,7 +16,7 @@ const {pool} = require('../db');
                      return reject('user not found');
                  }
                  console.log(results);
-                 return resolve(results);
+                 return resolve(results); 
              }
         );
      });
