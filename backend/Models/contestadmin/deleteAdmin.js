@@ -7,7 +7,7 @@ function deleteAdmin({
 }){
     return new Promise((resolve,reject)=>{
         pool.query(
-            'UPDATE admin_of_contest SET admin_of_contest.delete=1 WHERE (SELECT is_admin FROM admin_of_contest WHERE admin_name =? AND contest_id = ?) AND admin_name = ? AND contest_id = ? ',
+            'UPDATE admin_of_contest SET admin_of_contest.delete_status=1 WHERE (SELECT is_admin FROM admin_of_contest WHERE admin_name =? AND contest_id = ?) AND admin_name = ? AND contest_id = ? ',
             [username,contestId,adminname,contestId],
             (error,results)=>{
                 if(error){

@@ -7,7 +7,7 @@ function deleteQuestion({
 }){
     return new Promise((resolve,reject)=>{
         podol.query(
-            'UPDATE questions SET questions.delete=1 WHERE (SELECT is_admin FROM admin_of_contest WHERE admin_name =? AND contest_id = ?) AND id = ? ',
+            'UPDATE questions SET questions.delete_status=1 WHERE (SELECT is_admin FROM admin_of_contest WHERE admin_name =? AND contest_id = ?) AND id = ? ',
             [username,contestId,questionId],
             (error,results)=>{
                 if(error){
