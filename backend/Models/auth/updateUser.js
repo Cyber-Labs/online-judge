@@ -1,6 +1,6 @@
-const { pool } = require('../db');
-const { email } = require('../../utils');
-const otplib = require('otplib');
+const { pool } = require('../db')
+const { email } = require('../../utils')
+const otplib = require('otplib')
 
 /**
  *
@@ -15,7 +15,7 @@ const otplib = require('otplib');
  * @return {Promise}
  *
  */
-function updateUser({
+function updateUser ({
   username,
   email: emailId,
   name,
@@ -25,59 +25,59 @@ function updateUser({
   semester
 }) {
   return new Promise((resolve, reject) => {
-    const secret = otplib.authenticator.generateSecret();
-    const otp = otplib.authenticator.generate(secret);
-    let query = `UPDATE users SET `;
-    let arr = [];
-    let needsChange = true;
+    const secret = otplib.authenticator.generateSecret()
+    const otp = otplib.authenticator.generate(secret)
+    let query = `UPDATE users SET `
+    const arr = []
+    let needsChange = true
     if (name) {
-      query += `name=?,`;
-      arr.push(name);
+      query += `name=?,`
+      arr.push(name)
     }
     if (branch) {
-      query += `branch=?,`;
-      arr.push(branch);
+      query += `branch=?,`
+      arr.push(branch)
     }
     if (department) {
-      query += `department=?,`;
-      arr.push(department);
+      query += `department=?,`
+      arr.push(department)
     }
     if (admissionNo) {
-      query += `admission_no=?,`;
-      arr.push(admissionNo);
+      query += `admission_no=?,`
+      arr.push(admissionNo)
     }
     if (semester) {
-      query += `semester=?,`;
-      arr.push(semester);
+      query += `semester=?,`
+      arr.push(semester)
     }
     if (emailId) {
-      needsChange = false;
-      query += `otp=?,otp_valid_upto=NOW()+INTERVAL 1 DAY `;
-      arr.push(otp);
+      needsChange = false
+      query += `otp=?,otp_valid_upto=NOW()+INTERVAL 1 DAY `
+      arr.push(otp)
     }
     if (needsChange) {
-      query = query.slice(0, -1);
+      query = query.slice(0, -1)
     }
-    query += ` WHERE username=?`;
-    arr.push(username);
+    query += ` WHERE username=?`
+    arr.push(username)
     pool.query(query, arr, error => {
       if (error) {
-        return reject(error);
+        return reject(error)
       }
       if (emailId) {
-        let subject = 'Email verification';
-        const PORT = process.env.PORT || 5000;
-        let html = `<p>Hello ${username} !</p>
+        const subject = 'Email verification'
+        const PORT = process.env.PORT || 5000
+        const html = `<p>Hello ${username} !</p>
                     <p>The OTP for verifying your new email is ${otp}</p>
                     <p>Please verify your email by visiting the following link</p>
-                    <a href='http://${process.env.HOST_NAME}:${PORT}/auth/verify_new_email?email_id=${emailId}&username=${username}'>Verify your email</a>`;
-        email(emailId, subject, html);
-        return resolve('User info updated. Please verify your email');
+                    <a href='http://${process.env.HOST_NAME}:${PORT}/auth/verify_new_email?email_id=${emailId}&username=${username}'>Verify your email</a>`
+        email(emailId, subject, html)
+        return resolve('User info updated. Please verify your email')
       } else {
-        return resolve('User info updated');
+        return resolve('User info updated')
       }
-    });
-  });
+    })
+  })
 }
 
-module.exports = updateUser;
+module.exports = updateUser

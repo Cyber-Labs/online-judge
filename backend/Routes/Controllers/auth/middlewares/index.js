@@ -1,3 +1,3 @@
-const verifyUser = require('./verifyUser');
+const verifyUser = require('./verifyUser')
 
-module.exports = { verifyUser };
+module.exports = { verifyUser }

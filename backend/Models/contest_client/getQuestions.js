@@ -1,25 +1,25 @@
-const {pool} = require('../db');
+const {
+  pool
+} = require('../db')
 
 /**
- * @param {Number} contest_id
- * @returns {Promise} 
+ * @param {Number} contestId
+ * @returns {Promise}
  */
 
- function getQuestions(contest_id){
-     return new Promise((resolve,reject) => {
-         pool.query(
-             'SELECT id,questionName,questionType,questionDifficulty,questionScore FROM questions WHERE contest_id IN (?)',
-             [contest_id],
-             (error, results) => {
-                 if(error){
-                     console.log('failed');
-                     return reject('user not found');
-                 }
-                 console.log(results);
-                 return resolve(results); 
-             }
-        );
-     });
- }
+function getQuestions (contestId) {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      'SELECT id,questionName,questionType,questionDifficulty,questionScore FROM questions WHERE contest_id IN (?)',
+      [contestId],
+      (error, results) => {
+        if (error) {
+          return reject("request cannot be processed")
+        }
+        return resolve(results)
+      }
+    )
+  })
+}
 
- module.exports = getQuestions;
+module.exports = getQuestions
