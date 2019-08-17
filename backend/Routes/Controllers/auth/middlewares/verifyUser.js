@@ -22,7 +22,7 @@ function verifyAccessToken(req, res, next) {
         res.status(401).json({
           success: false,
           error,
-          results: null,
+          results: null
         });
         return;
       }
@@ -33,10 +33,10 @@ function verifyAccessToken(req, res, next) {
     res.status(401).json({
       success: false,
       error: 'Access code not included in the header of the request',
-      results: null,
+      results: null
     });
     return;
   }
 }
 
-module.exports = {verifyAccessToken};
+module.exports = { verifyAccessToken };
