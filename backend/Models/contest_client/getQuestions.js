@@ -1,14 +1,14 @@
 const {pool} = require('../db');
 
 /**
- * @param {String} contest_id
+ * @param {Number} contest_id
  * @returns {Promise} 
  */
 
  function getQuestions(contest_id){
      return new Promise((resolve,reject) => {
          pool.query(
-             'SELECT id,questionName,questionType,questionDifficulty,questionScore FROM questions WHERE contest_id = ?',
+             'SELECT id,questionName,questionType,questionDifficulty,questionScore FROM questions WHERE contest_id IN (?)',
              [contest_id],
              (error, results) => {
                  if(error){

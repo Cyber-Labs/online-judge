@@ -94,3 +94,23 @@ app.get('/contests/', authMiddleware.verifyUser.verifyAccessToken, (req, res) =>
             });
         });
 });
+
+app.get('/questions', authMiddleware.verifyUser.verifyAccessToken, (req, res) => {
+    let contestId  = contestMap();
+    client
+        .getQuestions(contestId)
+        .then((results) => {
+            return res.status(200).json({
+                success: true,
+                error: null,
+                results,
+            });
+        })
+        .catch((error) => {
+            return res.status(400).json({
+                success: false,
+                error,
+                results: null,
+            });
+        });
+});

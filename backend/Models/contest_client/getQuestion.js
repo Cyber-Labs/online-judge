@@ -1,7 +1,7 @@
 const {pool} = require('../db');
 
 /**
- * @param {String} question_id
+ * @param {Number} question_id
  * @returns {Promise} 
  */
 

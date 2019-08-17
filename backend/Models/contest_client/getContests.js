@@ -1,7 +1,7 @@
 const {pool} = require('../db');
 
 /**
- * @param {String} groupIdArray
+ * @param {Array} groupIdArray
  * @returns {Promise} 
  */
 
@@ -13,7 +13,7 @@ const {pool} = require('../db');
                 WHEN (CURRENT_TIMESTAMP - end_time>0)=1 THEN 2
                 WHEN (CURRENT_TIMESTAMP - start_time<0)=1 THEN 0
                 END) this_status
-                FROM checktime AS c WHERE group_id = 1;
+                FROM contests AS c WHERE group_id IN (?);
                 `,[groupIdArray],(error, results) => {
                  if(error){
                      console.log('failed');
