@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 if (!process.env.NODE_ENV) {
   let result = dotenv.config();
   if (result.error) {
-    console.log(error);
+    console.log(result.error);
   }
 }
 

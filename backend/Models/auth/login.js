@@ -1,3 +1,4 @@
+/* eslint-disable no-async-promise-executor */
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const isCorrect = require('./isCorrect');
@@ -9,7 +10,7 @@ const isCorrect = require('./isCorrect');
  * @param {String} param0.password
  * @return {Promise}
  */
-function login({username, password}) {
+function login({ username, password }) {
   return new Promise(async (resolve, reject) => {
     let ans;
     try {
@@ -20,19 +21,19 @@ function login({username, password}) {
     if (ans) {
       const path = require('path');
       const privateKey = fs.readFileSync(
-          path.resolve('rsa_secret.pub'),
-          'utf-8'
+        path.resolve('rsa_secret.pub'),
+        'utf-8'
       );
       jwt.sign(
-          {username},
-          privateKey,
-          {expiresIn: '720h'},
-          (error, accessToken) => {
-            if (error) {
-              return reject(error);
-            }
-            return resolve({username, access_token: accessToken});
+        { username },
+        privateKey,
+        { expiresIn: '720h' },
+        (error, accessToken) => {
+          if (error) {
+            return reject(error);
           }
+          return resolve({ username, access_token: accessToken });
+        }
       );
     } else {
       return reject('Password incorrect');
