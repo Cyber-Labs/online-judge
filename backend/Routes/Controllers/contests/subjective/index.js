@@ -8,7 +8,7 @@ const {
   updateSchema
 } = require("../../../../Schema/contests/subjective");
 
-router.get("to be decided", async (req, res) => {
+router.get("/:adminid/:contestid/:username/:questionid", async (req, res) => {
   const validate = ajv.compile(checkSchema);
   const valid = validate(req.body);
   if (!valid) {
@@ -43,7 +43,7 @@ router.get("to be decided", async (req, res) => {
     });
 });
 
-router.post("to be decided", (req, res) => {
+router.post("/:adminid/:contestid/:username/:questionid/submit", (req, res) => {
   let validate = ajv.compile(updateSchema);
   let valid = validate(req.body);
   if (!valid) {

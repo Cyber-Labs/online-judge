@@ -5,6 +5,7 @@ const { pool } = require("../../db");
  * @param {Number} contestId
  * @param {Number} questionId
  * @param {String} questionName
+ * @return {Promise}
  */
 
 function checkSubjective({ username, contestId, questionId, questionName }) {

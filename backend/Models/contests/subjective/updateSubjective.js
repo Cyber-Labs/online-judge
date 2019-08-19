@@ -1,5 +1,13 @@
 const { pool } = require("../../db");
 
+/**
+ * @param {String} username
+ * @param {Number} contestId
+ * @param {Number} questionId
+ * @param {Number} score
+ * @return {Promise}
+ */
+
 function updateSubjective({ contestId, questionId, username, score }) {
   return new Promise((resolve, reject) => {
     pool,
