@@ -249,8 +249,37 @@ router.post(
           error,
           results: null
         });
+<<<<<<< HEAD
+      }
+      auth
+          .updatePassword(req.body)
+          .then((results) => {
+            return res.status(200).json({
+              success: true,
+
+              error: null,
+              results,
+            });
+          })
+          .catch((error) => {
+            if (error === 'Password incorrect') {
+              return res.status(401).json({
+                success: false,
+                error,
+                results: null,
+              });
+            }
+            return res.status(400).json({
+              success: false,
+              error,
+              results: null,
+            });
+          });
+    }
+=======
       });
   }
+>>>>>>> 49d2f354eed1009b0c4b10c48819da30cc163119
 );
 
 router.post('/forgot_password', (req, res) => {
