@@ -1,8 +1,8 @@
 const getAllQuestionsSchema = {
-  required:['username','contest_id']
+  required: ['username', 'contest_id'],
   properties: {
-    username: {type:'string'},
-    contest_id:{type:'number'},
+    username: { type: 'string' },
+    contest_id: { type: 'number' }
   },
   errorMessage: {
     required: {
@@ -13,7 +13,7 @@ const getAllQuestionsSchema = {
       username: 'Invalid username',
       contest_id: 'Invalid contest id'
     },
-    _: 'Invalid data',
+    _: 'Invalid data'
   }
 };
 

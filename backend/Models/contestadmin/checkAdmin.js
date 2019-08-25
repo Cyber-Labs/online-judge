@@ -1,4 +1,4 @@
-const {pool} = require('../db');
+const { pool } = require('../db');
 
 /**
  *
@@ -21,17 +21,17 @@ const {pool} = require('../db');
 }
 */
 
-function checkadmin(username){
+function checkadmin(username) {
   pool.query(
     `SELECT isadmin FROM users WHERE username=?`,
-        [username],
-        (error, results) => {
-          if(error)
-            return false;
-          if (results[0].isadmin==0) {
-            return false;
-          }
-          return true;
-        })
- }
+    [username],
+    (error, results) => {
+      if (error) return false;
+      if (results[0].isadmin == 0) {
+        return false;
+      }
+      return true;
+    }
+  );
+}
 module.exports = checkadmin;

@@ -1,9 +1,9 @@
 const deleteAdminSchema = {
-  required:['username','contest_id','adminname']
+  required: ['username', 'contest_id', 'adminname'],
   properties: {
-    username: {type: 'string'},
-    contest_id:{type:'number'},
-    adminname:{type:'string'}
+    username: { type: 'string' },
+    contest_id: { type: 'number' },
+    adminname: { type: 'string' }
   },
   errorMessage: {
     required: {
@@ -16,9 +16,8 @@ const deleteAdminSchema = {
       contest_id: 'Invalid contest id',
       adminname: 'Invalid name of admin'
     },
-    _: 'Invalid data',
+    _: 'Invalid data'
   }
-  
 };
 
 module.exports = deleteAdminSchema;
