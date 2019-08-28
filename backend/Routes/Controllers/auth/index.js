@@ -3,6 +3,8 @@ const middleware = require('../auth/middlewares');
 const ajv = require('../../../Schema');
 const express = require('express');
 const router = express.Router();
+router.use(express.json());
+router.use(express.urlencoded({ extended: false }));
 
 const {
   signupSchema,
@@ -25,7 +27,7 @@ function sumErrors(errArray) {
   return errArray.reduce(cb, '');
 }
 
-router.post('/signup', async (req, res) => {
+router.post('/signup', (req, res) => {
   let validate = ajv.compile(signupSchema);
   let valid = validate(req.body);
   if (!valid) {
@@ -38,6 +40,7 @@ router.post('/signup', async (req, res) => {
   auth
     .signup(req.body)
     .then(results => {
+      console.log(res.json);
       return res.status(200).json({
         success: true,
         error: null,
@@ -45,6 +48,8 @@ router.post('/signup', async (req, res) => {
       });
     })
     .catch(error => {
+      console.log('HI');
+      console.log(error);
       return res.status(400).json({
         success: false,
         error,
@@ -53,7 +58,7 @@ router.post('/signup', async (req, res) => {
     });
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', (req, res) => {
   let validate = ajv.compile(loginSchema);
   let valid = validate(req.body);
   if (!valid) {
@@ -91,7 +96,7 @@ router.post('/login', async (req, res) => {
 router.get(
   '/users/:username',
   middleware.verifyUser.verifyAccessToken,
-  async (req, res) => {
+  (req, res) => {
     const username = req.params.username;
     if (!username) {
       return res.status(404).json({
@@ -126,7 +131,7 @@ router.get(
   }
 );
 
-router.post('/verify_email', async (req, res) => {
+router.post('/verify_email', (req, res) => {
   let validate = ajv.compile(verifyEmailSchema);
   let valid = validate(req.body);
   if (!valid) {
@@ -154,7 +159,7 @@ router.post('/verify_email', async (req, res) => {
     });
 });
 
-router.post('/verify_new_email', async (req, res) => {
+router.post('/verify_new_email', (req, res) => {
   let validate = ajv.compile(verifyNewEmailSchema);
   let valid = validate(req.body);
   if (!valid) {
@@ -273,14 +278,7 @@ router.post('/forgot_password', (req, res) => {
       });
     })
     .catch(error => {
-      if (error === 'Email not linked to the username') {
-        return res.status(401).json({
-          success: false,
-          error,
-          results: null
-        });
-      }
-      return res.status(400).json({
+      return res.status(401).json({
         success: false,
         error,
         results: null

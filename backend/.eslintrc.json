@@ -2,9 +2,10 @@
   "extends": ["eslint:recommended", "prettier"],
   "env": {
     "node": true,
-    "browser": false,
+    "browser": true,
     "commonjs": true,
-    "es6": true
+    "es6": true,
+    "jest": true
   },
   "globals": {
     "Atomics": "readonly",
@@ -17,6 +18,7 @@
   "rules": {
     "linebreak-style": ["error", "unix"],
     "semi": ["error", "always"],
-    "prettier/prettier": ["error", { "singleQuote": true }]
+    "prettier/prettier": ["error", { "singleQuote": true }],
+    "no-unused-vars": ["error", { "args": "none" }]
   }
 }
