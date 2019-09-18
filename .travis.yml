@@ -2,12 +2,30 @@ language: node_js
 node_js:
   - lts/*
 
+services:
+  - mysql
+
 jobs:
   include:
     - stage: 'Test the server'
       before_install: cd backend
-      script: npm run lint
+      before_script:
+        - wget https://repo.mysql.com//mysql-apt-config_0.8.13-1_all.deb
+        - sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
+        - sudo apt-get update -q
+        - sudo apt-get install -q -y --allow-unauthenticated -o Dpkg::Options::=--force-confnew mysql-server
+        - sudo systemctl restart mysql
+        - sudo mysql_upgrade
+        - mysql --version
+        - mysql -u root -e 'CREATE DATABASE IF NOT EXISTS test;'
+        - mysql -u root test < database.sql
+        - ssh-keygen -f rsa_secret -N abcde -q
+      script:
+        - npm run lint
+        - npm run test
 
     - stage: 'Test frontend code'
       before_install: cd frontend
-      script: npm run lint
+      script:
+        - npm run lint
+        - npm run test

@@ -7,7 +7,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./index.js",
+    "test": "jest --forceExit",
     "lint": "eslint ./Models ./Routes ./utils ./*.js"
   },
   "repository": {
@@ -32,10 +33,14 @@
     "otplib": "^11.0.1"
   },
   "devDependencies": {
+    "assert": "^2.0.0",
     "eslint": "^6.1.0",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.9.0",
     "nodemon": "^1.19.1",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "sinon": "^7.4.1",
+    "supertest": "^4.0.2"
   }
 }
