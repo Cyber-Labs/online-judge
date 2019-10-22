@@ -1,36 +1,30 @@
-const {pool} = require('../db');
-const jwt = require('jsonwebtoken');
-const fs = require('fs');
+const { pool } = require("../db");
 
 /**
  *
- * @param {String} accessToken
+ * @param {*} param0
+ * @param {String} param0.username
+ * @param {String} param0.email
+ * @param {Number} param0.otp
  * @return {Promise}
  */
-function verifyEmail(accessToken) {
+function verifyEmail({ username, otp }) {
   return new Promise((resolve, reject) => {
-    const pubKey = fs.readFileSync('../../rsa_secret.pub');
-    jwt.verify(accessToken, pubKey, (error, decoded) => {
+    let query = `UPDATE users SET verified=?`;
+    let arr = [1];
+    query += `,otp_valid_upto=NOW() WHERE username=? AND otp=? AND otp_valid_upto>=NOW()`;
+    arr.push(username);
+    arr.push(otp);
+    pool.query(query, arr, (error, results) => {
       if (error) {
         return reject(error);
       }
-      let query = `UPDATE users SET verified=? `;
-      let arr = [1];
-      if (decoded.emailId) {
-        query += `email=? `;
-        arr.push(decoded.emailId);
+      if (!results.changedRows) {
+        return reject(
+          "Account does not exist with this username or otp is invalid"
+        );
       }
-      query += `WHERE username=?`;
-      arr.push(decoded.username);
-      pool.query(query, arr, (error, results) => {
-        if (error) {
-          return reject(error);
-        }
-        if (!results) {
-          return reject('Account does not exist with this username');
-        }
-        return resolve(results);
-      });
+      return resolve(results);
     });
   });
 }

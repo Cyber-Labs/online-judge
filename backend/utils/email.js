@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
@@ -6,11 +6,11 @@ const transporter = nodemailer.createTransport({
   port: process.env.MAIL_SMTP_PORT,
   auth: {
     user: process.env.MAIL_USERNAME,
-    pass: process.env.MAIL_PASSWORD,
-  },
+    pass: process.env.MAIL_PASSWORD
+  }
 });
 
-transporter.verify((error, success) => {
+transporter.verify(error => {
   if (error) {
     console.error(error);
   }
@@ -25,11 +25,11 @@ transporter.verify((error, success) => {
 function email(emaiId, subject, html) {
   const message = {
     from: process.env.MAIL_SENDER,
-    emaiId,
+    to: emaiId,
     subject,
-    html,
+    html
   };
-  transporter.sendMail(message, (error, info) => {
+  transporter.sendMail(message, error => {
     if (error) console.log(error);
   });
 }

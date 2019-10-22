@@ -1,3 +1,12 @@
+const dotenv = require('dotenv');
+
+if (!process.env.NODE_ENV) {
+  let result = dotenv.config();
+  if (result.error) {
+    console.log(result.error);
+  }
+}
+
 const app = require('./Routes');
 
 const PORT = process.env.PORT || 5000;

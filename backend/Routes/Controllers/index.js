@@ -1,6 +1,7 @@
-const app = express();
+const authRouter = require("./auth");
+const express = require("express");
+const router = express.Router();
 
-app.use(express.urlencoded({extended: true}));
-app.use(express.json());
+router.use("/auth", authRouter);
 
-module.exports = app;
+module.exports = router;
