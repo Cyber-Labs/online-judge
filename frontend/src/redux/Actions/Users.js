@@ -7,6 +7,30 @@ import {
 } from '../ActionTypes';
 import { baseUrl } from '../../baseUrl';
 
+export const addUsers = users => ({
+  type: ADD_USERS,
+  payload: users
+});
+
+export const usersLoading = () => ({
+  type: USERS_LOADING
+});
+
+export const usersFailed = errmess => ({
+  type: USERS_FAILED,
+  payload: errmess
+});
+
+export const editUserdispatch = USER => ({
+  type: EDIT_USER,
+  payload: USER
+});
+
+export const editPasswordDispatch = CREDS => ({
+  type: EDIT_PASSWORD,
+  payload: CREDS
+});
+
 export const fetchUsers = () => dispatch => {
   const token = localStorage.getItem('token');
   dispatch(usersLoading(true));
@@ -132,27 +156,3 @@ export const editUser = (_id, firstname, lastname, roll, email) => dispatch => {
       alert(`Your profile could not be edited\nError: ${error.message}`);
     });
 };
-
-export const addUsers = users => ({
-  type: ADD_USERS,
-  payload: users
-});
-
-export const usersLoading = () => ({
-  type: USERS_LOADING
-});
-
-export const usersFailed = errmess => ({
-  type: USERS_FAILED,
-  payload: errmess
-});
-
-export const editUserdispatch = USER => ({
-  type: EDIT_USER,
-  payload: USER
-});
-
-export const editPasswordDispatch = CREDS => ({
-  type: EDIT_PASSWORD,
-  payload: CREDS
-});

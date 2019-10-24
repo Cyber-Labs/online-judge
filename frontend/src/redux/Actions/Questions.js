@@ -7,6 +7,25 @@ import {
 } from '../ActionTypes';
 import { baseUrl } from '../../baseUrl';
 
+export const questionsLoading = () => ({
+  type: QUESTIONS_LOADING
+});
+
+export const questionsFailed = errmess => ({
+  type: QUESTIONS_FAILED,
+  payload: errmess
+});
+
+export const addQuestions = questions => ({
+  type: ADD_QUESTIONS,
+  payload: questions
+});
+
+export const editQuestiondispatch = contests => ({
+  type: EDIT_QUESTION,
+  payload: contests
+});
+
 export const fetchQuestions = () => dispatch => {
   const token = localStorage.getItem('token');
   dispatch(questionsLoading(true));
@@ -134,22 +153,3 @@ export const editQuestion = (id, name, about) => dispatch => {
       alert(`Your question could not be edited\nError: ${error.message}`);
     });
 };
-
-export const questionsLoading = () => ({
-  type: QUESTIONS_LOADING
-});
-
-export const questionsFailed = errmess => ({
-  type: QUESTIONS_FAILED,
-  payload: errmess
-});
-
-export const addQuestions = questions => ({
-  type: ADD_QUESTIONS,
-  payload: questions
-});
-
-export const editQuestiondispatch = contests => ({
-  type: EDIT_QUESTION,
-  payload: contests
-});

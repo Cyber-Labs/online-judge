@@ -4,6 +4,9 @@ const Contests = (
   state = { isLoading: true, errMess: null, contests: [] },
   action
 ) => {
+  let contest;
+  let newcontest;
+  let resp;
   switch (action.type) {
     case ActionTypes.ADD_CONTESTS:
       return {
@@ -20,15 +23,15 @@ const Contests = (
       return { ...state, isLoading: false, errMess: action.payload };
 
     case ActionTypes.ADD_CONTEST:
-      var contest = action.payload;
+      contest = action.payload;
       return { ...state, contests: state.contests.concat(contest) };
 
     case ActionTypes.EDIT_CONTEST:
-      var newcontest = action.payload;
+      newcontest = action.payload;
       return {
         ...state,
-        contests: state.contests.map(contest => {
-          if (contest._id === newcontest._id) {
+        contests: state.contests.map(Contest => {
+          if (Contest.id === newcontest.id) {
             return newcontest;
           }
           return contest;
@@ -36,11 +39,11 @@ const Contests = (
       };
 
     case ActionTypes.DELETE_CONTEST:
-      var resp = action.payload;
+      resp = action.payload;
       return {
         ...state,
-        contests: state.contests.filter(contest => {
-          return contest._id !== resp._id;
+        contests: state.contests.filter(Contest => {
+          return Contest.id !== resp.id;
         })
       };
 

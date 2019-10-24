@@ -1,13 +1,13 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import Contests from './contests';
-import Auth from './auth.js';
+import Auth from './auth';
 import Questions from './questions';
-import Users from './users.js';
+import Users from './users';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-export const ConfigureStore = () => {
+const ConfigureStore = () => {
   const store = createStore(
     combineReducers({
       contests: Contests,
@@ -19,3 +19,5 @@ export const ConfigureStore = () => {
   );
   return store;
 };
+
+export default ConfigureStore;

@@ -79,7 +79,7 @@ export const loginUser = creds => dispatch => {
     });
 };
 
-export const registerUser = creds => dispatch => {
+export const registerUser = creds => {
   return fetch(`${baseUrl}users/signup`, {
     method: 'POST',
     headers: {

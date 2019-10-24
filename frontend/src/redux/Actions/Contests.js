@@ -8,6 +8,30 @@ import {
 } from '../ActionTypes';
 import { baseUrl } from '../../baseUrl';
 
+export const contestsLoading = () => ({
+  type: CONTESTS_LOADING
+});
+
+export const contestsFailed = errmess => ({
+  type: CONTESTS_FAILED,
+  payload: errmess
+});
+
+export const addContests = contests => ({
+  type: ADD_CONTESTS,
+  payload: contests
+});
+
+export const editContestdispatch = contests => ({
+  type: EDIT_CONTEST,
+  payload: contests
+});
+
+export const deleteContestdispatch = resp => ({
+  type: DELETE_CONTEST,
+  payload: resp
+});
+
 export const addContest = contest => ({
   type: ADD_CONTEST,
   payload: contest
@@ -172,27 +196,3 @@ export const fetchContests = () => dispatch => {
     })
     .catch(error => dispatch(contestsFailed(error.message)));
 };
-
-export const contestsLoading = () => ({
-  type: CONTESTS_LOADING
-});
-
-export const contestsFailed = errmess => ({
-  type: CONTESTS_FAILED,
-  payload: errmess
-});
-
-export const addContests = contests => ({
-  type: ADD_CONTESTS,
-  payload: contests
-});
-
-export const editContestdispatch = contests => ({
-  type: EDIT_CONTEST,
-  payload: contests
-});
-
-export const deleteContestdispatch = resp => ({
-  type: DELETE_CONTEST,
-  payload: resp
-});

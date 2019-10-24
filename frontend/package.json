@@ -24,7 +24,7 @@
     "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.js src/**/*.jsx"
+    "lint": "eslint src/components/**/*.js src/redux/**/*.js src/redux/*.js src/**/*.js"
   },
   "author": "Cyber Labs",
   "license": "ISC",
