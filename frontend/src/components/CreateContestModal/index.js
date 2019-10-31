@@ -63,22 +63,18 @@ class CreateContestModal extends Component {
     } else {
       [start, end] = [s, e];
     }
-    if (!end) {
-      this.setState({
-        startTime: start,
-        endTime: start + 1000 * 3600
-      });
-    } else {
-      this.setState({
-        startTime: start,
-        endTime: end
-      });
-    }
+    this.setState({
+      startTime: start,
+      endTime: end
+    });
+    // }
   }
 
   render() {
     const { toggleModal, groups, isOpen } = this.props;
     const { startTime, endTime, selectedGroups } = this.state;
+    // console.log(` start : ${startTime}`);
+    // console.log(` end : ${endTime}`);
     const groupsList = groups.map(group => (
       <Col
         xs={{ offset: 1, size: 11 }}
@@ -265,6 +261,7 @@ class CreateContestModal extends Component {
                     startDate={startTime}
                     endDate={endTime}
                     displayTime
+                    range
                     timezone="Asia/Kolkata"
                     disableDates={date => date < new Date().getTime()}
                   />

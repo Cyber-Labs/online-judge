@@ -7,6 +7,11 @@ import Header from './Header';
 import Footer from './Footer';
 import Home from './Home';
 import Contests from './Contests';
+import ManageContests from './ManageContests';
+import CreateContestModal from './CreateContestModal';
+
+import contests from '../shared/contests';
+import groups from '../shared/groups';
 
 import {
   postContest,
@@ -17,6 +22,10 @@ import {
 import { loginUser, logoutUser, registerUser } from '../redux/Actions/Auth';
 import { postQuestion, fetchQuestions } from '../redux/Actions/Questions';
 import { fetchUsers, editUser, editPassword } from '../redux/Actions/Users';
+import ManageContestQuestions from './RouteComponents/ManageContests/Questions';
+import ManageContestInfo from './RouteComponents/ManageContests/BasicInfo';
+import ManageContestAdmins from './RouteComponents/ManageContests/Admins';
+import ManageContestParticipants from './RouteComponents/ManageContests/Participants';
 
 const mapStateToProps = state => {
   return {
@@ -52,17 +61,30 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { contests, isCreateContestOpen: false };
+    this.toggleCreateContestModal = this.toggleCreateContestModal.bind(this);
+  }
+
   componentDidMount() {
-    const { fetchContests, auth, fetchUsers } = this.props;
-    fetchContests();
+    const { auth, fetchUsers } = this.props;
+    // fetchContests();  // REDUX
     if (auth.isAuthenticated && auth.userinfo.admin) {
       fetchUsers();
     }
   }
 
+  toggleCreateContestModal() {
+    this.setState(prevState => ({
+      isCreateContestOpen: !prevState.isCreateContestOpen
+    }));
+  }
+
   render() {
+    const { contests, isCreateContestOpen } = this.state;
     const {
-      contests,
+      // contests,
       auth,
       loginUser,
       logoutUser,
@@ -137,10 +159,58 @@ class Main extends Component {
           <Route
             exact
             path="/contests"
-            component={() => <Contests contests={contests} auth={auth} />}
+            component={() => (
+              <Contests
+                contests={contests}
+                auth={auth}
+                toggleCreateContestModal={this.toggleCreateContestModal}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/manage-contests"
+            component={() => (
+              <ManageContests
+                contests={contests}
+                toggleCreateContestModal={this.toggleCreateContestModal}
+              />
+            )}
+          />
+          <Route
+            path="/manage-contests/:contestId/questions"
+            component={ManageContestQuestions}
+          />
+          <Route
+            path="/manage-contests/:contestId/basic-info"
+            component={ManageContestInfo}
+          />
+          <Route
+            path="/manage-contests/:contestId/admins"
+            component={ManageContestAdmins}
+          />
+          <Route
+            path="/manage-contests/:contestId/participants"
+            component={ManageContestParticipants}
+          />
+          <Route
+            exact
+            path="/manage-contests/:contestId"
+            component={({ match }) => (
+              <Redirect
+                to={{
+                  pathname: `/manage-contests/${match.params.contestId}/questions`
+                }}
+              />
+            )}
           />
           <Redirect to="/home" />
         </Switch>
+        <CreateContestModal
+          isOpen={isCreateContestOpen}
+          toggleModal={this.toggleCreateContestModal}
+          groups={groups}
+        />
         <Footer />
       </div>
     );
@@ -157,28 +227,28 @@ Main.propTypes = {
       })
     ).isRequired
   }).isRequired,
-  contests: PropTypes.objectOf(
-    PropTypes.shape({
-      contests: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number,
-          name: PropTypes.string,
-          startTime: PropTypes.string,
-          endTime: PropTypes.string,
-          about: PropTypes.string,
-          username: PropTypes.string,
-          status: PropTypes.number.isRequired
-        })
-      ).isRequired,
-      isLoading: PropTypes.any,
-      errMess: PropTypes.string.isRequired
-    })
-  ).isRequired,
+  // contests: PropTypes.objectOf(
+  //   PropTypes.shape({
+  //     contests: PropTypes.arrayOf(
+  //       PropTypes.shape({
+  //         id: PropTypes.number,
+  //         name: PropTypes.string,
+  //         startTime: PropTypes.string,
+  //         endTime: PropTypes.string,
+  //         about: PropTypes.string,
+  //         username: PropTypes.string,
+  //         status: PropTypes.number.isRequired
+  //       })
+  //      ).isRequired,
+  //     isLoading: PropTypes.any,
+  //     errMess: PropTypes.string.isRequired
+  //   })
+  // ).isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired
   }),
   fetchUsers: PropTypes.func.isRequired,
-  fetchContests: PropTypes.func.isRequired,
+  // fetchContests: PropTypes.func.isRequired,
   // fetchQuestions: PropTypes.func.isRequired,
   // postContest: PropTypes.func.isRequired,
   // editContest: PropTypes.func.isRequired,

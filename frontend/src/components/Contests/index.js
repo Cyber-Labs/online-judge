@@ -14,7 +14,6 @@ import Loading from '../Loading';
 import RenderActive from './ActiveList';
 import RenderPast from './PastList';
 import RenderUpcoming from './UpcomingList';
-import CreateContestModal from './CreateContestModal';
 import carouselSlides from './CarouselSlides';
 
 class Contests extends Component {
@@ -23,15 +22,14 @@ class Contests extends Component {
     this.state = {
       activeTab: 'Active',
       remainingTimes: [],
-      selectedContest: -1,
-      isModalOpen: false
+      selectedContest: -1
     };
     this.toggleTab = this.toggleTab.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
   }
 
   componentDidMount() {
     this.countdown = [];
+    window.scrollTo(0, 0);
     const { contests } = this.props;
     if (contests.contests && contests.contests.length) {
       const active = Array.prototype.filter.call(
@@ -50,12 +48,6 @@ class Contests extends Component {
     this.countdown.forEach(countdown => {
       clearInterval(countdown);
     });
-  }
-
-  toggleModal() {
-    this.setState(prevState => ({
-      isModalOpen: !prevState.isModalOpen
-    }));
   }
 
   toggleTab(tab) {
@@ -78,27 +70,8 @@ class Contests extends Component {
   }
 
   render() {
-    const {
-      remainingTimes,
-      selectedContest,
-      activeTab,
-      isModalOpen
-    } = this.state;
-    const { contests, auth } = this.props;
-    const groups = [
-      {
-        id: 0,
-        name: 'B.Tech (CSE)'
-      },
-      {
-        id: 1,
-        name: 'Dual Degree (CSE)'
-      },
-      {
-        id: 2,
-        name: 'Integrated M.Tech (MnC)'
-      }
-    ];
+    const { remainingTimes, selectedContest, activeTab } = this.state;
+    const { contests, auth, toggleCreateContestModal } = this.props;
     let activeContests;
     let pastContests;
     let upcomingContests;
@@ -237,25 +210,20 @@ class Contests extends Component {
                     </h5>
                   </NavItem>
                 </Nav>
-                {auth.isAuthenticated && !auth.userinfo.admin ? (
+                {!auth.isAuthenticated || !auth.userinfo.admin ? (
                   <Nav
                     className={window.innerWidth > 358 ? 'ml-auto' : 'mx-auto'}
                   >
                     <NavItem>
                       <Button
-                        color="primary"
+                        color="success"
                         size="sm"
-                        onClick={this.toggleModal}
+                        onClick={toggleCreateContestModal}
                       >
                         <i className="fa fa-plus" />
                         &nbsp; Create contest
                       </Button>
                     </NavItem>
-                    <CreateContestModal
-                      isOpen={isModalOpen}
-                      toggleModal={this.toggleModal}
-                      groups={groups}
-                    />
                   </Nav>
                 ) : (
                   ' '
@@ -315,7 +283,8 @@ Contests.propTypes = {
         username: PropTypes.string
       })
     ).isRequired
-  }).isRequired
+  }).isRequired,
+  toggleCreateContestModal: PropTypes.func.isRequired
 };
 
 export default Contests;

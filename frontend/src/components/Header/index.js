@@ -55,7 +55,7 @@ class Header extends Component {
             )}
             <NavbarBrand className="mr-auto brand" href="/">
               <img
-                src="images/logo.jpg"
+                src={`${process.env.PUBLIC_URL}/images/logo.jpg`}
                 height="30"
                 width="41"
                 alt="ONLINE JUDGE"
