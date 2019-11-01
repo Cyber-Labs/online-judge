@@ -67,13 +67,13 @@ class Main extends Component {
     this.toggleCreateContestModal = this.toggleCreateContestModal.bind(this);
   }
 
-  componentDidMount() {
-    const { auth, fetchUsers } = this.props;
-    // fetchContests();  // REDUX
-    if (auth.isAuthenticated && auth.userinfo.admin) {
-      fetchUsers();
-    }
-  }
+  // componentDidMount() {
+  //   const { auth, fetchUsers } = this.props;
+  //    fetchContests();  // REDUX
+  //   if (auth.isAuthenticated && auth.userinfo.admin) {
+  //     fetchUsers();
+  //   }
+  // }
 
   toggleCreateContestModal() {
     this.setState(prevState => ({
@@ -219,13 +219,13 @@ class Main extends Component {
 
 Main.propTypes = {
   auth: PropTypes.shape({
-    isAuthenticated: PropTypes.bool,
-    userinfo: PropTypes.objectOf(
-      PropTypes.shape({
-        admin: PropTypes.bool,
-        username: PropTypes.string
-      })
-    ).isRequired
+    isAuthenticated: PropTypes.bool
+    // userinfo: PropTypes.objectOf(
+    //   PropTypes.shape({
+    //     admin: PropTypes.bool,
+    //     username: PropTypes.string
+    //   })
+    // ).isRequired
   }).isRequired,
   // contests: PropTypes.objectOf(
   //   PropTypes.shape({
@@ -247,7 +247,7 @@ Main.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired
   }),
-  fetchUsers: PropTypes.func.isRequired,
+  // fetchUsers: PropTypes.func.isRequired,
   // fetchContests: PropTypes.func.isRequired,
   // fetchQuestions: PropTypes.func.isRequired,
   // postContest: PropTypes.func.isRequired,

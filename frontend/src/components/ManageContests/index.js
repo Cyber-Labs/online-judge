@@ -47,7 +47,7 @@ class ManageContests extends Component {
               {numParticipants}
             </Col>
             <Col lg={2} className="text-center">
-              <Link to={`manage-contests/${id}`}>
+              <Link to={`/manage-contests/${id}`}>
                 <Button color="info">
                   <i className="fa fa-eye" />
                   &nbsp; View

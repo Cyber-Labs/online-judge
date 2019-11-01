@@ -148,13 +148,13 @@ class Header extends Component {
 
 Header.propTypes = {
   auth: PropTypes.shape({
-    isAuthenticated: PropTypes.bool,
-    userinfo: PropTypes.objectOf(
-      PropTypes.shape({
-        admin: PropTypes.bool,
-        username: PropTypes.string
-      })
-    ).isRequired
+    isAuthenticated: PropTypes.bool
+    // userinfo: PropTypes.objectOf(
+    //   PropTypes.shape({
+    //     admin: PropTypes.bool,
+    //     username: PropTypes.string
+    //   })
+    // ).isRequired
   }).isRequired
 };
 export default Header;

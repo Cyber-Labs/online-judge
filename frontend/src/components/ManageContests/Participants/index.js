@@ -66,9 +66,11 @@ class ManageContestsParticipants extends Component {
               </Col>
             </Row>
           ) : (
-            <h2 style={{ display: 'inline' }}>
-              {newName || name}
-              &nbsp;
+            <>
+              <h2 style={{ display: 'inline' }}>
+                {newName || name}
+                &nbsp;
+              </h2>
               <h6
                 className="option"
                 onClick={this.toggleContestNameEdit}
@@ -78,7 +80,7 @@ class ManageContestsParticipants extends Component {
               >
                 <u>Edit</u>
               </h6>
-            </h2>
+            </>
           )}
           <hr />
           <ContestNavPills contestId={id} activeTab="Participants" />

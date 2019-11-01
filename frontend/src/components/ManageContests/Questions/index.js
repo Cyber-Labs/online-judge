@@ -69,7 +69,11 @@ class ManageContestsQuestions extends Component {
                 <b>Difficulty :</b>
                 &nbsp;
                 {difficulty}
-                &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;
+                {window.innerWidth > 1200 ? (
+                  <>&nbsp;&nbsp;&nbsp;&nbsp;</>
+                ) : (
+                  <br />
+                )}
                 <b>Max Score :</b>
                 &nbsp;
                 {maxScore}
@@ -123,9 +127,11 @@ class ManageContestsQuestions extends Component {
               </Col>
             </Row>
           ) : (
-            <h2 style={{ display: 'inline' }}>
-              {newName || name}
-              &nbsp;
+            <>
+              <h2 style={{ display: 'inline' }}>
+                {newName || name}
+                &nbsp;
+              </h2>
               <h6
                 className="option"
                 onClick={this.toggleContestNameEdit}
@@ -135,7 +141,7 @@ class ManageContestsQuestions extends Component {
               >
                 <u>Edit</u>
               </h6>
-            </h2>
+            </>
           )}
           <hr />
           <ContestNavPills contestId={id} activeTab="Questions" />
