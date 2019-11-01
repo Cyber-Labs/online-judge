@@ -1,24 +1,22 @@
 const { pool } = require('../db');
 
 /**
- * @param {Array} groupIdArray
  * @returns {Promise}
  */
 
-function getContests(groupIdArray) {
+function getCompletedContests() {
   return new Promise(function(resolve, reject) {
     pool.query(
-      `SELECT c.*,(CASE 
+      `SELECT id,(CASE 
                 WHEN (CURRENT_TIMESTAMP-start_time >0 AND CURRENT_TIMESTAMP-end_time<0)=1 THEN 1 
                 WHEN (CURRENT_TIMESTAMP - end_time>0)=1 THEN 2
                 WHEN (CURRENT_TIMESTAMP - start_time<0)=1 THEN 0
                 END) this_status
-                FROM contests AS c WHERE group_id IN (?);
+                FROM contests AS c WHERE this_status = 2;
                 `,
-      groupIdArray,
       (error, results) => {
         if (error) {
-          return reject('Contest not found');
+          return reject(error);
         }
         return resolve(results);
       }
@@ -26,4 +24,4 @@ function getContests(groupIdArray) {
   });
 }
 
-module.exports = getContests;
+module.exports = getCompletedContests;

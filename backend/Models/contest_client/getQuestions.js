@@ -8,11 +8,11 @@ const { pool } = require('../db');
 function getQuestions(contestId) {
   return new Promise((resolve, reject) => {
     pool.query(
-      'SELECT id,questionName,questionType,questionDifficulty,questionScore FROM questions WHERE contest_id IN (?)',
+      'SELECT id,name,type,difficulty,max_score FROM questions WHERE contest_id = ?',
       [contestId],
       (error, results) => {
         if (error) {
-          return reject('request cannot be processed');
+          return reject(error);
         }
         return resolve(results);
       }

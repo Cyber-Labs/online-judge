@@ -1,4 +1,4 @@
-const questionIdSchema = {
+const schema = {
   required: ['contestId', 'questionId'],
   properties: {
     contestId: { type: 'number' },
@@ -17,4 +17,4 @@ const questionIdSchema = {
   }
 };
 
-module.exports = questionIdSchema;
+module.exports = schema;

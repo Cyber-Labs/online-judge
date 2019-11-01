@@ -1,15 +1,15 @@
 const { pool } = require('../db');
 
 /**
- * @param {Number} questionId
+ * @param {Number} contestId
  * @returns {Promise}
  */
 
-function getQuestion(questionId) {
+function getAllQuestions(maparray) {
   return new Promise((resolve, reject) => {
     pool.query(
-      'SELECT * FROM questions WHERE  id = ?',
-      [questionId],
+      'SELECT id,contest_id,name,type,difficulty,max_score FROM questions WHERE contest_id IN (?)',
+      [maparray],
       (error, results) => {
         if (error) {
           return reject(error);
@@ -20,4 +20,4 @@ function getQuestion(questionId) {
   });
 }
 
-module.exports = getQuestion;
+module.exports = getAllQuestions;

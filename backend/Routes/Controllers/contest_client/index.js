@@ -1,22 +1,42 @@
 const client = require('../../../Models/contest_client');
-const app = require('../index');
-const ajv = require('../../Schema');
-const authMiddleware = require('../auth/middlewares');
+const middleware = require('./../auth/middlewares');
+const ajv = require('../../../Schema');
+const express = require('express');
+const router = express.Router();
 
-app.get(
-  '/contests',
-  authMiddleware.verifyUser.verifyAccessToken,
-  (req, res) => {
-    const results = client.groupMap(req.body.username);
-    const groupIdArray = results.map(result => result.group_id);
+const {
+  contestIdSchema,
+  questionIdSchema
+} = require('./../../../Schema/contestClient');
+
+router.get('/contests', middleware.verifyUser.verifyAccessToken, (req, res) => {
+  var groupresults;
+  var groupIdArray;
+  if (
+    Object.entries(req.query).length === 0 &&
+    req.query.constructor === Object
+  ) {
     client
-      .getContests(groupIdArray)
+      .groupMap(req.body.username)
       .then(results => {
-        return res.status(200).json({
-          success: true,
-          error: null,
-          results
-        });
+        groupresults = results;
+        groupIdArray = groupresults.map(result => result.group_id);
+        client
+          .getContests(groupIdArray)
+          .then(results => {
+            return res.status(200).json({
+              success: true,
+              error: null,
+              results
+            });
+          })
+          .catch(error => {
+            return res.status(400).json({
+              success: false,
+              error,
+              results: null
+            });
+          });
       })
       .catch(error => {
         return res.status(400).json({
@@ -25,14 +45,8 @@ app.get(
           results: null
         });
       });
-  }
-);
-
-app.get(
-  '/contests/',
-  authMiddleware.verifyUser.verifyAccessToken,
-  (req, res) => {
-    const validate = ajv.compile(ajv.contestIdSchema);
+  } else {
+    const validate = ajv.compile(contestIdSchema);
     const valid = validate(req.query);
     if (!valid) {
       return res.status(400).json({
@@ -47,78 +61,86 @@ app.get(
         error: 'Contest id required',
         results: null
       });
-    }
-    client
-      .getQuestions(req.query.contestId)
-      .then(results => {
-        return res.status(200).json({
-          success: true,
-          error: null,
-          results
+    } else if (req.query.contestId && !req.query.questionId) {
+      client
+        .getQuestions(req.query.contestId)
+        .then(results => {
+          return res.status(200).json({
+            success: true,
+            error: null,
+            results
+          });
+        })
+        .catch(error => {
+          return res.status(400).json({
+            success: false,
+            error,
+            results: null
+          });
         });
-      })
-      .catch(error => {
+    } else if (req.query.contestId && req.query.questionId) {
+      const validate = ajv.compile(questionIdSchema);
+      const valid = validate(req.query);
+      if (!valid) {
         return res.status(400).json({
           success: false,
-          error,
+          error: 'Contest or question id are not inserted',
           results: null
         });
-      });
-  }
-);
-
-app.get(
-  '/contests/',
-  authMiddleware.verifyUser.verifyAccessToken,
-  (req, res) => {
-    const validate = ajv.compile(ajv.questionIdSchema);
-    const valid = validate(req.query);
-    if (!valid) {
-      return res.status(400).json({
-        success: false,
-        error: 'Contest or question id are not inserted',
-        results: null
-      });
-    }
-    if (!req.query.questionId) {
-      return res.status(400).json({
-        success: false,
-        error: 'Question id required',
-        results: null
-      });
-    }
-    client
-      .getQuestion(req.query.questionId)
-      .then(results => {
-        return res.status(200).json({
-          success: true,
-          error: null,
-          results
+      }
+      client
+        .getQuestion(req.query.questionId)
+        .then(results => {
+          return res.status(200).json({
+            success: true,
+            error: null,
+            results
+          });
+        })
+        .catch(error => {
+          return res.status(400).json({
+            success: false,
+            error,
+            results: null
+          });
         });
-      })
-      .catch(error => {
-        return res.status(400).json({
-          success: false,
-          error,
-          results: null
-        });
-      });
+    }
   }
-);
+});
 
-app.get(
+router.get(
   '/questions',
-  authMiddleware.verifyUser.verifyAccessToken,
+  middleware.verifyUser.verifyAccessToken,
   (req, res) => {
-    client.sort();
-    const contestId = client.contestMap();
+    var maparray;
     client
-      .getQuestions(contestId)
+      .groupMap(req.body.username)
       .then(results => {
-        return res.status(200).json({
-          success: true,
-          error: null,
-          results
+        var groupresults = results;
+        var groupIdArray = groupresults.map(result => result.group_id);
+        client.getContests(groupIdArray).then(results => {
+          maparray = results.map(function(result) {
+            if (result.this_status == 2) {
+              return result.id;
+            }
+          });
+          console.log(maparray);
+          client
+            .getAllQuestions(maparray)
+            .then(results => {
+              return res.status(200).json({
+                success: true,
+                error: null,
+                results
+              });
+            })
+            .catch(error => {
+              return res.status(400).json({
+                success: false,
+                error,
+                results: null
+              });
+            });
         });
       })
       .catch(error => {
@@ -130,3 +152,5 @@ app.get(
       });
   }
 );
+
+module.exports = router;
