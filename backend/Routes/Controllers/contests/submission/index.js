@@ -57,9 +57,9 @@ router.post('/:contestid/:username/:questionid/submit', (req, res) => {
     return res.status(400).json({
       sucess: false,
       error: validate.errors.reduce
-         ? validate.errors.reduce(function(prev, curr) {
-            return curr.message + ';' + prev;
-          }, '')
+        ? validate.errors.reduce(function (prev, curr) {
+          return curr.message + ';' + prev;
+        }, '')
         : validate.errors,
       results: null
     });
