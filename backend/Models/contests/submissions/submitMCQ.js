@@ -16,6 +16,9 @@ function calculateScore(
   userSolution,
   negativeMarking,
   partialMarking,
+  contestId,
+  questionId,
+  userOutput,
   maxMarks
 ) {
   return new Promise((resolve, reject) => {
@@ -28,7 +31,7 @@ function calculateScore(
         if (error) {
           return reject(error);
         }
-        const actualSolution = results[0].solution;
+        let actualSolution = results[0].solution;
 
         if (userSolution === actualSolution) {
           return resolve(maxMarks);
