@@ -3,18 +3,23 @@ const ajv = require('../../../../Schema');
 const express = require('express');
 const router = express.Router();
 
+const validator = require('../../../../Schema');
 const {
   checkSchema,
   updateSchema
 } = require('../../../../Schema/contests/subjective');
 
 router.get('/:adminid/:contestid/:username/:questionid', async (req, res) => {
-  const validate = ajv.compile(checkSchema);
-  const valid = validate(req.body);
+  let validate = validator.compile(checkSchema.checkSubjective);
+  let valid = validate(req.body);
   if (!valid) {
     return res.status(400).json({
       success: false,
-      error: ValidityState.errors,
+      error: validate.errors.reduce
+        ? validate.errors.reduce(function (prev, curr) {
+          return curr.message + ';' + prev;
+        }, '')
+        : validate.errors,
       results: null
     });
   }
@@ -44,12 +49,16 @@ router.get('/:adminid/:contestid/:username/:questionid', async (req, res) => {
 });
 
 router.post('/:adminid/:contestid/:username/:questionid/submit', (req, res) => {
-  let validate = ajv.compile(updateSchema);
+  let validate = validator.compile(updateSchema.updateSubjective);
   let valid = validate(req.body);
   if (!valid) {
     return res.status(400).json({
       success: false,
-      error: ValidityState.errors,
+      error: validate.errors.reduce
+        ? validate.errors.reduce(function (prev, curr) {
+          return curr.message + ';' + prev;
+        }, '')
+        : validate.errors,
       results: null
     });
   }

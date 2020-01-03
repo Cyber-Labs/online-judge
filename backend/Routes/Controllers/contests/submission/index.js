@@ -3,6 +3,7 @@ const ajv = require('../../../../Schema');
 const express = require('express');
 const router = express.Router();
 
+const validator = require('../../../../Schema');
 const { submitSchema } = require('../../../../Schema/contests/submissions');
 
 router.get('/:contestid/:username/result', async (req, res) => {
@@ -51,12 +52,16 @@ router.get('/:contestid/:username/result', async (req, res) => {
 });
 
 router.post('/:contestid/:username/:questionid/submit', (req, res) => {
-  let validate = ajv.compile(submitSchema);
+  let validate = validator.compile(submitSchema);
   let valid = validate(req.body);
   if (!valid) {
     return res.status(400).json({
       sucess: false,
-      error: ValidityState.errors,
+      error: validate.errors.reduce
+        ? validate.errors.reduce(function (prev, curr) {
+          return curr.message + ';' + prev;
+        }, '')
+        : validate.errors,
       results: null
     });
   }

@@ -10,7 +10,7 @@ const { pool } = require('../../db');
 
 function updateSubjective({ contestId, questionId, username, score }) {
   return new Promise((resolve, reject) => {
-    pool,
+    pool.
       query(
         `UPDATE submissions
         SET score = ?

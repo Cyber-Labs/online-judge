@@ -47,8 +47,8 @@ const calclulateScore = (userSolution, negativeMarking, partialMarking, maxMarks
           }userOutput, negativeMarking, partialMarking, maxMarks
           count++;
         }
-        let count = 0;
-        let score = 0;
+        count = 0;
+        score = 0;
         while (count < userLength) {
           const position = actualSolution.indexOf(userSolution[count]);
           if (position === -1) {
