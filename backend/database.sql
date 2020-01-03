@@ -372,3 +372,52 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `groups`
+--
+
+CREATE TABLE `groups` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `confidential` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `created_by` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+COMMIT;
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `groups`
+--
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `groups`
+--
+ALTER TABLE `groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+- --------------------------------------------------------
+
+--
+-- Table structure for table `UserGroups`
+--
+
+CREATE TABLE `UserGroups` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  `admin` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+COMMIT;
