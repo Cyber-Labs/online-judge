@@ -1,5 +1,4 @@
 const subjective = require('../../../../Models/contests/subjective');
-const ajv = require('../../../../Schema');
 const express = require('express');
 const router = express.Router();
 
@@ -17,9 +16,9 @@ router.get('/:adminid/:contestid/:username/:questionid', async (req, res) => {
       success: false,
       error: validate.errors.reduce
         ? validate.errors.reduce(function (prev, curr) {
-          return curr.message + ';' + prev;
-        }, '')
-        : validate.errors,
+         return curr.message + ';' + prev;
+          }, '')
+          : validate.errors,
       results: null
     });
   }
@@ -56,9 +55,9 @@ router.post('/:adminid/:contestid/:username/:questionid/submit', (req, res) => {
       success: false,
       error: validate.errors.reduce
         ? validate.errors.reduce(function (prev, curr) {
-          return curr.message + ';' + prev;
-        }, '')
-        : validate.errors,
+         return curr.message + ';' + prev;
+          }, '')
+          : validate.errors,
       results: null
     });
   }

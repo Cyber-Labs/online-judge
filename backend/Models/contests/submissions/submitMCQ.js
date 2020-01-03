@@ -12,7 +12,7 @@ const { pool } = require('../../db');
  * @return {Promise}
  */
 
-const calclulateScore = (userSolution, negativeMarking, partialMarking, maxMarks) => {
+const calculateScore = (userSolution, negativeMarking, partialMarking, maxMarks) => {
   return new Promise((resolve, reject) => {
     pool.query(
     `SELECT solution AS solution
@@ -74,7 +74,7 @@ async function submitMCQ({
   maxMarks,
 }) {
   return new Promise((resolve, reject) => {
-    const score = await calclulateScore(userOutput, negativeMarking, partialMarking, maxMarks);
+    const score = await calculateScore(userOutput, negativeMarking, partialMarking, maxMarks);
     pool.query(
       `INSERT INTO submissions
       (contest_id, question_id, question_name username, user_ouput, score)
