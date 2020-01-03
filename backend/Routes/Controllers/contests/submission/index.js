@@ -1,5 +1,4 @@
 const submission = require('../../../../Models/contests/submissions');
-const ajv = require('../../../../Schema');
 const express = require('express');
 const router = express.Router();
 
@@ -58,7 +57,7 @@ router.post('/:contestid/:username/:questionid/submit', (req, res) => {
     return res.status(400).json({
       sucess: false,
       error: validate.errors.reduce
-         ? validate.errors.reduce(function (prev, curr) {
+         ?validate.errors.reduce(function (prev, curr) {
             return curr.message + ';' + prev;
           }, '')
         : validate.errors,

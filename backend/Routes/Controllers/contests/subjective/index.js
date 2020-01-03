@@ -15,10 +15,10 @@ router.get('/:adminid/:contestid/:username/:questionid', async (req, res) => {
     return res.status(400).json({
       success: false,
       error: validate.errors.reduce
-        ? validate.errors.reduce(function (prev, curr) {
-         return curr.message + ';' + prev;
+        ? validate.errors.reduce(function(prev, curr) {
+            return curr.message + ';' + prev;
           }, '')
-          : validate.errors,
+        : validate.errors,
       results: null
     });
   }
@@ -54,10 +54,10 @@ router.post('/:adminid/:contestid/:username/:questionid/submit', (req, res) => {
     return res.status(400).json({
       success: false,
       error: validate.errors.reduce
-        ? validate.errors.reduce(function (prev, curr) {
-         return curr.message + ';' + prev;
+        ? validate.errors.reduce(function(prev, curr) {
+            return curr.message + ';' + prev;
           }, '')
-          : validate.errors,
+        : validate.errors,
       results: null
     });
   }
