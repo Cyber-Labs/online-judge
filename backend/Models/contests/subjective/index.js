@@ -1,5 +1,5 @@
-const checkSubjective = require("./checkSubjective");
-const updateSubjective = require("./updateSubjective");
+const checkSubjective = require('./checkSubjective');
+const updateSubjective = require('./updateSubjective');
 
 module.exports = {
   checkSubjective,

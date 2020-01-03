@@ -1,14 +1,14 @@
-const subjective = require("../../../../Models/contests/subjective");
-const ajv = require("../../../../Schema");
-const express = require("express");
+const subjective = require('../../../../Models/contests/subjective');
+const ajv = require('../../../../Schema');
+const express = require('express');
 const router = express.Router();
 
 const {
   checkSchema,
   updateSchema
-} = require("../../../../Schema/contests/subjective");
+} = require('../../../../Schema/contests/subjective');
 
-router.get("/:adminid/:contestid/:username/:questionid", async (req, res) => {
+router.get('/:adminid/:contestid/:username/:questionid', async (req, res) => {
   const validate = ajv.compile(checkSchema);
   const valid = validate(req.body);
   if (!valid) {
@@ -28,7 +28,7 @@ router.get("/:adminid/:contestid/:username/:questionid", async (req, res) => {
       });
     })
     .catch(error => {
-      if (error === "Not found user") {
+      if (error === 'Not found user') {
         return res.status(404).json({
           success: true,
           error,
@@ -43,7 +43,7 @@ router.get("/:adminid/:contestid/:username/:questionid", async (req, res) => {
     });
 });
 
-router.post("/:adminid/:contestid/:username/:questionid/submit", (req, res) => {
+router.post('/:adminid/:contestid/:username/:questionid/submit', (req, res) => {
   let validate = ajv.compile(updateSchema);
   let valid = validate(req.body);
   if (!valid) {
@@ -63,7 +63,7 @@ router.post("/:adminid/:contestid/:username/:questionid/submit", (req, res) => {
       });
     })
     .catch(error => {
-      if (error === "User not found") {
+      if (error === 'User not found') {
         return res.status(404).json({
           success: false,
           error,

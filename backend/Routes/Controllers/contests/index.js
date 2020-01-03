@@ -1,7 +1,7 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const submission = require("./submission");
-const subjective = require("./subjective");
+const submission = require('./submission');
+const subjective = require('./subjective');
 
 router.use(submission);
 router.use(subjective);

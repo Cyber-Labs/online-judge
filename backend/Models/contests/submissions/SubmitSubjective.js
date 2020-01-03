@@ -1,4 +1,4 @@
-const { pool } = require("../../db");
+const { pool } = require('../../db');
 
 /**
  * @param {Number} questionid
@@ -24,7 +24,7 @@ function submitSubjective({
       [contestId, questionId, questionName, username, userOutput],
       (error, results) => {
         if (error) {
-          return reject("Not found question");
+          return reject('Not found question');
         }
         return resolve(results);
       }

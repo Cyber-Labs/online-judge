@@ -1,4 +1,4 @@
-const { pool } = require("../../db");
+const { pool } = require('../../db');
 
 /**
  * @param {String} username
@@ -17,7 +17,7 @@ function checkSubjective({ username, contestId, questionId, questionName }) {
       [contestId, questionId, questionName, username],
       (error, results) => {
         if (error) {
-          return reject("Result not found");
+          return reject('Result not found');
         }
         return resolve(results);
       }

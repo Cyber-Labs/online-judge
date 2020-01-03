@@ -1,4 +1,4 @@
-const { pool } = require("../../db");
+const { pool } = require('../../db');
 
 /**
  * @param {String} username
@@ -18,7 +18,7 @@ function updateSubjective({ contestId, questionId, username, score }) {
         [score, contestId, questionId, username],
         (error, results) => {
           if (error) {
-            return reject("User not found");
+            return reject('User not found');
           }
           return resolve(results);
         }

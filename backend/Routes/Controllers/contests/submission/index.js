@@ -1,24 +1,24 @@
-const submission = require("../../../../Models/contests/submissions");
-const ajv = require("../../../../Schema");
-const express = require("express");
+const submission = require('../../../../Models/contests/submissions');
+const ajv = require('../../../../Schema');
+const express = require('express');
 const router = express.Router();
 
-const { submitSchema } = require("../../../../Schema/contests/submissions");
+const { submitSchema } = require('../../../../Schema/contests/submissions');
 
-router.get("/:contestid/:username/result", async (req, res) => {
+router.get('/:contestid/:username/result', async (req, res) => {
   const contestId = req.params.contest_id;
   const username = req.body.username;
   if (!contestId) {
     return res.status(404).json({
       success: false,
-      error: "Not found any contests",
+      error: 'Not found any contests',
       results: null
     });
   }
   if (!username) {
     return res.status(404).json({
       success: false,
-      error: "Not found any user",
+      error: 'Not found any user',
       results: null
     });
   }
@@ -35,7 +35,7 @@ router.get("/:contestid/:username/result", async (req, res) => {
       });
     })
     .catch(error => {
-      if (error === "Result not found") {
+      if (error === 'Result not found') {
         return res.status(404).json({
           success: false,
           error,
@@ -50,7 +50,7 @@ router.get("/:contestid/:username/result", async (req, res) => {
     });
 });
 
-router.post("/:contestid/:username/:questionid/submit", (req, res) => {
+router.post('/:contestid/:username/:questionid/submit', (req, res) => {
   let validate = ajv.compile(submitSchema);
   let valid = validate(req.body);
   if (!valid) {
@@ -72,7 +72,7 @@ router.post("/:contestid/:username/:questionid/submit", (req, res) => {
         });
       })
       .catch(error => {
-        if (error === "Not found question") {
+        if (error === 'Not found question') {
           return res.status(404).json({
             success: false,
             error,
@@ -95,7 +95,7 @@ router.post("/:contestid/:username/:questionid/submit", (req, res) => {
         results
       })
       .catch(error => {
-        if (error === "Not found question") {
+        if (error === 'Not found question') {
           return res.status(404).json({
             success: false,
             error,
