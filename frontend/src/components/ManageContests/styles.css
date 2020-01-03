@@ -1,0 +1,11 @@
+.save-btn{
+  position: relative;
+  left: 45%;
+}
+@media (min-width: 900px)
+{
+.save-btn{
+  position: relative;
+  left: 90%;
+}
+}
