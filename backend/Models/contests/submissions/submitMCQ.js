@@ -82,8 +82,8 @@ function submitMCQ({
   partialMarking,
   maxMarks
 }) {
-  return new Promise(async (resolve, reject) => {
-    const score = await calculateScore(
+  return new Promise((resolve, reject) => {
+    const score = calculateScore(
       userOutput,
       negativeMarking,
       partialMarking,
