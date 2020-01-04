@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `branch`
 --
 
-CREATE TABLE `branch`(
+CREATE TABLE `branch` (
   `id` int(11) NOT NULL,
   `branch_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -103,24 +103,24 @@ CREATE TABLE `users` (
 -- Indexes for table `branch`
 --
 ALTER TABLE `branch`
-ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `department`
 --
 ALTER TABLE `department`
-ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-ADD PRIMARY KEY (`id`),
-ADD UNIQUE KEY `username` (`username`),
-ADD UNIQUE KEY `email` (`email`),
-ADD UNIQUE KEY `admission_no` (`admission_no`),
-ADD KEY `fk_1` (`branch`),
-ADD KEY `fk_2` (`department`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `admission_no` (`admission_no`),
+  ADD KEY `fk_1` (`branch`),
+  ADD KEY `fk_2` (`department`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -149,8 +149,8 @@ ALTER TABLE `users`
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-ADD CONSTRAINT `fk_1` FOREIGN KEY (`branch`) REFERENCES `branch` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-ADD CONSTRAINT `fk_2` FOREIGN KEY (`department`) REFERENCES `department` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `fk_1` FOREIGN KEY (`branch`) REFERENCES `branch` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `fk_2` FOREIGN KEY (`department`) REFERENCES `department` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
