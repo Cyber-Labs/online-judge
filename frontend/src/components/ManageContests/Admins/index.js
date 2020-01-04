@@ -14,7 +14,8 @@ class ManageContestsAdmins extends Component {
     super(props);
     this.state = {
       isEditOpen: false,
-      newName: ''
+      newName: '',
+      adminContest: adminsContest
     };
     this.toggleContestNameEdit = this.toggleContestNameEdit.bind(this);
   }
@@ -23,22 +24,26 @@ class ManageContestsAdmins extends Component {
     window.scrollTo(0, 0);
   }
 
-  toggleAdmin(adminId) {
-    const { isLoading, errMess, admins } = adminsContest;
-    const admin = Array.prototype.filter.call(
-      admins,
-      admin => admin.id === adminId
-    );
-    const { isAdmin, isCreator } = admin;
-  }
-
   toggleContestNameEdit() {
     const { isEditOpen } = this.state;
     this.setState({ isEditOpen: !isEditOpen });
   }
 
   render() {
-    const { isLoading, errMess, admins } = adminsContest;
+    const { adminContest } = this.state;
+    const { isLoading, errMess, admins } = adminContest;
+
+    const toggleAdmin = adminId => {
+      const newAdminsContest = adminContest;
+      newAdminsContest.admins = admins.map(admin => {
+        if (admin.id !== adminId) return admin;
+        const newAdmin = admin;
+        newAdmin.isAdmin = !admin.isAdmin;
+        return newAdmin;
+      });
+      this.setState({ adminContest: newAdminsContest });
+    };
+
     const creators = Array.prototype.filter.call(
       admins,
       admin => admin.isCreator
@@ -106,22 +111,33 @@ class ManageContestsAdmins extends Component {
           <hr />
           <ContestNavPills contestId={id} activeTab='Administrator' />
           <br />
-          {isLoading ? <Loading /> : ''}
-          {errMess ? <h4>{errMess}</h4> : ''}
-          {!isLoading && !errMess ? (
-            <Media list>
-              {<UserInfo user={creators[0]} />}
-              <br />
-              {nonCreators.map(admin => (
-                <>
-                  <UserInfo user={admin} key={admin.id.toString()} />
+          <Row>
+            <Col md={8}>
+              {isLoading ? <Loading /> : ''}
+              {errMess ? <h4>{errMess}</h4> : ''}
+              {!isLoading && !errMess ? (
+                <Media list>
+                  {<UserInfo user={creators[0]} toggleAdmin={toggleAdmin} />}
                   <br />
-                </>
-              ))}
-            </Media>
-          ) : (
-            ''
-          )}
+                  {nonCreators.map(admin => (
+                    <>
+                      <UserInfo
+                        user={admin}
+                        key={admin.id.toString()}
+                        toggleAdmin={toggleAdmin}
+                      />
+                      <br />
+                    </>
+                  ))}
+                </Media>
+              ) : (
+                ''
+              )}
+            </Col>
+          </Row>
+          <Button color='primary' style={{ marginLeft: '50px' }}>
+            Add moderator
+          </Button>
           <br />
           <Button color='success' className='save-btn'>
             Save
