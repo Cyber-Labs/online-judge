@@ -1,19 +1,19 @@
 let schema = {
-  required: ["password", "new_password"],
+  required: ['password', 'new_password'],
   properties: {
-    password: { type: "string", format: "password" },
-    new_password: { type: "string", format: "password" }
+    password: { type: 'string', format: 'password' },
+    new_password: { type: 'string', format: 'password' }
   },
   errorMessage: {
     required: {
-      password: "Current Password required",
-      new_password: "New password required"
+      password: 'Current Password required',
+      new_password: 'New password required'
     },
     properties: {
-      password: "Invalid password",
-      new_password: "Invalid new Password"
+      password: 'Invalid password',
+      new_password: 'Invalid new Password'
     },
-    _: "Invalid data"
+    _: 'Invalid data'
   }
 };
 

@@ -1,19 +1,19 @@
 const schema = {
-  required: ["username", "password"],
+  required: ['username', 'password'],
   properties: {
-    username: { type: "string", minLength: 4 },
-    password: { type: "string", format: "password" }
+    username: { type: 'string', minLength: 4 },
+    password: { type: 'string', format: 'password' }
   },
   errorMessage: {
     required: {
-      username: "Username required",
-      password: "Password required"
+      username: 'Username required',
+      password: 'Password required'
     },
     properties: {
-      username: "Invalid username",
-      password: "Invalid password"
+      username: 'Invalid username',
+      password: 'Invalid password'
     },
-    _: "Invalid data"
+    _: 'Invalid data'
   }
 };
 
