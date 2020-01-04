@@ -268,9 +268,4 @@ Main.defaultProps = {
   }
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Main)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
