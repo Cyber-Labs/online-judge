@@ -1,7 +1,7 @@
 /* eslint-disable no-async-promise-executor */
-const { email } = require("../../utils");
-const otplib = require("otplib");
-const { pool } = require("../db");
+const { email } = require('../../utils');
+const otplib = require('otplib');
+const { pool } = require('../db');
 
 /**
  *
@@ -13,7 +13,7 @@ function forgotPassword({ email: emailId }) {
   return new Promise(async (resolve, reject) => {
     const secret = otplib.authenticator.generateSecret();
     const otp = otplib.authenticator.generate(secret);
-    let subject = "Forgot Password";
+    let subject = 'Forgot Password';
     const PORT = process.env.PORT || 5000;
     let html = `<p>Hello !</p>
                 <p>The otp for resetting your password is ${otp}</p>
@@ -27,7 +27,7 @@ function forgotPassword({ email: emailId }) {
         if (error) {
           return reject(error);
         }
-        return resolve("Please reset your password from the email received");
+        return resolve('Please reset your password from the email received');
       }
     );
   });

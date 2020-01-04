@@ -1,7 +1,7 @@
 /* eslint-disable no-async-promise-executor */
-const fs = require("fs");
-const jwt = require("jsonwebtoken");
-const isCorrect = require("./isCorrect");
+const fs = require('fs');
+const jwt = require('jsonwebtoken');
+const isCorrect = require('./isCorrect');
 
 /**
  *
@@ -19,15 +19,15 @@ function login({ username, password }) {
       return reject(error);
     }
     if (ans) {
-      const path = require("path");
+      const path = require('path');
       const privateKey = fs.readFileSync(
-        path.resolve("rsa_secret.pub"),
-        "utf-8"
+        path.resolve('rsa_secret.pub'),
+        'utf-8'
       );
       jwt.sign(
         { username },
         privateKey,
-        { expiresIn: "720h" },
+        { expiresIn: '720h' },
         (error, accessToken) => {
           if (error) {
             return reject(error);
@@ -36,7 +36,7 @@ function login({ username, password }) {
         }
       );
     } else {
-      return reject("Password incorrect");
+      return reject('Password incorrect');
     }
   });
 }

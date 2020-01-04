@@ -1,4 +1,4 @@
-const { pool } = require("../db");
+const { pool } = require('../db');
 
 /**
  *
@@ -21,7 +21,7 @@ function verifyEmail({ username, otp }) {
       }
       if (!results.changedRows) {
         return reject(
-          "Account does not exist with this username or otp is invalid"
+          'Account does not exist with this username or otp is invalid'
         );
       }
       return resolve(results);

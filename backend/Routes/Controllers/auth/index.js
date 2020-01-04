@@ -1,7 +1,7 @@
-const auth = require("../../../Models/auth");
-const middleware = require("../auth/middlewares");
-const ajv = require("../../../Schema");
-const express = require("express");
+const auth = require('../../../Models/auth');
+const middleware = require('../auth/middlewares');
+const ajv = require('../../../Schema');
+const express = require('express');
 const router = express.Router();
 
 const {
@@ -13,7 +13,7 @@ const {
   resetPasswordSchema,
   verifyEmailSchema,
   verifyNewEmailSchema
-} = require("../../../Schema/auth");
+} = require('../../../Schema/auth');
 
 /**
  *
@@ -21,11 +21,11 @@ const {
  * @return {String}
  */
 function sumErrors(errArray) {
-  const cb = (a, b) => a + b.message + ", ";
-  return errArray.reduce(cb, "");
+  const cb = (a, b) => a + b.message + ', ';
+  return errArray.reduce(cb, '');
 }
 
-router.post("/signup", async (req, res) => {
+router.post('/signup', async (req, res) => {
   let validate = ajv.compile(signupSchema);
   let valid = validate(req.body);
   if (!valid) {
@@ -53,7 +53,7 @@ router.post("/signup", async (req, res) => {
     });
 });
 
-router.post("/login", async (req, res) => {
+router.post('/login', async (req, res) => {
   let validate = ajv.compile(loginSchema);
   let valid = validate(req.body);
   if (!valid) {
@@ -73,7 +73,7 @@ router.post("/login", async (req, res) => {
       });
     })
     .catch(error => {
-      if (error === "Password incorrect") {
+      if (error === 'Password incorrect') {
         return res.status(401).json({
           success: false,
           error,
@@ -89,14 +89,14 @@ router.post("/login", async (req, res) => {
 });
 
 router.get(
-  "/users/:username",
+  '/users/:username',
   middleware.verifyUser.verifyAccessToken,
   async (req, res) => {
     const username = req.params.username;
     if (!username) {
       return res.status(404).json({
         success: false,
-        error: "Not found",
+        error: 'Not found',
         results: null
       });
     }
@@ -110,7 +110,7 @@ router.get(
         });
       })
       .catch(error => {
-        if (error === "User not found") {
+        if (error === 'User not found') {
           return res.status(404).json({
             success: false,
             error,
@@ -126,7 +126,7 @@ router.get(
   }
 );
 
-router.post("/verify_email", async (req, res) => {
+router.post('/verify_email', async (req, res) => {
   let validate = ajv.compile(verifyEmailSchema);
   let valid = validate(req.body);
   if (!valid) {
@@ -154,7 +154,7 @@ router.post("/verify_email", async (req, res) => {
     });
 });
 
-router.post("/verify_new_email", async (req, res) => {
+router.post('/verify_new_email', async (req, res) => {
   let validate = ajv.compile(verifyNewEmailSchema);
   let valid = validate(req.body);
   if (!valid) {
@@ -183,7 +183,7 @@ router.post("/verify_new_email", async (req, res) => {
 });
 
 router.post(
-  "/update_user",
+  '/update_user',
   middleware.verifyUser.verifyAccessToken,
   (req, res) => {
     let validate = ajv.compile(updateUserSchema);
@@ -215,7 +215,7 @@ router.post(
 );
 
 router.post(
-  "/update_password",
+  '/update_password',
   middleware.verifyUser.verifyAccessToken,
   (req, res) => {
     let validate = ajv.compile(updatePasswordSchema);
@@ -237,7 +237,7 @@ router.post(
         });
       })
       .catch(error => {
-        if (error === "Password incorrect") {
+        if (error === 'Password incorrect') {
           return res.status(401).json({
             success: false,
             error,
@@ -253,7 +253,7 @@ router.post(
   }
 );
 
-router.post("/forgot_password", (req, res) => {
+router.post('/forgot_password', (req, res) => {
   const validate = ajv.compile(forgotPasswordSchema);
   const valid = validate(req.body);
   if (!valid) {
@@ -273,7 +273,7 @@ router.post("/forgot_password", (req, res) => {
       });
     })
     .catch(error => {
-      if (error === "Email not linked to the username") {
+      if (error === 'Email not linked to the username') {
         return res.status(401).json({
           success: false,
           error,
@@ -288,7 +288,7 @@ router.post("/forgot_password", (req, res) => {
     });
 });
 
-router.post("/reset_password", (req, res) => {
+router.post('/reset_password', (req, res) => {
   const validate = ajv.compile(resetPasswordSchema);
   const valid = validate(req.body);
   if (!valid) {

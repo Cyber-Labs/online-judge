@@ -1,8 +1,8 @@
-const subjectiveChecking = require("../../../Models/db");
-const app = require("../index");
+const subjectiveChecking = require('../../../Models/db');
+const app = require('../index');
 // schema present, to be added later
 
-app.get("/to be set", (req, res) => {
+app.get('/to be set', (req, res) => {
   const contestId = req.body.contestId;
   const questionId = req.body.questionId;
   const contestId = req.body.contestId;
@@ -16,7 +16,7 @@ app.get("/to be set", (req, res) => {
       });
     })
     .catch(error => {
-      if (error === "Not found") {
+      if (error === 'Not found') {
         return res.status(404).json({
           success: false,
           error,
@@ -31,4 +31,4 @@ app.get("/to be set", (req, res) => {
     });
 });
 
-app.post("/to be set", (req, res) => {});
+app.post('/to be set', (req, res) => {});

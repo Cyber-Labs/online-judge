@@ -1,7 +1,7 @@
 /* eslint-disable no-async-promise-executor */
-const { pool } = require("../db");
-const bcrypt = require("bcryptjs");
-const isCorrect = require("./isCorrect");
+const { pool } = require('../db');
+const bcrypt = require('bcryptjs');
+const isCorrect = require('./isCorrect');
 
 /**
  *
@@ -35,13 +35,13 @@ function updatePassword({ username, password, new_password: newPassword }) {
               if (error) {
                 return reject(error);
               }
-              return resolve("Password updated");
+              return resolve('Password updated');
             }
           );
         });
       });
     } else {
-      return reject("Password incorrect");
+      return reject('Password incorrect');
     }
   });
 }

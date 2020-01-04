@@ -1,8 +1,8 @@
 /* eslint-disable no-async-promise-executor */
-const bcrypt = require("bcryptjs");
-const { pool } = require("../db");
-const { email } = require("../../utils");
-const otplib = require("otplib");
+const bcrypt = require('bcryptjs');
+const { pool } = require('../db');
+const { email } = require('../../utils');
+const otplib = require('otplib');
 
 /**
  *
@@ -57,7 +57,7 @@ function signup({
             if (error) {
               return reject(error);
             }
-            let subject = "Email verification";
+            let subject = 'Email verification';
             const PORT = process.env.PORT || 5000;
             let html = `<p>Hello ${name} !</p>
                           <p>The OTP for verifying your email is ${otp}</p>
@@ -65,7 +65,7 @@ function signup({
                           <a href='http://${process.env.HOST_NAME}:${PORT}/auth/verify_email?username=${username}'>Verify your email</a>`;
             email(emailId, subject, html);
             return resolve(
-              "Account created. Please activate your account using the OTP sent to your email address."
+              'Account created. Please activate your account using the OTP sent to your email address.'
             );
           }
         );

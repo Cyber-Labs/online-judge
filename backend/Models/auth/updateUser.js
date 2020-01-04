@@ -1,6 +1,6 @@
-const { pool } = require("../db");
-const { email } = require("../../utils");
-const otplib = require("otplib");
+const { pool } = require('../db');
+const { email } = require('../../utils');
+const otplib = require('otplib');
 
 /**
  *
@@ -65,16 +65,16 @@ function updateUser({
         return reject(error);
       }
       if (emailId) {
-        let subject = "Email verification";
+        let subject = 'Email verification';
         const PORT = process.env.PORT || 5000;
         let html = `<p>Hello ${username} !</p>
                     <p>The OTP for verifying your new email is ${otp}</p>
                     <p>Please verify your email by visiting the following link</p>
                     <a href='http://${process.env.HOST_NAME}:${PORT}/auth/verify_new_email?email_id=${emailId}&username=${username}'>Verify your email</a>`;
         email(emailId, subject, html);
-        return resolve("User info updated. Please verify your email");
+        return resolve('User info updated. Please verify your email');
       } else {
-        return resolve("User info updated");
+        return resolve('User info updated');
       }
     });
   });

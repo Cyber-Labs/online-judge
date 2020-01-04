@@ -1,4 +1,4 @@
-const { pool } = require("../db");
+const { pool } = require('../db');
 
 /**
  * @param {String} contestid
@@ -14,7 +14,7 @@ function result({ contest_id: contestId, username }) {
       [contestId, username],
       (error, results) => {
         if (error) {
-          return reject("Not found");
+          return reject('Not found');
         }
         return resolve(results);
       }

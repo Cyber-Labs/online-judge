@@ -1,10 +1,10 @@
-const fs = require("fs");
-const jwt = require("jsonwebtoken");
+const fs = require('fs');
+const jwt = require('jsonwebtoken');
 
 /**
- * @typedef {import { Request } from "express";} Request
- * @typedef {import { Response } from "express";} Response
- * @typedef {import { next } from "express";} Next
+ * @typedef {import { Request } from 'express';} Request
+ * @typedef {import { Response } from 'express';} Response
+ * @typedef {import { next } from 'express';} Next
  */
 
 /**
@@ -15,8 +15,8 @@ const jwt = require("jsonwebtoken");
  */
 function verifyAccessToken(req, res, next) {
   if (req.headers.access_token) {
-    const path = require("path");
-    const pubKey = fs.readFileSync(path.resolve("rsa_secret.pub"), "utf-8");
+    const path = require('path');
+    const pubKey = fs.readFileSync(path.resolve('rsa_secret.pub'), 'utf-8');
     jwt.verify(req.headers.access_token, pubKey, (error, decoded) => {
       if (error) {
         res.status(401).json({
@@ -32,7 +32,7 @@ function verifyAccessToken(req, res, next) {
   } else {
     res.status(401).json({
       success: false,
-      error: "Access code not included in the header of the request",
+      error: 'Access code not included in the header of the request',
       results: null
     });
     return;

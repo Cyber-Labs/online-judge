@@ -1,4 +1,4 @@
-const { pool } = require("../db");
+const { pool } = require('../db');
 
 /**
  * @param {String} questionid
@@ -31,7 +31,7 @@ const calclulateScore = (contestId, questionId, userSolution) => {
         return resolve(maxMarks);
       }
 
-      userSolution = userSolution.toUpperCase().split(",");
+      userSolution = userSolution.toUpperCase().split(',');
       actualSolution = actualSolution.toUpperCase();
       const userLength = userSolution.length;
 
@@ -83,7 +83,7 @@ async function updateScore({
       [contestId, questionId, username, userOutput, score],
       (error, results) => {
         if (error) {
-          return reject("Not found");
+          return reject('Not found');
         }
         return resolve(results);
       }

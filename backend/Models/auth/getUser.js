@@ -1,4 +1,4 @@
-const { pool } = require("../db");
+const { pool } = require('../db');
 
 /**
  *
@@ -12,7 +12,7 @@ function getUser(username) {
       [username],
       (error, results) => {
         if (error || !results.length) {
-          return reject("User not found");
+          return reject('User not found');
         }
         return resolve(results[0]);
       }

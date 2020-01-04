@@ -1,5 +1,5 @@
-const bcrypt = require("bcryptjs");
-const { pool } = require("../db");
+const bcrypt = require('bcryptjs');
+const { pool } = require('../db');
 
 /**
  *
@@ -18,7 +18,7 @@ function resetPassword({
 }) {
   return new Promise((resolve, reject) => {
     if (password !== passwordConfirm) {
-      return reject("Two passwords do not match");
+      return reject('Two passwords do not match');
     }
     bcrypt.genSalt(parseInt(process.env.SALT_ROUNDS), (error, salt) => {
       if (error) {
@@ -36,7 +36,7 @@ function resetPassword({
               return reject(error);
             }
             if (!results.changedRows) {
-              return reject("Invalid otp or incorrect username");
+              return reject('Invalid otp or incorrect username');
             }
             return resolve(results);
           }
