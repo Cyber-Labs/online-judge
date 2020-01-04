@@ -7,10 +7,8 @@
 -- Server version: 8.0.17
 -- PHP Version: 7.2.19-0ubuntu0.18.04.1
 
-SET SQL_MODE
-= "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone
-= "+00:00";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
