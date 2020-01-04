@@ -2,9 +2,9 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 
 /**
- * @typedef {import { Request } from 'express';} Request
- * @typedef {import { Response } from 'express';} Response
- * @typedef {import { next } from 'express';} Next
+ * @typedef {import { Request } from "express";} Request
+ * @typedef {import { Response } from "express";} Response
+ * @typedef {import { next } from "express";} Next
  */
 
 /**
