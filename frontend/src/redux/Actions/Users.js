@@ -5,7 +5,7 @@ import {
   EDIT_USER,
   EDIT_PASSWORD
 } from '../ActionTypes';
-import { baseUrl } from '../../baseUrl';
+import baseUrl from '../../baseUrl';
 
 export const addUsers = users => ({
   type: ADD_USERS,
