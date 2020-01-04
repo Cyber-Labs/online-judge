@@ -146,7 +146,7 @@ class Main extends Component {
     // );
 
     return (
-      <div className="App">
+      <div className='App'>
         <Header
           auth={auth}
           loginUser={loginUser}
@@ -154,11 +154,11 @@ class Main extends Component {
           registerUser={registerUser}
         />
         <Switch location={location}>
-          <Route exact path="/home" component={() => <Home />} />
+          <Route exact path='/home' component={() => <Home />} />
           {/* <PrivateRouteCommon  */}
           <Route
             exact
-            path="/contests"
+            path='/contests'
             component={() => (
               <Contests
                 contests={contests}
@@ -169,7 +169,7 @@ class Main extends Component {
           />
           <Route
             exact
-            path="/manage-contests"
+            path='/manage-contests'
             component={() => (
               <ManageContests
                 contests={contests}
@@ -178,24 +178,24 @@ class Main extends Component {
             )}
           />
           <Route
-            path="/manage-contests/:contestId/questions"
+            path='/manage-contests/:contestId/questions'
             component={ManageContestQuestions}
           />
           <Route
-            path="/manage-contests/:contestId/basic-info"
+            path='/manage-contests/:contestId/basic-info'
             component={ManageContestInfo}
           />
           <Route
-            path="/manage-contests/:contestId/admins"
+            path='/manage-contests/:contestId/admins'
             component={ManageContestAdmins}
           />
           <Route
-            path="/manage-contests/:contestId/participants"
+            path='/manage-contests/:contestId/participants'
             component={ManageContestParticipants}
           />
           <Route
             exact
-            path="/manage-contests/:contestId"
+            path='/manage-contests/:contestId'
             component={({ match }) => (
               <Redirect
                 to={{
@@ -204,9 +204,11 @@ class Main extends Component {
               />
             )}
           />
-          <Redirect to="/home" />
+          <Route path='/profile' component={() => <Editprofile />} />
+
+          <Redirect to='/home' />
         </Switch>
-        <CreateContestModal
+        <CreateContestModal`
           isOpen={isCreateContestOpen}
           toggleModal={this.toggleCreateContestModal}
           groups={groups}

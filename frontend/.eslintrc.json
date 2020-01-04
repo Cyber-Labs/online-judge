@@ -19,7 +19,6 @@
   "rules": {
     "linebreak-style": ["error", "unix"],
     "semi": ["error", "always"],
-    "prettier/prettier": ["error", { "singleQuote": true }],
     "react/jsx-filename-extension": [
       1,
       {
