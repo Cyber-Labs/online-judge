@@ -205,8 +205,11 @@ class Main extends Component {
               />
             )}
           />
+<<<<<<< HEAD
           <Route path='/profile' component={() => <Editprofile />} />
 
+=======
+>>>>>>> upstream/master
           <Redirect to='/home' />
         </Switch>
         <CreateContestModal
