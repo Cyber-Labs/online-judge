@@ -15,12 +15,15 @@ class Signup extends Component {
       password: '',
       confirmPassword: ''
     };
-    this.handleRegister = this.handleRegister.bind(this);
+    // this.handleRegister = this.handleRegister.bind(this);
   }
 
-  handleRegister = () => {};
+  // handleRegister() {}
 
   render() {
+    const { password } = this.state;
+    const { confirmPassword } = this.state;
+
     return (
       <LocalForm model='user' onSubmit={this.handleRegister}>
         <br />
@@ -189,10 +192,7 @@ class Signup extends Component {
               placeholder='******'
               validators={{
                 required,
-                invalid: invalid(
-                  this.state.password,
-                  this.state.confirmPassword
-                )
+                invalid: invalid({ password }, { confirmPassword })
               }}
             />
 

@@ -20,61 +20,72 @@ class Editprofile extends Component {
     super(props);
     this.state = {
       modal: false,
-      dropdownOpen: false,
       picture: 'images/profile.png'
     };
     this.toggle = this.toggle.bind(this);
-    this.onDrop = this.onDrop.bind(this);
+    //   this.onDrop = this.onDrop.bind(this);
   }
+
+  // onDrop(picture) {
+  //   this.setState({
+  //     pictures: this.state.picture
+  //   });
+  // }
 
   toggle() {
     this.setState(prevState => ({
       modal: !prevState.modal
     }));
   }
-  onDrop(picture) {
-    this.setState({
-      pictures: this.state.picture
-    });
-  }
 
-  save() {}
+  // save() {}
 
   render() {
+    const { picture } = this.state;
+    const { modal } = this.state;
+    const { className } = this.state;
     return (
       <div className='container mb-5 pb-5'>
         <div className='row mt-5 '>
-          <div class='col text-center'>
-            <img
-              width='250px'
-              height='250px'
-              src={this.state.picture}
-              alt='image'
-              onClick={this.toggle}
-            />
+          <div className='col text-center'>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <div
+              role='button'
+              onClick={() => this.toggle()}
+              onKeyDown={() => this.toggle()}
+              tabIndex={0}
+            >
+              <img alt='User face' width='250px' height='250px' src={picture} />
+            </div>
+
             <Modal
-              isOpen={this.state.modal}
+              isOpen={modal}
               toggle={this.toggle}
-              className={this.props.className}
+              className={className}
               width='250px'
             >
               <ModalBody>
                 <div className='container'>
                   <div className='row '>
-                    <div class='col text-center'>
+                    <div className='col text-center'>
                       <img
                         width='150px'
                         height='150px'
-                        src={this.state.picture}
-                        alt='image'
+                        src={picture}
+                        alt='user face'
                       />
                     </div>
                   </div>
 
                   <div className='row'>
-                    <div class='col text-center'>
+                    <div className='col text-center'>
                       <ImageUploader
-                        withIcon={true}
+                        withIcon
                         buttonText='Upload images'
                         onChange={this.onDrop}
                         imgExtension={['.jpg', '.gif', '.png', '.gif', '.jpeg']}
@@ -105,14 +116,14 @@ class Editprofile extends Component {
           </div>
         </div>
         <div className='row mt-2'>
-          <div class='col text-center'>
-            <a href='#'>
+          <div className='col text-center'>
+            <a href='/homepage'>
               <h4>Username</h4>
             </a>
           </div>
         </div>
         <div className='row'>
-          <div class='col '>
+          <div className='col '>
             <Form>
               <h3>Basic Info</h3>
               <Row form>

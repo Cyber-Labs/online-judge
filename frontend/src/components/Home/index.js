@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Login from './LoginComponent.js';
-import Signup from './SignupComponent.js';
 import { Tab, Tabs } from 'react-bootstrap';
+import Login from './Login';
+import Signup from './Signup';
 
 class Home extends Component {
   constructor(props) {

@@ -9,6 +9,7 @@ import Home from './Home';
 import Contests from './Contests';
 import ManageContests from './ManageContests';
 import CreateContestModal from './CreateContestModal';
+import Editprofile from './User';
 
 import contests from '../shared/contests';
 import groups from '../shared/groups';
@@ -208,7 +209,7 @@ class Main extends Component {
 
           <Redirect to='/home' />
         </Switch>
-        <CreateContestModal`
+        <CreateContestModal
           isOpen={isCreateContestOpen}
           toggleModal={this.toggleCreateContestModal}
           groups={groups}
@@ -268,4 +269,9 @@ Main.defaultProps = {
   }
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Main)
+);

@@ -1,16 +1,26 @@
 import React, { Component } from 'react';
-import { Label, Input, FormGroup, Button, Col, FormFeedback } from 'reactstrap';
+import { Label, Input, FormGroup, Button, Col } from 'reactstrap';
 import { LocalForm, Errors, Control } from 'react-redux-form';
 
 const required = val => val && val.length;
 
 class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   // this.state = {
+  //   //   modal: false
+  //   // };
+  //   //   this.handleSubmit = this.handleSubmit.bind(this);
+  //   //   this.toggle = this.toggle.bind(this);
+  // }
 
-  handleSubmit() {}
+  // handleSubmit() {}
+
+  //   toggle() {
+  //     this.setState(prevState => ({
+  //       modal: !prevState.modal
+  //     }));
+  //   }
 
   render() {
     return (
@@ -76,7 +86,14 @@ class Login extends Component {
 
         <div className='row'>
           <div className='col-4'>
-            <a href='#'>Forgot Password?</a>
+            <div
+              role='button'
+              tabIndex={0}
+              onClick={() => this.toggle()}
+              onKeyDown={() => this.toggle()}
+            >
+              Forgot Password?
+            </div>
           </div>
           <div className='col-4 ml-auto'>
             <FormGroup check>
@@ -84,7 +101,9 @@ class Login extends Component {
                 <Input
                   type='checkbox'
                   name='remember'
-                  innerRef={input => (this.remember = input)}
+                  innerRef={input => {
+                    this.remember = input;
+                  }}
                 />
                 Remember me
               </Label>
