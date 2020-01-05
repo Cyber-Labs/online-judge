@@ -6,7 +6,7 @@ import {
   DELETE_CONTEST,
   EDIT_CONTEST
 } from '../ActionTypes';
-import { baseUrl } from '../../baseUrl';
+import baseUrl from '../../baseUrl';
 
 export const contestsLoading = () => ({
   type: CONTESTS_LOADING

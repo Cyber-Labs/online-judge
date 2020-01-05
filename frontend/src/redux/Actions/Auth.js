@@ -5,7 +5,7 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS
 } from '../ActionTypes';
-import { baseUrl } from '../../baseUrl';
+import baseUrl from '../../baseUrl';
 import { fetchUsers } from './Users';
 
 export const requestLogin = creds => {
