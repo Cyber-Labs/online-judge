@@ -45,20 +45,20 @@ class Header extends Component {
     const { auth } = this.props;
     const { isNavOpen } = this.state;
     return (
-      <div className="align-items-center">
-        <Navbar dark expand="lg" fixed="top">
-          <div className="container">
+      <div className='align-items-center'>
+        <Navbar dark expand='lg' fixed='top'>
+          <div className='container'>
             {auth.isAuthenticated ? (
               <NavbarToggler onClick={this.toggleNav} />
             ) : (
               <div />
             )}
-            <NavbarBrand className="mr-auto brand" href="/">
+            <NavbarBrand className='mr-auto brand' href='/'>
               <img
                 src={`${process.env.PUBLIC_URL}/images/logo.jpg`}
-                height="30"
-                width="41"
-                alt="ONLINE JUDGE"
+                height='30'
+                width='41'
+                alt='ONLINE JUDGE'
               />
               &nbsp; ONLINE JUDGE
             </NavbarBrand>
@@ -67,41 +67,41 @@ class Header extends Component {
                 <Collapse isOpen={isNavOpen} navbar>
                   <Nav navbar>
                     <NavItem>
-                      <NavLink className="nav-link ml-3" to="/contests">
+                      <NavLink className='nav-link ml-3' to='/contests'>
                         <span />
                         &nbsp; Contests &nbsp;
                       </NavLink>
                     </NavItem>
                     <NavItem>
-                      <NavLink className="nav-link ml-3" to="/coming_soon">
+                      <NavLink className='nav-link ml-3' to='/coming_soon'>
                         <span />
                         &nbsp; Practice
                       </NavLink>
                     </NavItem>
                     <NavItem>
-                      <NavLink className="nav-link ml-3" to="/coming_soon">
+                      <NavLink className='nav-link ml-3' to='/coming_soon'>
                         <span />
                         &nbsp; Leaderboard
                       </NavLink>
                     </NavItem>
                     <NavItem>
-                      <NavLink className="nav-link ml-3" to="/coming_soon">
+                      <NavLink className='nav-link ml-3' to='/coming_soon'>
                         <span />
                         &nbsp; Forum
                       </NavLink>
                     </NavItem>
                     <NavItem>
                       <Form
-                        model="search"
+                        model='search'
                         onSubmit={values => this.handleSubmit(values)}
                       >
-                        <Row className="form-group ml-2 ">
-                          <NavItem className="ml-2">
+                        <Row className='form-group ml-2 '>
+                          <NavItem className='ml-2'>
                             <input
-                              id="search"
-                              name="search"
-                              placeholder="Search"
-                              className="form-control"
+                              id='search'
+                              name='search'
+                              placeholder='Search'
+                              className='form-control'
                             />
                           </NavItem>
                         </Row>
@@ -112,21 +112,21 @@ class Header extends Component {
                 <Nav navbar>
                   <NavItem>
                     <Form
-                      model="search"
+                      model='search'
                       onSubmit={values => this.handleSubmit(values)}
                     >
-                      <Row className="form-group">
+                      <Row className='form-group'>
                         <NavItem>
-                          <NavLink className="nav-link" to="/notifications">
+                          <NavLink className='nav-link' to='/notifications'>
                             <span>
-                              <i className="fa fa-bell fa-md ml-4" />
+                              <i className='fa fa-bell fa-md ml-4' />
                             </span>
                           </NavLink>
                         </NavItem>
                         <NavItem>
-                          <NavLink className="nav-link" to="/profile">
+                          <NavLink className='nav-link' to='/profile'>
                             <span>
-                              <i className="fa fa-user fa-md ml-4" />
+                              <i className='fa fa-user fa-md ml-4' />
                             </span>
                             &nbsp;
                           </NavLink>
