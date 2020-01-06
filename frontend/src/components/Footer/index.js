@@ -8,7 +8,11 @@ class Footer extends Component {
 
   render() {
     return (
-      <p className="footer" align="center">
+      <p
+        className='footer'
+        align='center'
+        style={{ position: 'fixed', left: '0px', color: 'black' }}
+      >
         © Copyright 2019 Cyberlabs
       </p>
     );

@@ -9,9 +9,11 @@ import Home from './Home';
 import Contests from './Contests';
 import ManageContests from './ManageContests';
 import CreateContestModal from './CreateContestModal';
+import CreateGroupModal from './ManageGroups/CreateGroupModal';
 
 import contests from '../shared/contests';
 import groups from '../shared/groups';
+import adminsContest from '../shared/admins';
 
 import {
   postContest,
@@ -26,6 +28,8 @@ import ManageContestQuestions from './RouteComponents/ManageContests/Questions';
 import ManageContestInfo from './RouteComponents/ManageContests/BasicInfo';
 import ManageContestAdmins from './RouteComponents/ManageContests/Admins';
 import ManageContestParticipants from './RouteComponents/ManageContests/Participants';
+import ManageGroups from './ManageGroups';
+import ManageGroupView from './RouteComponents/ManageGroups/ViewGroup';
 
 const mapStateToProps = state => {
   return {
@@ -63,8 +67,13 @@ const mapDispatchToProps = dispatch => ({
 class Main extends Component {
   constructor(props) {
     super(props);
-    this.state = { contests, isCreateContestOpen: false };
+    this.state = {
+      contests,
+      isCreateContestOpen: false,
+      isCreateGroupOpen: false
+    };
     this.toggleCreateContestModal = this.toggleCreateContestModal.bind(this);
+    this.toggleCreateGroupModal = this.toggleCreateGroupModal.bind(this);
   }
 
   // componentDidMount() {
@@ -81,8 +90,14 @@ class Main extends Component {
     }));
   }
 
+  toggleCreateGroupModal() {
+    this.setState(prevState => ({
+      isCreateGroupOpen: !prevState.isCreateGroupOpen
+    }));
+  }
+
   render() {
-    const { contests, isCreateContestOpen } = this.state;
+    const { contests, isCreateContestOpen, isCreateGroupOpen } = this.state;
     const {
       // contests,
       auth,
@@ -204,12 +219,28 @@ class Main extends Component {
               />
             )}
           />
+          <Route
+            exact
+            path='/manage-groups'
+            component={() => (
+              <ManageGroups
+                groups={groups}
+                toggleCreateGroupModal={this.toggleCreateGroupModal}
+              />
+            )}
+          />
+          <Route path='/manage-groups/:groupId' component={ManageGroupView} />
           <Redirect to='/home' />
         </Switch>
         <CreateContestModal
           isOpen={isCreateContestOpen}
           toggleModal={this.toggleCreateContestModal}
-          groups={groups}
+          groups={groups.groups}
+        />
+        <CreateGroupModal
+          isOpen={isCreateGroupOpen}
+          toggleModal={this.toggleCreateGroupModal}
+          members={adminsContest.admins}
         />
         <Footer />
       </div>
@@ -266,4 +297,9 @@ Main.defaultProps = {
   }
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Main)
+);
