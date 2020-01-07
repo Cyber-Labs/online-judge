@@ -7,10 +7,10 @@
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
+SET SQL_MODE
+= "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone
+= "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -42,16 +42,22 @@ CREATE TABLE `admin_of_contest` (
 -- Table structure for table `branch`
 --
 
-CREATE TABLE `branch` (
-  `id` int(11) NOT NULL,
-  `branch_name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `branch`
+(
+  `id` int
+(11) NOT NULL,
+  `branch_name` varchar
+(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `branch`
 --
 
-INSERT INTO `branch` (`id`, `branch_name`) VALUES
+INSERT INTO `branch` (`
+id`,
+`branch_name
+`) VALUES
 (1, 'B.Tech'),
 (2, 'M.Tech'),
 (3, 'Dual Degree'),
@@ -83,16 +89,22 @@ CREATE TABLE `contests` (
 -- Table structure for table `department`
 --
 
-CREATE TABLE `department` (
-  `id` int(11) NOT NULL,
-  `dept_name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `department`
+(
+  `id` int
+(11) NOT NULL,
+  `dept_name` varchar
+(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `department`
 --
 
-INSERT INTO `department` (`id`, `dept_name`) VALUES
+INSERT INTO `department` (`
+id`,
+`dept_name
+`) VALUES
 (1, 'Electrical Engineering'),
 (2, 'Computer Science and Engineering'),
 (3, 'Electronics Engineering'),
@@ -176,22 +188,34 @@ CREATE TABLE `user-groups-map` (
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `is_admin` tinyint(1) DEFAULT '0',
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `branch` int(11) DEFAULT NULL,
-  `department` int(11) NOT NULL,
-  `admission_no` varchar(8) DEFAULT NULL,
-  `semester` int(11) DEFAULT NULL,
-  `verified` tinyint(1) NOT NULL DEFAULT '0',
-  `otp` int(11) DEFAULT NULL,
-  `otp_valid_upto` timestamp NULL DEFAULT NULL,
-  `group_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `users`
+(
+  `id` int
+(11) NOT NULL,
+  `username` varchar
+(255) NOT NULL,
+  `name` varchar
+(255) NOT NULL,
+  `is_admin` tinyint
+(1) DEFAULT '0',
+  `email` varchar
+(255) NOT NULL,
+  `password` varchar
+(255) NOT NULL,
+  `branch` int
+(11) DEFAULT NULL,
+  `department` int
+(11) NOT NULL,
+  `admission_no` varchar
+(8) DEFAULT NULL,
+  `semester` int
+(11) DEFAULT NULL,
+  `verified` tinyint
+(1) NOT NULL DEFAULT '0',
+  `otp` int
+(11) DEFAULT NULL,
+  `otp_valid_upto` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Indexes for dumped tables
@@ -208,7 +232,8 @@ ALTER TABLE `admin_of_contest`
 -- Indexes for table `branch`
 --
 ALTER TABLE `branch`
-  ADD PRIMARY KEY (`id`);
+ADD PRIMARY KEY
+(`id`);
 
 --
 -- Indexes for table `contests`
@@ -222,7 +247,8 @@ ALTER TABLE `contests`
 -- Indexes for table `department`
 --
 ALTER TABLE `department`
-  ADD PRIMARY KEY (`id`);
+ADD PRIMARY KEY
+(`id`);
 
 --
 -- Indexes for table `groups`
@@ -258,12 +284,18 @@ ALTER TABLE `user-groups-map`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `admission_no` (`admission_no`),
-  ADD KEY `fk_1` (`branch`),
-  ADD KEY `fk_2` (`department`);
+ADD PRIMARY KEY
+(`id`),
+ADD UNIQUE KEY `username`
+(`username`),
+ADD UNIQUE KEY `email`
+(`email`),
+ADD UNIQUE KEY `admission_no`
+(`admission_no`),
+ADD KEY `fk_1`
+(`branch`),
+ADD KEY `fk_2`
+(`department`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -279,50 +311,20 @@ ALTER TABLE `admin_of_contest`
 -- AUTO_INCREMENT for table `branch`
 --
 ALTER TABLE `branch`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `contests`
---
-ALTER TABLE `contests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int
+(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- AUTO_INCREMENT for table `groups`
---
-ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `questions`
---
-ALTER TABLE `questions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `submissions`
---
-ALTER TABLE `submissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `user-groups-map`
---
-ALTER TABLE `user-groups-map`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int
+(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int
+(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- Constraints for dumped tables
 --
@@ -365,9 +367,16 @@ ALTER TABLE `user-groups-map`
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `fk_1` FOREIGN KEY (`branch`) REFERENCES `branch` (`id`),
-  ADD CONSTRAINT `fk_2` FOREIGN KEY (`department`) REFERENCES `department` (`id`);
-COMMIT;
+ADD CONSTRAINT `fk_1` FOREIGN KEY
+(`branch`) REFERENCES `branch`
+(`id`) ON
+DELETE RESTRICT ON
+UPDATE RESTRICT,
+ADD CONSTRAINT `fk_2` FOREIGN KEY
+(`department`) REFERENCES `department`
+(`id`) ON
+DELETE RESTRICT ON
+UPDATE RESTRICT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

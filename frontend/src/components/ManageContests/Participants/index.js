@@ -2,9 +2,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button, Input, Row, Col, InputGroup } from 'reactstrap';
+import Table from 'react-responsive-data-table';
 import NavbarAdmin from '../../NavbarAdmin';
 import ContestNavPills from '../ContestNavPills';
 import '../styles.css';
+import participants from '../../../shared/participants';
 
 class ManageContestsParticipants extends Component {
   constructor(props) {
@@ -32,15 +34,15 @@ class ManageContestsParticipants extends Component {
     return (
       <>
         <NavbarAdmin />
-        <div className="container row-content">
+        <div className='container row-content'>
           {isEditOpen ? (
             <Row>
               <Col md={5}>
                 <InputGroup>
                   <Input
-                    type="text"
-                    name="contestName"
-                    id="contestName"
+                    type='text'
+                    name='contestName'
+                    id='contestName'
                     placeholder={name}
                     defaultValue={name}
                     style={{ display: 'inline' }}
@@ -48,7 +50,7 @@ class ManageContestsParticipants extends Component {
                   &nbsp;
                   <br />
                   <h6
-                    className="option"
+                    className='option'
                     onClick={() => {
                       this.toggleContestNameEdit();
                     }}
@@ -58,7 +60,7 @@ class ManageContestsParticipants extends Component {
                       paddingTop: '10px'
                     }}
                     onKeyDown={this.toggleContestNameEdit}
-                    role="button"
+                    role='button'
                   >
                     <u>Done</u>
                   </h6>
@@ -72,22 +74,53 @@ class ManageContestsParticipants extends Component {
                 &nbsp;
               </h2>
               <h6
-                className="option"
+                className='option'
                 onClick={this.toggleContestNameEdit}
                 style={{ display: 'inline', color: 'blue' }}
                 onKeyDown={this.toggleContestNameEdit}
-                role="button"
+                role='button'
               >
                 <u>Edit</u>
               </h6>
             </>
           )}
           <hr />
-          <ContestNavPills contestId={id} activeTab="Participants" />
+          <ContestNavPills contestId={id} activeTab='Participants' />
           <br />
-
+          <Table
+            style={{
+              opacity: 0.8,
+              backgroundColor: 'blue',
+              color: '#ffffff',
+              textAlign: 'center'
+            }}
+            tableStyle='table table-hover table-striped table-bordered table-borderless table-responsive'
+            pages
+            pagination
+            onRowClick={() => {}} // if You Want Table Row Data OnClick then assign this {row => console.log(row)}
+            page
+            errormsg='Error. . .'
+            loadingmsg='Loading. . .'
+            isLoading={false}
+            sort
+            title='Participants'
+            search
+            size={5}
+            data={{
+              head: {
+                rank: 'Rank',
+                username: 'Username',
+                name: 'Name',
+                num_attempted: 'No. of questions attempted',
+                num_solved: 'No. of questions solved',
+                score: 'Total score'
+              },
+              data: participants
+            }}
+          />
           <br />
-          <Button color="success" className="save-btn">
+          <Button color='info'>Download database</Button>
+          <Button color='success' className='save-btn'>
             Save
           </Button>
         </div>

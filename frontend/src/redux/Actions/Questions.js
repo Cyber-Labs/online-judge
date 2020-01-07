@@ -5,7 +5,7 @@ import {
   ADD_QUESTIONS,
   EDIT_QUESTION
 } from '../ActionTypes';
-import { baseUrl } from '../../baseUrl';
+import baseUrl from '../../baseUrl';
 
 export const questionsLoading = () => ({
   type: QUESTIONS_LOADING
