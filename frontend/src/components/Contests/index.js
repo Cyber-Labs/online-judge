@@ -93,7 +93,7 @@ class Contests extends Component {
             onKeyDown={() => {
               this.setState({ selectedContest: contest.id });
             }}
-            role="button"
+            role='button'
             tabIndex={i.toString()}
           >
             <RenderActive
@@ -118,7 +118,7 @@ class Contests extends Component {
             onKeyDown={() => {
               this.setState({ selectedContest: contest.id });
             }}
-            role="button"
+            role='button'
             tabIndex={i.toString()}
           >
             <RenderPast contest={contest} selectedContest={selectedContest} />
@@ -139,7 +139,7 @@ class Contests extends Component {
             onKeyDown={() => {
               this.setState({ selectedContest: contest.id });
             }}
-            role="button"
+            role='button'
             tabIndex={i.toString()}
           >
             <RenderUpcoming
@@ -151,10 +151,10 @@ class Contests extends Component {
       });
     }
     return (
-      <div className="align-self-center pb-2">
+      <div className='align-self-center pb-2'>
         <CarouselShared items={carouselSlides} />
-        <div className="container">
-          <div className="row row-content">
+        <div className='container'>
+          <div className='row row-content'>
             {contests.isLoading ? <Loading /> : ''}
             {!contests.isLoading && contests.errMess ? (
               <h4>{contests.errMess}</h4>
@@ -167,9 +167,9 @@ class Contests extends Component {
                   <NavItem>
                     <h5>
                       <Badge
-                        className="option pill"
+                        className='option pill'
                         color={activeTab === 'Active' ? 'dark' : ''}
-                        size="xl"
+                        size='xl'
                         pill
                         onClick={() => {
                           this.toggleTab('Active');
@@ -182,9 +182,9 @@ class Contests extends Component {
                   <NavItem>
                     <h5>
                       <Badge
-                        className="option pill"
+                        className='option pill'
                         color={activeTab === 'Upcoming' ? 'dark' : ''}
-                        size="xl"
+                        size='xl'
                         pill
                         onClick={() => {
                           this.toggleTab('Upcoming');
@@ -197,9 +197,9 @@ class Contests extends Component {
                   <NavItem>
                     <h5>
                       <Badge
-                        className="option pill"
+                        className='option pill'
                         color={activeTab === 'Past' ? 'dark' : ''}
-                        size="xl"
+                        size='xl'
                         pill
                         onClick={() => {
                           this.toggleTab('Past');
@@ -216,11 +216,11 @@ class Contests extends Component {
                   >
                     <NavItem>
                       <Button
-                        color="success"
-                        size="sm"
+                        color='success'
+                        size='sm'
                         onClick={toggleCreateContestModal}
                       >
-                        <i className="fa fa-plus" />
+                        <i className='fa fa-plus' />
                         &nbsp; Create contest
                       </Button>
                     </NavItem>
@@ -228,21 +228,21 @@ class Contests extends Component {
                 ) : (
                   ' '
                 )}
-                <div className="container">
+                <div className='container'>
                   <br />
                   <TabContent activeTab={activeTab}>
-                    <TabPane tabId="Active">
-                      <ListGroup className="list-group-hoverable">
+                    <TabPane tabId='Active'>
+                      <ListGroup className='list-group-hoverable'>
                         {activeList}
                       </ListGroup>
                     </TabPane>
-                    <TabPane tabId="Upcoming">
-                      <ListGroup className="list-group-hoverable">
+                    <TabPane tabId='Upcoming'>
+                      <ListGroup className='list-group-hoverable'>
                         {upcomingList}
                       </ListGroup>
                     </TabPane>
-                    <TabPane tabId="Past">
-                      <ListGroup className="list-group-hoverable">
+                    <TabPane tabId='Past'>
+                      <ListGroup className='list-group-hoverable'>
                         {pastList}
                       </ListGroup>
                     </TabPane>

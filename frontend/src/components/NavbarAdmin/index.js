@@ -28,36 +28,36 @@ class NavbarAdmin extends Component {
       <>
         <Navbar
           dark
-          color="secondary"
-          expand="md"
+          color='secondary'
+          expand='md'
           style={{ marginTop: '55px' }}
         >
-          <div className="container">
+          <div className='container'>
             <NavbarToggler onClick={this.toggleNav} />
             <Collapse isOpen={isNavOpen} navbar>
               <Nav navbar>
-                <NavItem className="ml-2" onClick={this.toggleNav}>
-                  <NavLink className="nav-link" to="/manage-contests">
+                <NavItem className='ml-2' onClick={this.toggleNav}>
+                  <NavLink className='nav-link' to='/manage-contests'>
                     &nbsp; Contests
                   </NavLink>
                 </NavItem>
-                <NavItem className="ml-2" onClick={this.toggleNav}>
-                  <NavLink className="nav-link" to="/manage-questions">
+                <NavItem className='ml-2' onClick={this.toggleNav}>
+                  <NavLink className='nav-link' to='/manage-questions'>
                     &nbsp;Questions
                   </NavLink>
                 </NavItem>
-                <NavItem className="ml-2" onClick={this.toggleNav}>
-                  <NavLink className="nav-link " to="/manage-roadmaps">
+                <NavItem className='ml-2' onClick={this.toggleNav}>
+                  <NavLink className='nav-link ' to='/manage-roadmaps'>
                     &nbsp;Roadmaps
                   </NavLink>
                 </NavItem>
-                <NavItem className="ml-2" onClick={this.toggleNav}>
-                  <NavLink className="nav-link " to="/manage-articles">
+                <NavItem className='ml-2' onClick={this.toggleNav}>
+                  <NavLink className='nav-link ' to='/manage-articles'>
                     &nbsp;Articles
                   </NavLink>
                 </NavItem>
-                <NavItem className="ml-2" onClick={this.toggleNav}>
-                  <NavLink className="nav-link " to="/manage-groups">
+                <NavItem className='ml-2' onClick={this.toggleNav}>
+                  <NavLink className='nav-link ' to='/manage-groups'>
                     &nbsp;Groups
                   </NavLink>
                 </NavItem>
