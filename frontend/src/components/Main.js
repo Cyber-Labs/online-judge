@@ -10,6 +10,7 @@ import Contests from './Contests';
 import ManageContests from './ManageContests';
 import CreateContestModal from './CreateContestModal';
 import CreateGroupModal from './ManageGroups/CreateGroupModal';
+import Editprofile from './User';
 
 import contests from '../shared/contests';
 import groups from '../shared/groups';
@@ -230,6 +231,8 @@ class Main extends Component {
             )}
           />
           <Route path='/manage-groups/:groupId' component={ManageGroupView} />
+          <Route path='/profile' component={() => <Editprofile />} />
+
           <Redirect to='/home' />
         </Switch>
         <CreateContestModal
