@@ -1,5 +1,4 @@
-const ajv = require("../index");
-const submissions = require("./submissions");
+const submissions = require('./submissions');
 
 module.exports = {
   ...submissions

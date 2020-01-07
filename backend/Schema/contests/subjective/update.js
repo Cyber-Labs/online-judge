@@ -1,32 +1,32 @@
 const schema = {
-  required: ["username", "contestId", "questionId", "score"],
+  required: ['username', 'contestId', 'questionId', 'score'],
   properties: {
     username: {
-      type: "string",
+      type: 'string',
       minLength: 4
     },
     contestId: {
-      type: "number"
+      type: 'number'
     },
     questionId: {
-      type: "number"
+      type: 'number'
     },
     score: {
-      type: "number"
+      type: 'number'
     }
   },
   errorMessage: {
     required: {
-      username: "Username required",
-      contestId: "Contest Id required",
-      questionId: "Question Id required",
-      score: "Maximum Score required"
+      username: 'Username required',
+      contestId: 'Contest Id required',
+      questionId: 'Question Id required',
+      score: 'Maximum Score required'
     },
     properties: {
-      username: "Invalid Username",
-      contestId: "Invalid Contest Id",
-      questionId: "Invalid Question Id",
-      score: "Invalid Maximum Score"
+      username: 'Invalid Username',
+      contestId: 'Invalid Contest Id',
+      questionId: 'Invalid Question Id',
+      score: 'Invalid Maximum Score'
     }
   }
 };

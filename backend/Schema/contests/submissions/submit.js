@@ -1,67 +1,67 @@
 const schema = {
   required: [
-    "username",
-    "contestId",
-    "questionId",
-    "questionName",
-    "userOutput",
-    "negativeMarking",
-    "partialMarking",
-    "maxScore",
-    "questionType"
+    'username',
+    'contestId',
+    'questionId',
+    'questionName',
+    'userOutput',
+    'negativeMarking',
+    'partialMarking',
+    'maxScore',
+    'questionType'
   ],
   properties: {
     username: {
-      type: "string",
+      type: 'string',
       minLength: 4
     },
     contestId: {
-      type: "number"
+      type: 'number'
     },
     questionId: {
-      type: "number"
+      type: 'number'
     },
     questionName: {
-      type: "string"
+      type: 'string'
     },
     userOutput: {
-      type: "string"
+      type: 'string'
     },
     negativeMarking: {
-      type: "number"
+      type: 'number'
     },
     partialMarking: {
-      type: "number"
+      type: 'number'
     },
     maxScore: {
-      type: "number"
+      type: 'number'
     },
     questionType: {
-      type: "number"
+      type: 'number'
     }
   },
   errorMessage: {
     required: {
-      username: "Username required",
-      contestId: "Contest Id required",
-      questionId: "Question Id required",
-      questionName: "Question name required",
-      userOutput: "User Output required",
-      negativeMarking: "Negative marking required",
-      partialMarking: "Partial Marking required",
-      maxScore: "Maximum Score required",
-      questionType: "Question type required"
+      username: 'Username required',
+      contestId: 'Contest Id required',
+      questionId: 'Question Id required',
+      questionName: 'Question name required',
+      userOutput: 'User Output required',
+      negativeMarking: 'Negative marking required',
+      partialMarking: 'Partial Marking required',
+      maxScore: 'Maximum Score required',
+      questionType: 'Question type required'
     },
     properties: {
-      username: "Invalid Username",
-      contestId: "Invalid Contest Id",
-      questionId: "Invalid Question Id",
-      questionName: "Invalid Question name",
-      userOutput: "Invalid User Output",
-      negativeMarking: "Invalid Negative marking",
-      partialMarking: "Invalid Partial Marking",
-      maxScore: "Invalid Maximum Score",
-      questionType: "Invalid Question type"
+      username: 'Invalid Username',
+      contestId: 'Invalid Contest Id',
+      questionId: 'Invalid Question Id',
+      questionName: 'Invalid Question name',
+      userOutput: 'Invalid User Output',
+      negativeMarking: 'Invalid Negative marking',
+      partialMarking: 'Invalid Partial Marking',
+      maxScore: 'Invalid Maximum Score',
+      questionType: 'Invalid Question type'
     }
   }
 };

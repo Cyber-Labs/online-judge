@@ -1,22 +1,22 @@
 const schema = {
-  required: ["username", "contestId"],
+  required: ['username', 'contestId'],
   properties: {
     username: {
-      type: "string",
+      type: 'string',
       minLength: 4
     },
     contestId: {
-      type: "number"
+      type: 'number'
     }
   },
   errorMessage: {
     required: {
-      username: "Username required",
-      contestId: "Contest Id required"
+      username: 'Username required',
+      contestId: 'Contest Id required'
     },
     properties: {
-      username: "Invalid username",
-      contestId: "Invalid Contest Id"
+      username: 'Invalid username',
+      contestId: 'Invalid Contest Id'
     }
   }
 };

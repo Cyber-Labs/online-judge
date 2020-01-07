@@ -1,4 +1,4 @@
-const { pool } = require("./../../db");
+const { pool } = require('./../../db');
 
 /**
  * @param {String} username
@@ -18,7 +18,7 @@ function userSolution({
       [contestId, questionId, username],
       (error, results) => {
         if (error) {
-          return reject("Not found");
+          return reject('Not found');
         }
         return resolve(results);
       }
