@@ -59,6 +59,7 @@ class Editprofile extends Component {
               onClick={() => this.toggle()}
               onKeyDown={() => this.toggle()}
               tabIndex={0}
+              style={{ cursor: 'pointer' }}
             >
               <img alt='User face' width='250px' height='250px' src={picture} />
             </div>
@@ -178,8 +179,8 @@ class Editprofile extends Component {
               <FormGroup>
                 <Label for='bio'>Bio</Label>
                 <Input
-                  type='text'
-                  name='address2'
+                  type='textarea'
+                  name='bio'
                   id='bio'
                   placeholder='Maximum length 100 characters'
                 />

@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ./Models ./Routes ./utils ./*.js"
+    "lint": "eslint ./Models ./Routes ./utils ./*.js",
+    "server": "nodemon index.js"
   },
   "repository": {
     "type": "git",
