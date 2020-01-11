@@ -11,7 +11,7 @@ import ManageContests from './ManageContests';
 import CreateContestModal from './CreateContestModal';
 import CreateGroupModal from './ManageGroups/CreateGroupModal';
 import Editprofile from './User';
-
+import Leaderboard from './Leaderboard';
 import contests from '../shared/contests';
 import groups from '../shared/groups';
 import adminsContest from '../shared/admins';
@@ -232,7 +232,16 @@ class Main extends Component {
           />
           <Route path='/manage-groups/:groupId' component={ManageGroupView} />
           <Route path='/profile' component={() => <Editprofile />} />
-
+          <Route
+            exact
+            path='/leaderboard'
+            component={() => <Leaderboard isPractise={false} />}
+          />
+          <Route
+            exact
+            path='/leaderboard-practise'
+            component={() => <Leaderboard isPractise />}
+          />
           <Redirect to='/home' />
         </Switch>
         <CreateContestModal
@@ -300,9 +309,4 @@ Main.defaultProps = {
   }
 };
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(Main)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
