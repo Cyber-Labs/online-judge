@@ -5,7 +5,7 @@ import { LocalForm, Errors, Control } from 'react-redux-form';
 const required = val => val && val.length;
 const minLength = len => val => val && val.length >= len;
 const validEmail = val =>
-  /^[a-z]+\.[0-9]{2}[a-z]{2}[0-9]{4}@([a-z]{2,3}\.)?iitism\.ac\.in$/i.test(val);
+  /^[a-z]+\.[0-9]{2}[a-z]{2}[0-9]{4}@([a-z]{2,4}\.)?iitism\.ac\.in$/i.test(val);
 const invalid = (password, confirmPassword) => password === confirmPassword;
 
 class Signup extends Component {
