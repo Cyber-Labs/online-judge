@@ -1,6 +1,5 @@
-const ajv = require("../../index");
-const checkSchema = require("./check");
-const updateSchema = require("./update");
+const checkSchema = require('./check');
+const updateSchema = require('./update');
 
 module.exports = {
   checkSchema,

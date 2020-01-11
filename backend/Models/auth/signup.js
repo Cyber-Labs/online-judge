@@ -57,9 +57,9 @@ function signup({
             if (error) {
               return reject(error);
             }
-            let subject = 'Email verification';
+            const subject = 'Email verification';
             const PORT = process.env.PORT || 5000;
-            let html = `<p>Hello ${name} !</p>
+            const html = `<p>Hello ${name} !</p>
                           <p>The OTP for verifying your email is ${otp}</p>
                           <p>Please verify your email by visiting the following link</p>
                           <a href='http://${process.env.HOST_NAME}:${PORT}/auth/verify_email?username=${username}'>Verify your email</a>`;

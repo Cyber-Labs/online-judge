@@ -119,57 +119,7 @@ let updateGroup = {
     _: 'Invalid Data'
   }
 };
-let addGroup = {
-  anyOf: [
-    {
-      required: [
-        'username',
-        'name',
-        'description',
-        'confidential',
-        'branch',
-        'semester'
-      ]
-    },
-    {
-      required: [
-        'username',
-        'name',
-        'description',
-        'confidential',
-        'branch',
-        'semester'
-      ]
-    }
-  ],
-  properties: {
-    username: { type: 'string' },
-    name: { type: 'string' },
-    description: { type: 'string' },
-    confidential: { type: 'number', maximum: 1, minimum: 0 },
-    branch: { type: 'string' },
-    semester: { type: 'string' }
-  },
-  errorMessage: {
-    required: {
-      username: 'Not logged in',
-      description: 'Please fill the description field',
-      name: 'Please fill name field',
-      confidential: 'Please fill confidential field',
-      branch: 'Please fill the branch field',
-      semester: 'Please fill semester field'
-    },
-    properties: {
-      username: 'Not logged in',
-      description: 'description is invalid',
-      confidential: 'confidential is invalid',
-      semester: 'semester is invalid',
-      branch: 'branch is invalid',
-      name: 'Name is invalid'
-    },
-    _: 'Invalid Data'
-  }
-};
+
 let copyGroup = {
   anyOf: [
     {

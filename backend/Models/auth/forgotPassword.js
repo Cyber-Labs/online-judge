@@ -13,9 +13,9 @@ function forgotPassword({ email: emailId }) {
   return new Promise(async (resolve, reject) => {
     const secret = otplib.authenticator.generateSecret();
     const otp = otplib.authenticator.generate(secret);
-    let subject = 'Forgot Password';
+    const subject = 'Forgot Password';
     const PORT = process.env.PORT || 5000;
-    let html = `<p>Hello !</p>
+    const html = `<p>Hello !</p>
                 <p>The otp for resetting your password is ${otp}</p>
                 <p>Please reset your password by visiting the following link</p>
                 <a href='http://${process.env.HOST_NAME}:${PORT}/auth/reset_password'>Reset password</a>`;

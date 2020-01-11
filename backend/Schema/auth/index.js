@@ -8,7 +8,7 @@ const resetPasswordSchema = require('./resetPassword');
 const verifyEmailSchema = require('./verifyEmail');
 const verifyNewEmailSchema = require('./verifyNewEmail');
 
-ajv.addFormat('password', (data) => {
+ajv.addFormat('password', data => {
   return data.length >= 8;
 });
 
@@ -20,5 +20,5 @@ module.exports = {
   updatePasswordSchema,
   resetPasswordSchema,
   verifyEmailSchema,
-  verifyNewEmailSchema,
+  verifyNewEmailSchema
 };

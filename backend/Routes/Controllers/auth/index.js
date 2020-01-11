@@ -26,8 +26,8 @@ function sumErrors(errArray) {
 }
 
 router.post('/signup', async (req, res) => {
-  let validate = ajv.compile(signupSchema);
-  let valid = validate(req.body);
+  const validate = ajv.compile(signupSchema);
+  const valid = validate(req.body);
   if (!valid) {
     return res.status(400).json({
       success: false,
@@ -54,8 +54,8 @@ router.post('/signup', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-  let validate = ajv.compile(loginSchema);
-  let valid = validate(req.body);
+  const validate = ajv.compile(loginSchema);
+  const valid = validate(req.body);
   if (!valid) {
     return res.status(400).json({
       success: false,
@@ -127,8 +127,8 @@ router.get(
 );
 
 router.post('/verify_email', async (req, res) => {
-  let validate = ajv.compile(verifyEmailSchema);
-  let valid = validate(req.body);
+  const validate = ajv.compile(verifyEmailSchema);
+  const valid = validate(req.body);
   if (!valid) {
     return res.status(400).json({
       success: false,
@@ -155,8 +155,8 @@ router.post('/verify_email', async (req, res) => {
 });
 
 router.post('/verify_new_email', async (req, res) => {
-  let validate = ajv.compile(verifyNewEmailSchema);
-  let valid = validate(req.body);
+  const validate = ajv.compile(verifyNewEmailSchema);
+  const valid = validate(req.body);
   if (!valid) {
     return res.status(400).json({
       success: false,
@@ -186,8 +186,8 @@ router.post(
   '/update_user',
   middleware.verifyUser.verifyAccessToken,
   (req, res) => {
-    let validate = ajv.compile(updateUserSchema);
-    let valid = validate(req.body);
+    const validate = ajv.compile(updateUserSchema);
+    const valid = validate(req.body);
     if (!valid) {
       return res.status(400).json({
         success: false,
@@ -218,8 +218,8 @@ router.post(
   '/update_password',
   middleware.verifyUser.verifyAccessToken,
   (req, res) => {
-    let validate = ajv.compile(updatePasswordSchema);
-    let valid = validate(req.body);
+    const validate = ajv.compile(updatePasswordSchema);
+    const valid = validate(req.body);
     if (!valid) {
       return res.status(400).json({
         success: false,
