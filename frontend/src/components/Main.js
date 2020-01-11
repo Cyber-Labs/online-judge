@@ -12,7 +12,6 @@ import CreateContestModal from './CreateContestModal';
 import CreateGroupModal from './ManageGroups/CreateGroupModal';
 import Editprofile from './User';
 import ViewProfile from './Profile-viewed';
-import Leaderboard from './Leaderboard';
 import contests from '../shared/contests';
 import groups from '../shared/groups';
 import adminsContest from '../shared/admins';
