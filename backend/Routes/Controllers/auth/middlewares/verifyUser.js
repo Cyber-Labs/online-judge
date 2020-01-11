@@ -35,7 +35,6 @@ function verifyAccessToken(req, res, next) {
       error: 'Access code not included in the header of the request',
       results: null
     });
-    return;
   }
 }
 

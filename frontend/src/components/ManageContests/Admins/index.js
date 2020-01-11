@@ -117,7 +117,7 @@ class ManageContestsAdmins extends Component {
               {errMess ? <h4>{errMess}</h4> : ''}
               {!isLoading && !errMess ? (
                 <Media list>
-                  {<UserInfo user={creators[0]} toggleAdmin={toggleAdmin} />}
+                  <UserInfo user={creators[0]} toggleAdmin={toggleAdmin} />
                   <br />
                   {nonCreators.map(admin => (
                     <>

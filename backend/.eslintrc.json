@@ -1,22 +1,22 @@
 {
-  "extends": ["eslint:recommended", "prettier"],
-  "env": {
-    "node": true,
-    "browser": false,
-    "commonjs": true,
-    "es6": true
-  },
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
-  "parserOptions": {
-    "ecmaVersion": 2018
-  },
-  "plugins": ["prettier"],
-  "rules": {
-    "linebreak-style": ["error", "unix"],
-    "semi": ["error", "always"],
-    "prettier/prettier": ["error", { "singleQuote": true }]
+    "extends": ["eslint:recommended", "prettier"],
+    "env": {
+      "node": true,
+      "browser": false,
+      "commonjs": true,
+      "es6": true
+    },
+    "globals": {
+      "Atomics": "readonly",
+      "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018
+    },
+    "plugins": ["prettier"],
+    "rules": {
+      "linebreak-style": ["error", "unix"],
+      "semi": ["error", "always"],
+      "prettier/prettier": ["error", { "singleQuote": true }]
+    }
   }
-}
