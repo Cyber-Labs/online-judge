@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import PieChart from 'react-minimal-pie-chart';
-import { AlertHeading } from 'react-bootstrap/Alert';
 
 class ViewProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false,
       picture: 'images/profile.png',
-      usename: 'ABC DEF',
       course: 'QWERTY',
       dept: 'ASDFGH',
       success: '12',
@@ -45,9 +42,15 @@ class ViewProfile extends Component {
             <br />
             <br />
             <div>
-              <h5>Course: {course}</h5>
-              <h5>Dept: {dept}</h5>
-              <br></br>
+              <h5>
+                Course:
+                {course}
+              </h5>
+              <h5>
+                Dept:
+                {dept}
+              </h5>
+              <br />
               <h6>
                 qwertyuiopasdfghjklzxcvbnmqwertyuio qwertyuioasdfghjkxcvb
                 sdfghvdch hveuy iqvlwl h3wyi cucobca kbcu CK ackbcCBC
@@ -67,40 +70,52 @@ class ViewProfile extends Component {
           <div className='col'>
             <a href='/homepage'>
               <h4>Username</h4>
-              <a href='#'>{username}</a>
-              <i class='fa fa-trophy' aria-hidden='true'></i>
+              <a href='/#'>{username}</a>
+              <i className='fa fa-trophy' aria-hidden='true' />
               {0}
-              <i class='fa fa-trophy ml-2' aria-hidden='true'></i>
+              <i className='fa fa-trophy ml-2' aria-hidden='true' />
               {0}
-              <i class='fa fa-trophy ml-2' aria-hidden='true'></i>
+              <i className='fa fa-trophy ml-2' aria-hidden='true' />
               {0}
             </a>
           </div>
         </div>
         <div className='row'>
           <div className='col'>
-            <hr></hr>
-            <br></br>
-            <br></br>
+            <hr />
+            <br />
+            <br />
             <h3>No. of questions __</h3>
-            <br></br>
+            <br />
           </div>
         </div>
         <div className='row'>
           <div className='col-4'>
-            <h4> Successful Submissions: {success}</h4>
+            <h4>
+              {' '}
+              Successful Submissions:
+              {success}
+            </h4>
           </div>
           <div className='col-4'>
-            <h4> Failed Submissions: {failed}</h4>
+            <h4>
+              {' '}
+              Failed Submissions:
+              {failed}
+            </h4>
           </div>
           <div className='col-4'>
-            <h4> Pending Submissions: {pending}</h4>
+            <h4>
+              {' '}
+              Pending Submissions:
+              {pending}
+            </h4>
           </div>
         </div>
         <div className='row'>
           <div className='col'>
-            <br></br>
-            <br></br>
+            <br />
+            <br />
             <PieChart
               style={{ width: '200px', margin: 'auto' }}
               data={[
@@ -112,70 +127,70 @@ class ViewProfile extends Component {
                 { title: 'Failed', value: 2, color: '#6A2135' }
               ]}
             />
-            <br></br>
-            <br></br>
+            <br />
+            <br />
           </div>
         </div>
-        <hr></hr>
-        <br></br>
-        <br></br>
+        <hr />
+        <br />
+        <br />
         <div className='row'>
           <div className='col-6'>
             <h4> Links to recent contest given or participated: </h4>
-            <br></br>
-            <a href='#'>contests one</a>
-            <br></br>
-            <a href='#'>contests two</a>
-            <br></br>
-            <a href='#'>contests three</a>
-            <br></br>
-            <a href='#'>contests four</a>
-            <br></br>
-            <a href='#'>contests five</a>
+            <br />
+            <a href='/#'>contests one</a>
+            <br />
+            <a href='/#'>contests two</a>
+            <br />
+            <a href='/#'>contests three</a>
+            <br />
+            <a href='/#'>contests four</a>
+            <br />
+            <a href='/#'>contests five</a>
           </div>
           <div className='col-6'>
             <h4>Tips or tutorials links:</h4>
-            <br></br>
-            <a href='#'>contests one</a>
-            <br></br>
-            <a href='#'>contests two</a>
-            <br></br>
-            <a href='#'>contests three</a>
-            <br></br>
-            <a href='#'>contests four</a>
-            <br></br>
-            <a href='#'>contests five</a>
+            <br />
+            <a href='/#'>contests one</a>
+            <br />
+            <a href='/#'>contests two</a>
+            <br />
+            <a href='/#'>contests three</a>
+            <br />
+            <a href='/#'>contests four</a>
+            <br />
+            <a href='/#'>contests five</a>
           </div>
         </div>
 
-        <br></br>
-        <br></br>
+        <br />
+        <br />
         <div className='row'>
           <div className='col-6'>
             <h4> Links to recent questions:</h4>
-            <br></br>
-            <a href='#'>contests one</a>
-            <br></br>
-            <a href='#'>contests two</a>
-            <br></br>
-            <a href='#'>contests three</a>
-            <br></br>
-            <a href='#'>contests four</a>
-            <br></br>
-            <a href='#'>contests five</a>
+            <br />
+            <a href='/#'>contests one</a>
+            <br />
+            <a href='/#'>contests two</a>
+            <br />
+            <a href='/#'>contests three</a>
+            <br />
+            <a href='/#'>contests four</a>
+            <br />
+            <a href='/#'>contests five</a>
           </div>
           <div className='col-6'>
             <h4>Activity on Q/A section links:</h4>
-            <br></br>
-            <a href='#'>contests one</a>
-            <br></br>
-            <a href='#'>contests two</a>
-            <br></br>
-            <a href='#'>contests three</a>
-            <br></br>
-            <a href='#'>contests four</a>
-            <br></br>
-            <a href='#'>contests five</a>
+            <br />
+            <a href='/#'>contests one</a>
+            <br />
+            <a href='/#'>contests two</a>
+            <br />
+            <a href='/#'>contests three</a>
+            <br />
+            <a href='/#'>contests four</a>
+            <br />
+            <a href='/#'>contests five</a>
           </div>
         </div>
       </div>
