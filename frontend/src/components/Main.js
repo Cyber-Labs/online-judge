@@ -11,11 +11,10 @@ import ManageContests from './ManageContests';
 import CreateContestModal from './CreateContestModal';
 import CreateGroupModal from './ManageGroups/CreateGroupModal';
 import Editprofile from './User';
-import Leaderboard from './Leaderboard';
+import ViewProfile from './Profile-viewed';
 import contests from '../shared/contests';
 import groups from '../shared/groups';
 import adminsContest from '../shared/admins';
-
 import {
   postContest,
   fetchContests,
@@ -232,16 +231,8 @@ class Main extends Component {
           />
           <Route path='/manage-groups/:groupId' component={ManageGroupView} />
           <Route path='/profile' component={() => <Editprofile />} />
-          <Route
-            exact
-            path='/leaderboard'
-            component={() => <Leaderboard isPractise={false} />}
-          />
-          <Route
-            exact
-            path='/leaderboard-practise'
-            component={() => <Leaderboard isPractise />}
-          />
+          <Route path='/view-profile' component={() => <ViewProfile />} />
+
           <Redirect to='/home' />
         </Switch>
         <CreateContestModal
@@ -309,4 +300,9 @@ Main.defaultProps = {
   }
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Main)
+);
