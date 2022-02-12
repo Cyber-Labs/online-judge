@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/Cyber-Labs/online-judge#readme",
   "dependencies": {
-    "ajv": "^6.10.2",
+    "ajv": "^6.12.3",
     "ajv-errors": "^1.0.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.0.0",
